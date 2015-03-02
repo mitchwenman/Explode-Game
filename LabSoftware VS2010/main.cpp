@@ -193,6 +193,7 @@ void	PlaySoundEffect(char * filename)
 
 void BuildFrame(BYTE *pFrame, int view)
 {
+	/*
 	BYTE*	screen = (BYTE*)pFrame;		// use copy of screen pointer for safety
 
 	int		SBox = 250;					// size of box in pixels
@@ -224,4 +225,5 @@ void BuildFrame(BYTE *pFrame, int view)
 	{
 		screen[channels*(view + xypos.x-1 + y * FRAME_WIDE) + shade] = 0;
 	}
+	*/
 }
