@@ -25,6 +25,7 @@ struct POINT2D {int x, y;};
 //====== Global Variables ==========
 BYTE	pFrameL[FRAME_WIDE * FRAME_HIGH * 3];
 BYTE	pFrameR[FRAME_WIDE * FRAME_HIGH * 3];
+int		NUM_CHANNELS = 3;
 int		shade = 0;
 POINT2D	xypos = {0,0};
 int		stereo = 0;
@@ -41,6 +42,7 @@ void OnDisplay(void);
 void reshape(int w, int h);
 void OnMouse(int button, int state, int x, int y);
 void OnKeypress(unsigned char key, int x, int y);
+void setPixel(int x, int y, char r, char g, char b);
 
 ////////////////////////////////////////////////////////
 // Program Entry Poinr
@@ -193,9 +195,17 @@ void	PlaySoundEffect(char * filename)
 
 void BuildFrame(BYTE *pFrame, int view)
 {
-	/*
+	
 	BYTE*	screen = (BYTE*)pFrame;		// use copy of screen pointer for safety
-
+	int numPixels = 1000;
+	int x, y;
+	for (int i = 0; i < numPixels; i++)
+	{
+		x = rand() % FRAME_WIDE;
+		y = rand() % FRAME_HIGH;
+		setPixel(x, y, 255, 0, 0);
+	}
+	/*
 	int		SBox = 250;					// size of box in pixels
 	int		channels = 3;				// number of colour channels
 
@@ -226,4 +236,16 @@ void BuildFrame(BYTE *pFrame, int view)
 		screen[channels*(view + xypos.x-1 + y * FRAME_WIDE) + shade] = 0;
 	}
 	*/
+}
+
+
+void setPixel(int x, int y, char r, char g, char b)
+{
+	BYTE* screen = (BYTE*)pFrameR; 
+	enum CHANNEL_OFFSET { RED, GREEN, BLUE}; //Channel offsets
+	//Set red, green and blue
+	int colour = 0; //red - 0, green - 1, blue - 2
+	screen[NUM_CHANNELS * (x + y * FRAME_WIDE) + RED] = r;
+	//screen[NUM_CHANNELS * (x + y * FRAME_WIDE) + GREEN] = g;
+	//screen[NUM_CHANNELS * (x + y * FRAME_WIDE) + BLUE] = b;
 }
