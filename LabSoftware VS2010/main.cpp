@@ -18,6 +18,8 @@
 #define FRAME_WIDE	1000
 #define FRAME_HIGH	600
 
+#define ROUND(x) ((int)(x + 0.5))
+
 //====== Structs & typedefs =========
 typedef unsigned char BYTE;
 struct POINT2D {int x, y;};
@@ -43,6 +45,7 @@ void reshape(int w, int h);
 void OnMouse(int button, int state, int x, int y);
 void OnKeypress(unsigned char key, int x, int y);
 void setPixel(int x, int y, char r, char g, char b);
+void drawLine(int x1, int x2, int y1, int y2, char r, char g, char b);
 
 ////////////////////////////////////////////////////////
 // Program Entry Poinr
@@ -216,4 +219,30 @@ void setPixel(int x, int y, char r, char g, char b)
 	screen[NUM_CHANNELS * (x + y * FRAME_WIDE) + RED] = r;
 	screen[NUM_CHANNELS * (x + y * FRAME_WIDE) + GREEN] = g;
 	screen[NUM_CHANNELS * (x + y * FRAME_WIDE) + BLUE] = b;
+}
+
+void drawLine(int x1, int x2, int y1, int y2, char r, char g, char b)
+{
+	//Find axis of greatest change
+	int dx = x2 - x1;
+	int dy = y2 - y1;
+	int steps;
+	if (abs(dx) > abs(dy)) 
+		steps = dx;
+	else
+		steps = dy;
+	//Calculate increments for both axes
+	double xInc, yInc;
+	xInc = dx / (double) steps;
+	yInc = dy / (double) steps;
+	//Create x,y double vars for better rounding
+	double x = x1;
+	double y = y1;
+	//Draw the line
+	for (int i = 0; i < steps; i++)
+	{
+		x += xInc;
+		y += yInc;
+		setPixel(ROUND(x), ROUND(y), r, g, b);
+	}
 }
