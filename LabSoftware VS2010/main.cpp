@@ -203,7 +203,7 @@ void BuildFrame(BYTE *pFrame, int view)
 	{
 		x = rand() % FRAME_WIDE;
 		y = rand() % FRAME_HIGH;
-		setPixel(x, y, 255, 0, 0);
+		setPixel(x, y, (char)255, (char)255, (char)0);
 	}	
 }
 
@@ -213,8 +213,7 @@ void setPixel(int x, int y, char r, char g, char b)
 	BYTE* screen = (BYTE*)pFrameR; 
 	enum CHANNEL_OFFSET { RED, GREEN, BLUE}; //Channel offsets
 	//Set red, green and blue
-	int colour = 0; //red - 0, green - 1, blue - 2
 	screen[NUM_CHANNELS * (x + y * FRAME_WIDE) + RED] = r;
-	//screen[NUM_CHANNELS * (x + y * FRAME_WIDE) + GREEN] = g;
-	//screen[NUM_CHANNELS * (x + y * FRAME_WIDE) + BLUE] = b;
+	screen[NUM_CHANNELS * (x + y * FRAME_WIDE) + GREEN] = g;
+	screen[NUM_CHANNELS * (x + y * FRAME_WIDE) + BLUE] = b;
 }
