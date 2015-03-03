@@ -204,38 +204,7 @@ void BuildFrame(BYTE *pFrame, int view)
 		x = rand() % FRAME_WIDE;
 		y = rand() % FRAME_HIGH;
 		setPixel(x, y, 255, 0, 0);
-	}
-	/*
-	int		SBox = 250;					// size of box in pixels
-	int		channels = 3;				// number of colour channels
-
-	////////////////////////////////////////////
-	// Display some animated shaded boxes - hacky method
-	////////////////////////////////////////////
-
-	for (int x= xypos.x; x < xypos.x+SBox ; x++)
-		for (int y= xypos.y; y <xypos.y+SBox ; y++)
-		{
-			screen[channels*(x + view + y * FRAME_WIDE) + shade] = y-xypos.y;		// for 24 bit screen
-		}
-
-	if (++xypos.x +SBox  + view >= FRAME_WIDE ) xypos.x = 0;		// do not write past screen X boundary
-	if (++xypos.y +SBox >= FRAME_HIGH ) xypos.y = 0;		// do not write past screen Y boundary
-
-		//xypos.x = 200;
-		//xypos.y = 200;
-	//-- get rid of horizontal background edge --
-	if (xypos.y) for (int x= xypos.x; x < xypos.x+SBox ; x++)
-	{
-		screen[channels*(x + view + (xypos.y-1) * FRAME_WIDE) + shade] = 0;
-	}
-
-	//-- get rid of vertical background edge --
-	if (xypos.x) for (int y= xypos.y; y <xypos.y+SBox ; y++)
-	{
-		screen[channels*(view + xypos.x-1 + y * FRAME_WIDE) + shade] = 0;
-	}
-	*/
+	}	
 }
 
 
