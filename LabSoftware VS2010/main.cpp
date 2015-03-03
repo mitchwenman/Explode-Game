@@ -23,6 +23,11 @@
 //====== Structs & typedefs =========
 typedef unsigned char BYTE;
 struct POINT2D {int x, y;};
+typedef struct 
+{ 
+	int x1, x2, y1, y2;
+	double steps, xInc, yInc; 
+} DDALine;
 
 //====== Global Variables ==========
 BYTE	pFrameL[FRAME_WIDE * FRAME_HIGH * 3];
@@ -46,6 +51,7 @@ void OnMouse(int button, int state, int x, int y);
 void OnKeypress(unsigned char key, int x, int y);
 void setPixel(int x, int y, char r, char g, char b);
 void drawLine(int x1, int x2, int y1, int y2, char r, char g, char b);
+void calculateDDALine(DDALine* ddaLine);
 
 ////////////////////////////////////////////////////////
 // Program Entry Poinr
@@ -218,9 +224,27 @@ void setPixel(int x, int y, char r, char g, char b)
 
 void drawLine(int x1, int x2, int y1, int y2, char r, char g, char b)
 {
+	//Create DDALine type for calculation
+	DDALine* dda = new DDALine;
+	dda->x1 = x1; dda->x2 = x2; dda->y1 = y1; dda->y2 = y2;
+	calculateDDALine(dda);
+	//Create x,y double vars for better rounding
+	double x = x1;
+	double y = y1;
+	//Draw the line
+	for (int i = 0; i < dda->steps; i++)
+	{
+		x += dda->xInc;
+		y += dda->yInc;
+		setPixel(ROUND(x), ROUND(y), r, g, b);
+	}
+}
+
+void calculateDDALine(DDALine* ddaLine)
+{
 	//Find axis of greatest change
-	int dx = x2 - x1;
-	int dy = y2 - y1;
+	int dx = ddaLine->x2 - ddaLine->x1;
+	int dy = ddaLine->y2 - ddaLine->y1;
 	int steps;
 	if (abs(dx) > abs(dy)) 
 		steps = dx;
@@ -230,14 +254,8 @@ void drawLine(int x1, int x2, int y1, int y2, char r, char g, char b)
 	double xInc, yInc;
 	xInc = dx / (double) steps;
 	yInc = dy / (double) steps;
-	//Create x,y double vars for better rounding
-	double x = x1;
-	double y = y1;
-	//Draw the line
-	for (int i = 0; i < steps; i++)
-	{
-		x += xInc;
-		y += yInc;
-		setPixel(ROUND(x), ROUND(y), r, g, b);
-	}
+	//Place in struct
+	ddaLine->steps = steps;
+	ddaLine->xInc = xInc;
+	ddaLine->yInc = yInc;
 }
