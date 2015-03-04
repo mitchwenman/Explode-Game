@@ -54,6 +54,7 @@ void setPixel(int x, int y, BYTE r, BYTE g, BYTE b);
 void drawLine(int x1, int x2, int y1, int y2, BYTE r, BYTE g, BYTE b);
 void drawLine(int x1, int x2, int y1, int y2, BYTE r1,BYTE g1,BYTE b1, BYTE r2,BYTE g2,BYTE b2);
 void calculateDDALine(DDALine* ddaLine);
+void drawTriangle(int x1, int y1, int x2, int y2, int x3, int y3, char r, char g, char b);
 
 ////////////////////////////////////////////////////////
 // Program Entry Poinr
@@ -208,12 +209,14 @@ void BuildFrame(BYTE *pFrame, int view)
 {
 	
 	BYTE*	screen = (BYTE*)pFrame;		// use copy of screen pointer for safety
-	for (int i = 0; i < 2; i++)
+	/*for (int i = 0; i < 2; i++)
 	{
 		drawLine(rand() % FRAME_WIDE, rand() % FRAME_WIDE, rand() % FRAME_HIGH, rand() % FRAME_HIGH,
 					rand() % 255, rand() % 255, rand() % 255, rand() % 255, rand() % 255, rand() % 255);
 	}
-	
+	*/
+	//Triangle test
+	drawTriangle(3, 4, 5, 6, 1, 2, 0, 0, 0);
 }
 
 
@@ -289,5 +292,30 @@ void drawLine(int x1, int x2, int y1, int y2, BYTE r1, BYTE g1, BYTE b1, BYTE r2
 		r += rdiff; 
 		g += gdiff;
 		b += bdiff;
+	}
+}
+
+void drawTriangle(int x1, int y1, int x2, int y2, int x3, int y3, char r, char g, char b)
+{
+	int X0, X1, X2, Y0, Y1, Y2; //For holding vertices after min (highest) is found
+	int min = min(min(y1, y2), y3);
+	//Reassign to vars for rest of alg to work
+	//Take X1, Y1 as top of triangle
+	if (min == y1)
+	{
+		X1 = x1; Y1 = y1;
+		X0 = x2; Y0 = y2;
+		X2 = x3; Y2 = y3;
+	} else if (min == y2)
+	{
+		X1 = x2; Y1 = y2;
+		X0 = x1; Y0 = y1;
+		X2 = x3; Y2 = y3;
+
+	} else if (min == y3)
+	{
+		X1 = x3; Y1 = y3;
+		X0 = x1; Y0 = y1;
+		X2 = x2; Y2 = y2;
 	}
 }
