@@ -208,9 +208,11 @@ void BuildFrame(BYTE *pFrame, int view)
 {
 	
 	BYTE*	screen = (BYTE*)pFrame;		// use copy of screen pointer for safety
-	int numPixels = 1000;
-	drawLine(0, FRAME_WIDE, 0, FRAME_HIGH, 255, 0, 0);
-	drawLine(0, FRAME_WIDE, FRAME_HIGH, 0,  255, 255 , 255, 255, 0, 255);
+	for (int i = 0; i < 2; i++)
+	{
+		drawLine(rand() % FRAME_WIDE, rand() % FRAME_WIDE, rand() % FRAME_HIGH, rand() % FRAME_HIGH,
+					rand() % 255, rand() % 255, rand() % 255, rand() % 255, rand() % 255, rand() % 255);
+	}
 	
 }
 
