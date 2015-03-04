@@ -1,6 +1,7 @@
 #include <stdlib.h>			//- for exit()
 #include <stdio.h>			//- for sprintf()
 #include <string.h>			//- for memset()
+#include <math.h>
 
 #ifdef _WIN32
 	#include "libs/glut.h"
@@ -49,8 +50,9 @@ void OnDisplay(void);
 void reshape(int w, int h);
 void OnMouse(int button, int state, int x, int y);
 void OnKeypress(unsigned char key, int x, int y);
-void setPixel(int x, int y, char r, char g, char b);
-void drawLine(int x1, int x2, int y1, int y2, char r, char g, char b);
+void setPixel(int x, int y, BYTE r, BYTE g, BYTE b);
+void drawLine(int x1, int x2, int y1, int y2, BYTE r, BYTE g, BYTE b);
+void drawLine(int x1, int x2, int y1, int y2, BYTE r1,BYTE g1,BYTE b1, BYTE r2,BYTE g2,BYTE b2);
 void calculateDDALine(DDALine* ddaLine);
 
 ////////////////////////////////////////////////////////
@@ -207,12 +209,13 @@ void BuildFrame(BYTE *pFrame, int view)
 	
 	BYTE*	screen = (BYTE*)pFrame;		// use copy of screen pointer for safety
 	int numPixels = 1000;
-	drawLine(0, FRAME_WIDE, 0, FRAME_HIGH, char(255), 0, 0);
+	drawLine(0, FRAME_WIDE, 0, FRAME_HIGH, 255, 0, 0);
+	drawLine(0, FRAME_WIDE, FRAME_HIGH, 0,  255, 255 , 255, 255, 0, 255);
 	
 }
 
 
-void setPixel(int x, int y, char r, char g, char b)
+void setPixel(int x, int y, BYTE r, BYTE g, BYTE b)
 {
 	BYTE* screen = (BYTE*)pFrameR; 
 	enum CHANNEL_OFFSET { RED, GREEN, BLUE}; //Channel offsets
@@ -222,7 +225,7 @@ void setPixel(int x, int y, char r, char g, char b)
 	screen[NUM_CHANNELS * (x + y * FRAME_WIDE) + BLUE] = b;
 }
 
-void drawLine(int x1, int x2, int y1, int y2, char r, char g, char b)
+void drawLine(int x1, int x2, int y1, int y2, BYTE r, BYTE g, BYTE b)
 {
 	//Create DDALine type for calculation
 	DDALine* dda = new DDALine;
@@ -234,9 +237,9 @@ void drawLine(int x1, int x2, int y1, int y2, char r, char g, char b)
 	//Draw the line
 	for (int i = 0; i < dda->steps; i++)
 	{
+		setPixel(ROUND(x), ROUND(y), r, g, b);
 		x += dda->xInc;
 		y += dda->yInc;
-		setPixel(ROUND(x), ROUND(y), r, g, b);
 	}
 }
 
@@ -247,9 +250,9 @@ void calculateDDALine(DDALine* ddaLine)
 	int dy = ddaLine->y2 - ddaLine->y1;
 	int steps;
 	if (abs(dx) > abs(dy)) 
-		steps = dx;
+		steps = abs(dx);
 	else
-		steps = dy;
+		steps = abs(dy);
 	//Calculate increments for both axes
 	double xInc, yInc;
 	xInc = dx / (double) steps;
@@ -258,4 +261,31 @@ void calculateDDALine(DDALine* ddaLine)
 	ddaLine->steps = steps;
 	ddaLine->xInc = xInc;
 	ddaLine->yInc = yInc;
+}
+
+void drawLine(int x1, int x2, int y1, int y2, BYTE r1, BYTE g1, BYTE b1, BYTE r2, BYTE g2, BYTE b2)
+{
+	//Create DDALine type for calculation
+	DDALine* dda = new DDALine;
+	dda->x1 = x1; dda->x2 = x2; dda->y1 = y1; dda->y2 = y2;
+	calculateDDALine(dda);
+	//Create x,y double vars for better rounding
+	double x = x1;
+	double y = y1;
+	//Calculate colour diffs
+	double r, g, b, rdiff, gdiff, bdiff;
+	r = (double)r1; g = (double)g1; b = (double)b1;
+	rdiff = (r2 - r1)/dda->steps;
+	gdiff = (g2 - g1)/dda->steps;
+	bdiff = (b2 - b1)/dda->steps;
+	//Draw the line
+	for (int i = 0; i < dda->steps; i++)
+	{
+		setPixel(ROUND(x), ROUND(y), (int)r, (int)g, (int)b);
+		x += dda->xInc;
+		y += dda->yInc;
+		r += rdiff; 
+		g += gdiff;
+		b += bdiff;
+	}
 }
