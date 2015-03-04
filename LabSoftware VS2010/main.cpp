@@ -54,7 +54,7 @@ void setPixel(int x, int y, BYTE r, BYTE g, BYTE b);
 void drawLine(int x1, int x2, int y1, int y2, BYTE r, BYTE g, BYTE b);
 void drawLine(int x1, int x2, int y1, int y2, BYTE r1,BYTE g1,BYTE b1, BYTE r2,BYTE g2,BYTE b2);
 void calculateDDALine(DDALine* ddaLine);
-void drawTriangle(int x1, int y1, int x2, int y2, int x3, int y3, char r, char g, char b);
+void drawTriangle(int x1, int y1, int x2, int y2, int x3, int y3, BYTE r, BYTE g, BYTE b);
 
 ////////////////////////////////////////////////////////
 // Program Entry Poinr
@@ -295,7 +295,7 @@ void drawLine(int x1, int x2, int y1, int y2, BYTE r1, BYTE g1, BYTE b1, BYTE r2
 	}
 }
 
-void drawTriangle(int x1, int y1, int x2, int y2, int x3, int y3, char r, char g, char b)
+void drawTriangle(int x1, int y1, int x2, int y2, int x3, int y3, BYTE r, BYTE g, BYTE b)
 {
 	int X0, X1, X2, Y0, Y1, Y2; //For holding vertices after min (highest) is found
 	int min = min(min(y1, y2), y3);
