@@ -216,7 +216,7 @@ void BuildFrame(BYTE *pFrame, int view)
 	}
 	*/
 	//Triangle test
-	drawTriangle(3, 4, 5, 6, 1, 2, 0, 0, 0);
+	drawTriangle(FRAME_WIDE/2, 0, 0, FRAME_HIGH, FRAME_WIDE, FRAME_HIGH, 255, 255, 255);
 }
 
 
@@ -317,5 +317,36 @@ void drawTriangle(int x1, int y1, int x2, int y2, int x3, int y3, BYTE r, BYTE g
 		X1 = x3; Y1 = y3;
 		X0 = x1; Y0 = y1;
 		X2 = x2; Y2 = y2;
+	}
+	double edgeA, edgeB;
+	edgeA = atan2((double)Y1 - Y2, X2 - X1); //Y calc reversed since Y increases down screen
+	edgeB = atan2((double)Y1 - Y0, X0 - X1);	
+	//Assign left/right edges 
+	double mL, mR;
+	if (edgeA > edgeB)
+	{
+		mL = (X0 - X1)/(double)(Y0 - Y1);
+		mR = (X2 - X1)/(double)(Y2 - Y1);
+	} else
+	{
+		mR = (X0 - X1)/(double)(Y0 - Y1);
+		mL = (X2 - X1)/(double)(Y2 - Y1);
+	}
+	//Assign starting point
+	double xL, xR;
+	xL = xR = X1;
+	//Find longest edge for end point
+	int hL = Y2 - Y1;
+	int hR = Y0 - Y1;
+	int high = (hL > hR) ? hL : hR;
+	for (int y = 0; y < high; y++)
+	{
+		//If we've reached a new edge - modify gradient so we can draw it
+		if (y == hL) mL = (X0 - X2)/(double)(Y0 - Y2);
+		if (y == hL) mR = (X2 - X0)/(double)(Y2 - Y0);
+		//y is the y-Off from the starting point Y1
+		drawLine(xL, xR, Y1 + y, Y1 + y, r, g, b);
+		xL += mL;
+		xR += mR;
 	}
 }
