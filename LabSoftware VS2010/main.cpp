@@ -227,7 +227,7 @@ void BuildFrame(BYTE *pFrame, int view)
 	//drawLine(0, FRAME_WIDE - 1, 0, 200, 255, 255, 255);
 
 
-	drawTriangle(FRAME_WIDE/2, FRAME_HIGH - 2, 0, 200, FRAME_WIDE - 1, FRAME_HIGH - 1, 255, 255, 255);
+	drawTriangle(FRAME_WIDE/2, FRAME_HIGH - 2, 0, FRAME_HIGH - 2, FRAME_WIDE - 1, 0, 255, 255, 255);
 }
 
 
@@ -361,6 +361,7 @@ void drawTriangle(int x1, int y1, int x2, int y2, int x3, int y3, BYTE r, BYTE g
 	for (int y = 0; y < high; y++)
 	{
 		//If we've reached a new edge - modify gradient so we can draw it
+		if (y == hL && hR - hL == 0) break;
 		if (y == hL) //XXX: Divide by 0 possible if hR = hL
 			mL = (xRightVert - xL)/(double)(hR - hL);
 		if (y == hR) 
