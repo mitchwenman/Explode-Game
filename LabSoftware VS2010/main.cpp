@@ -24,11 +24,17 @@
 //====== Structs & typedefs =========
 typedef unsigned char BYTE;
 struct POINT2D {int x, y;};
+
 typedef struct 
 { 
 	int x1, x2, y1, y2;
 	double steps, xInc, yInc; 
 } DDALine;
+
+typedef struct
+{
+	int XT, YT, XL, YL, XR, YR;
+} ScanLTriangle;
 
 //====== Global Variables ==========
 BYTE	pFrameL[FRAME_WIDE * FRAME_HIGH * 3];
@@ -216,7 +222,12 @@ void BuildFrame(BYTE *pFrame, int view)
 	}
 	*/
 	//Triangle test
-	drawTriangle(FRAME_WIDE/2, 0, 0, FRAME_HIGH, FRAME_WIDE, FRAME_HIGH, 255, 255, 255);
+	//drawLine(FRAME_WIDE/2, 0, FRAME_HIGH - 1, 0, 255, 255, 255);
+	//drawLine(FRAME_WIDE/2, FRAME_WIDE - 1, FRAME_HIGH - 1, 200, 255, 255, 255);
+	//drawLine(0, FRAME_WIDE - 1, 0, 200, 255, 255, 255);
+
+
+	drawTriangle(FRAME_WIDE/2, FRAME_HIGH - 2, 0, 200, FRAME_WIDE - 1, FRAME_HIGH - 1, 255, 255, 255);
 }
 
 
@@ -298,54 +309,64 @@ void drawLine(int x1, int x2, int y1, int y2, BYTE r1, BYTE g1, BYTE b1, BYTE r2
 void drawTriangle(int x1, int y1, int x2, int y2, int x3, int y3, BYTE r, BYTE g, BYTE b)
 {
 	int X0, X1, X2, Y0, Y1, Y2; //For holding vertices after min (highest) is found
-	int min = min(min(y1, y2), y3);
+	int max = max(max(y1, y2), y3);
 	//Reassign to vars for rest of alg to work
 	//Take X1, Y1 as top of triangle
-	if (min == y1)
+	if (max == y1)
 	{
 		X1 = x1; Y1 = y1;
 		X0 = x2; Y0 = y2;
 		X2 = x3; Y2 = y3;
-	} else if (min == y2)
+	} else if (max == y2)
 	{
 		X1 = x2; Y1 = y2;
 		X0 = x1; Y0 = y1;
 		X2 = x3; Y2 = y3;
 
-	} else if (min == y3)
+	} else if (max == y3)
 	{
 		X1 = x3; Y1 = y3;
 		X0 = x1; Y0 = y1;
-		X2 = x2; Y2 = y2;
+		X2 = x2; Y2 = y2; 
 	}
 	double edgeA, edgeB;
-	edgeA = atan2((double)Y1 - Y2, X2 - X1); //Y calc reversed since Y increases down screen
-	edgeB = atan2((double)Y1 - Y0, X0 - X1);	
+	edgeA = atan2((double)Y2 - Y1, X2 - X1); 
+	edgeB = atan2((double)Y0 - Y1, X0 - X1);	
 	//Assign left/right edges 
 	double mL, mR;
+	int hL, hR, xLeftVert, xRightVert;
 	if (edgeA > edgeB)
-	{
-		mL = (X0 - X1)/(double)(Y0 - Y1);
-		mR = (X2 - X1)/(double)(Y2 - Y1);
+	{//XXX: Divide by 0
+		mL = (X0 - X1)/(double)(Y1 - Y0); 
+		hL = Y1 - Y0;
+		mR = (X2 - X1)/(double)(Y1 - Y2);
+		hR = Y1 - Y2;
+		xLeftVert = X0;
+		xRightVert = X2;
 	} else
 	{
-		mR = (X0 - X1)/(double)(Y0 - Y1);
-		mL = (X2 - X1)/(double)(Y2 - Y1);
+		mR = (X0 - X1)/(double)(Y1 - Y0);
+		hR = Y1 - Y0;
+		mL = (X2 - X1)/(double)(Y1 - Y2);
+		hL = Y1 - Y2;
+		xLeftVert = X2;
+		xRightVert = X0;
 	}
 	//Assign starting point
 	double xL, xR;
-	xL = xR = X1;
+	xL = xR = X1; //XXX: won't work for flat topped triangle
+
 	//Find longest edge for end point
-	int hL = Y2 - Y1;
-	int hR = Y0 - Y1;
 	int high = (hL > hR) ? hL : hR;
 	for (int y = 0; y < high; y++)
 	{
 		//If we've reached a new edge - modify gradient so we can draw it
-		if (y == hL) mL = (X0 - X2)/(double)(Y0 - Y2);
-		if (y == hL) mR = (X2 - X0)/(double)(Y2 - Y0);
-		//y is the y-Off from the starting point Y1
-		drawLine(xL, xR, Y1 + y, Y1 + y, r, g, b);
+		if (y == hL) //XXX: Divide by 0 possible if hR = hL
+			mL = (xRightVert - xL)/(double)(hR - hL);
+		if (y == hR) 
+			mR = (xLeftVert - xR)/(double)(hL - hR);
+		//y is the y-Offset from the starting point Y1
+		drawLine(xL, xR, Y1 - y, Y1 - y, r, g, b);
 		xL += mL;
 		xR += mR;
 	}
