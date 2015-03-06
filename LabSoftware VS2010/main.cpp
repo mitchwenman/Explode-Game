@@ -227,7 +227,7 @@ void BuildFrame(BYTE *pFrame, int view)
 	//drawLine(0, FRAME_WIDE - 1, 0, 200, 255, 255, 255);
 
 
-	drawTriangle(FRAME_WIDE/2, FRAME_HIGH - 2, 0, FRAME_HIGH - 2, FRAME_WIDE - 1, 0, 255, 255, 255);
+	drawTriangle(0, FRAME_HIGH - 1, 0, 0, FRAME_WIDE/2, FRAME_HIGH/2, 255, 255, 255);
 }
 
 
@@ -336,7 +336,7 @@ void drawTriangle(int x1, int y1, int x2, int y2, int x3, int y3, BYTE r, BYTE g
 	double mL, mR;
 	int hL, hR, xLeftVert, xRightVert;
 	if (edgeA > edgeB)
-	{//XXX: Divide by 0
+	{//XXX: Divide by 0, but gets fixed later
 		mL = (X0 - X1)/(double)(Y1 - Y0); 
 		hL = Y1 - Y0;
 		mR = (X2 - X1)/(double)(Y1 - Y2);
@@ -354,14 +354,37 @@ void drawTriangle(int x1, int y1, int x2, int y2, int x3, int y3, BYTE r, BYTE g
 	}
 	//Assign starting point
 	double xL, xR;
-	xL = xR = X1; //XXX: won't work for flat topped triangle
+	if (Y1 == Y2)
+	{
+		if (X2 == xLeftVert)
+		{
+			xL = xLeftVert;
+			xR = X1;
+		} else
+		{
+			xL = X1;
+			xR = xRightVert;
+		}
+	} else if (Y1 == Y0)
+	{
+		if (X0 == xLeftVert)
+		{
+			xL = xLeftVert;
+			xR = X1;
+		} else
+		{
+			xL = X1;
+			xR = xRightVert;
+		}
+	} else xL = xR = X1; //XXX: won't work for flat topped triangle
 
 	//Find longest edge for end point
 	int high = (hL > hR) ? hL : hR;
 	for (int y = 0; y < high; y++)
 	{
 		//If we've reached a new edge - modify gradient so we can draw it
-		if (y == hL && hR - hL == 0) break;
+		if (y == hL && hR - hL == 0) break; //Only happens when flat bottom triangle
+											//In which case - we're done anyway
 		if (y == hL) //XXX: Divide by 0 possible if hR = hL
 			mL = (xRightVert - xL)/(double)(hR - hL);
 		if (y == hR) 
