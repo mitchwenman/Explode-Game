@@ -34,15 +34,18 @@ typedef struct
 
 typedef struct
 {
-	int XTopVert, YTopVert, XLeftVert, YLeftVert, XRightVert, YRightVert;
-	int hRight, hLeft;
-
-} ScanLTriangle;
+	BYTE red, green, blue;
+} RGBColour;
 
 typedef struct
 {
-	BYTE red, green, blue;
-} RGBColour;
+	int XTopVert, YTopVert, XLeftVert, YLeftVert, XRightVert, YRightVert;
+	int hRight, hLeft;
+	RGBColour* colourTop, *colourLeft, *colourRight;
+
+} ScanLTriangle;
+
+
 
 //====== Global Variables ==========
 BYTE	pFrameL[FRAME_WIDE * FRAME_HIGH * 3];
@@ -68,8 +71,9 @@ void setPixel(int x, int y, BYTE r, BYTE g, BYTE b);
 void drawLine(int x1, int x2, int y1, int y2, BYTE r, BYTE g, BYTE b);
 void drawLine(int x1, int x2, int y1, int y2, BYTE r1,BYTE g1,BYTE b1, BYTE r2,BYTE g2,BYTE b2);
 void calculateDDALine(DDALine* ddaLine);
-void drawTriangle(int x1, int y1, int x2, int y2, int x3, int y3, RGBColour* colour);
-void calculateSLTriangle(int x1, int y1, int x2, int y2, int x3, int y3, ScanLTriangle* slTri);
+void drawTriangle(int x1, int y1, int x2, int y2, int x3, int y3, RGBColour* colour1, RGBColour* colour2, RGBColour* colour3);
+void calculateSLTriangle(int x1, int y1, int x2, int y2, int x3, int y3, RGBColour* colour1, RGBColour* colour2, RGBColour* colour3, ScanLTriangle* slTri);
+
 
 ////////////////////////////////////////////////////////
 // Program Entry Poinr
@@ -237,16 +241,20 @@ void BuildFrame(BYTE *pFrame, int view)
 
 	//for (int i = 0; i < 3; i++)
 	//{
-	RGBColour* colour = (RGBColour*)malloc(sizeof(RGBColour));
-	colour->red = rand() % 255;
-	colour->green = rand() % 255;
-	colour->blue = rand() % 255;
-	drawTriangle(rand() % FRAME_WIDE, rand() % FRAME_HIGH, 
-					rand() % FRAME_WIDE, rand() % FRAME_HIGH, 
-					rand() % FRAME_WIDE, rand() % FRAME_HIGH, 
-					colour);
+	RGBColour* colour1 = (RGBColour*)malloc(sizeof(RGBColour));
+	RGBColour* colour2 = (RGBColour*)malloc(sizeof(RGBColour));
+	RGBColour* colour3 = (RGBColour*)malloc(sizeof(RGBColour));
+	colour1->red = 255; colour1->green = 0; colour1->blue = 0;
+	colour2->red = 0; colour2->green = 255; colour2->blue = 0;
+	colour3->red = 0; colour3->green = 0; colour3->blue = 255;
+	drawTriangle(FRAME_WIDE/2, FRAME_HIGH - 1, 
+					0, 0, 
+					FRAME_WIDE - 1, 0, 
+					colour1, colour2, colour3);
 	Sleep(1000);
-	free(colour);
+	free(colour1);
+	free(colour2);
+	free(colour3);
 	//}
 	
 }
@@ -327,10 +335,11 @@ void drawLine(int x1, int x2, int y1, int y2, BYTE r1, BYTE g1, BYTE b1, BYTE r2
 	}
 }
 
-void drawTriangle(int x1, int y1, int x2, int y2, int x3, int y3,  RGBColour* colour)
+void drawTriangle(int x1, int y1, int x2, int y2, int x3, int y3,  RGBColour* colour1, RGBColour* colour2, RGBColour* colour3)
 {
 	ScanLTriangle* slTri = (ScanLTriangle*)malloc(sizeof(ScanLTriangle));
-	calculateSLTriangle(x1, y1, x2, y2, x3, y3, slTri);
+	calculateSLTriangle(x1, y1, x2, y2, x3, y3, colour1, colour2, colour3, slTri);
+	
 	//Assign left/right edges 
 	double mL, mR;
 	mL = (slTri->XLeftVert - slTri->XTopVert)/
@@ -338,60 +347,105 @@ void drawTriangle(int x1, int y1, int x2, int y2, int x3, int y3,  RGBColour* co
 	mR = (slTri->XRightVert - slTri->XTopVert)/
 		((double)slTri->YTopVert - slTri->YRightVert);
 
+	//Calculate colour deltas - left first
+	double redML, blueML, greenML;
+	double leftDenom = slTri->YTopVert - slTri->YLeftVert;
+	redML = ((double)slTri->colourLeft->red - slTri->colourTop->red)/leftDenom;
+	blueML = ((double)slTri->colourLeft->blue - slTri->colourTop->blue)/leftDenom;
+	greenML = ((double)slTri->colourLeft->green - slTri->colourTop->green)/leftDenom;
+
+	//Then right
+	double redMR, greenMR, blueMR;
+	double rightDenom = slTri->YTopVert - slTri->YRightVert; 
+	redMR = ((double)slTri->colourRight->red - slTri->colourTop->red)/rightDenom;
+	blueMR = ((double)slTri->colourRight->blue - slTri->colourTop->blue)/rightDenom;
+	greenMR = ((double)slTri->colourRight->green - slTri->colourTop->green)/rightDenom;
+	
 	//Assign starting point and check for flat top
 	double xL, xR;
+	double clRed, clBlue, clGreen, crRed, crGreen, crBlue;
 	if (slTri->YTopVert == slTri->YLeftVert)
 	{
 		xL = slTri->XLeftVert;
+		clRed = slTri->colourLeft->red;
+		clGreen = slTri->colourLeft->green;
+		clBlue = slTri->colourLeft->blue;
 		xR = slTri->XTopVert;
+		crRed = slTri->colourTop->red;
+		crGreen = slTri->colourTop->green;
+		crBlue = slTri->colourTop->blue;
 	} else if (slTri->YTopVert == slTri->YRightVert)
 	{
-		xL = slTri->XLeftVert;
-		xR = slTri->XTopVert;
-	} else xL = xR = slTri->XTopVert; 
-
+		xL = slTri->XTopVert;
+		clRed = slTri->colourTop->red;
+		clGreen = slTri->colourTop->green;
+		clBlue = slTri->colourTop->blue;
+		
+		xR = slTri->XRightVert;		
+		crRed = slTri->colourRight->red;
+		crGreen = slTri->colourRight->green;
+		crBlue = slTri->colourRight->blue;
+	} else 
+	{
+		xL = xR = slTri->XTopVert; 
+		clRed = crRed = slTri->colourTop->red;
+		clGreen = crGreen = slTri->colourTop->green;
+		clBlue = crBlue = slTri->colourTop->blue;
+	}
+	
 	//Find longest edge for end point
 	int high = (slTri->hLeft > slTri->hRight) ? slTri->hLeft : slTri->hRight;
 	for (int y = 0; y < high; y++)
 	{
 		//If we've reached a new edge - modify gradient so we can draw it
-		if (y == slTri->hLeft && slTri->hRight - slTri->hLeft == 0) break; //Only happens when flat bottom triangle
+ 		if (y == slTri->hLeft && slTri->hRight - slTri->hLeft == 0) break; //Only happens when flat bottom triangle
 											//In which case - we're done anyway
 		if (y == slTri->hLeft) //XXX: Divide by 0 possible if hR = hL
+		{
 			mL = (slTri->XRightVert - xL)/(double)(slTri->hRight - slTri->hLeft);
+			
+		}
 		if (y == slTri->hRight) 
+		{
 			mR = (slTri->XLeftVert - xR)/(double)(slTri->hLeft - slTri->hRight);
+			
+		}
 		//y is the y-Offset from the starting point Y1
 		drawLine(ceil(xL), ceil(xR - 1), slTri->YTopVert - y, slTri->YTopVert - y,
-					colour->red, colour->green, colour->blue);
-		xL += mL;
-		xR += mR;
+					clRed, clGreen,clBlue,
+					crRed,crGreen, crBlue);
+		xL += mL; xR += mR;
+		clRed += redML; clBlue += blueML; clGreen += greenML;
+		crRed += redMR; crBlue += blueMR; crGreen += greenMR;
 	}
 	free(slTri);
+
 }
 
-void calculateSLTriangle(int x1, int y1, int x2, int y2, int x3, int y3, ScanLTriangle* slTri)
+void calculateSLTriangle(int x1, int y1, int x2, int y2, int x3, int y3, 
+							RGBColour* colour1, RGBColour* colour2, RGBColour* colour3, ScanLTriangle* slTri)
 {
-	int X0, X1, X2, Y0, Y1, Y2; //For holding vertices after min (highest) is found
+	int X0, X1, X2, Y0, Y1, Y2; //For holding vertices after (highest) is found
+	RGBColour *c0, *c2;
 	int max = max(max(y1, y2), y3);
 	//Reassign to vars for rest of alg to work
 	//Take X1, Y1 as top of triangle
 	if (max == y1)
 	{
-		X1 = x1; Y1 = y1;
-		X0 = x2; Y0 = y2;
-		X2 = x3; Y2 = y3;
+		X1 = x1; Y1 = y1; slTri->colourTop = colour1;
+		X0 = x2; Y0 = y2; c0 = colour2;
+		X2 = x3; Y2 = y3; c2 = colour3;
 	} else if (max == y2)
 	{
-		X1 = x2; Y1 = y2;
-		X0 = x1; Y0 = y1;
-		X2 = x3; Y2 = y3;
+		X1 = x2; Y1 = y2; slTri->colourTop = colour2;
+		X0 = x1; Y0 = y1; c0 = colour1;
+		X2 = x3; Y2 = y3; c2 = colour3;
 
 	} else if (max == y3)
 	{
-		X1 = x3; Y1 = y3;
-		X0 = x1; Y0 = y1;
-		X2 = x2; Y2 = y2; 
+		X1 = x3; Y1 = y3; slTri->colourTop = colour3;
+		X0 = x1; Y0 = y1; c0 = colour1;
+		X2 = x2; Y2 = y2; c2 = colour2;
 	}
 	double edgeA, edgeB;
 	edgeA = atan2((double)Y2 - Y1, X2 - X1); 
@@ -405,6 +459,8 @@ void calculateSLTriangle(int x1, int y1, int x2, int y2, int x3, int y3, ScanLTr
 		slTri->YLeftVert = Y0;
 		slTri->XRightVert = X2;
 		slTri->YRightVert = Y2;
+		slTri->colourLeft = c0;
+		slTri->colourRight = c2;
 	} else
 	{
 		slTri->hRight = Y1 - Y0;
@@ -413,8 +469,11 @@ void calculateSLTriangle(int x1, int y1, int x2, int y2, int x3, int y3, ScanLTr
 		slTri->YLeftVert = Y2;
 		slTri->XRightVert = X0;
 		slTri->YRightVert = Y0;
+		slTri->colourLeft = c2;
+		slTri->colourRight = c0;
 	}
 	slTri->XTopVert = X1;
 	slTri->YTopVert = Y1;	
 	
 }
+
