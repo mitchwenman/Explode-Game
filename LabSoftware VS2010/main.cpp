@@ -244,9 +244,15 @@ void BuildFrame(BYTE *pFrame, int view)
 	RGBColour* colour1 = (RGBColour*)malloc(sizeof(RGBColour));
 	RGBColour* colour2 = (RGBColour*)malloc(sizeof(RGBColour));
 	RGBColour* colour3 = (RGBColour*)malloc(sizeof(RGBColour));
-	colour1->red = 255; colour1->green = 0; colour1->blue = 0;
-	colour2->red = 0; colour2->green = 255; colour2->blue = 0;
-	colour3->red = 0; colour3->green = 0; colour3->blue = 255;
+	colour1->red = rand () % 255; 
+	colour1->green =  rand () % 255;
+	colour1->blue =  rand () % 255;
+	colour2->red =  rand () % 255; 
+	colour2->green =  rand () % 255; 
+	colour2->blue =  rand () % 255;
+	colour3->red =  rand () % 255; 
+	colour3->green =  rand () % 255; 
+	colour3->blue =  rand () % 255;
 	drawTriangle(rand() % FRAME_WIDE, rand() % FRAME_HIGH, 
 					rand() % FRAME_WIDE,rand() % FRAME_HIGH, 
 					rand() % FRAME_WIDE, rand() % FRAME_HIGH, 
