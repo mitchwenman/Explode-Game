@@ -39,6 +39,11 @@ typedef struct
 
 } ScanLTriangle;
 
+typedef struct
+{
+	BYTE red, green, blue;
+} RGBColour;
+
 //====== Global Variables ==========
 BYTE	pFrameL[FRAME_WIDE * FRAME_HIGH * 3];
 BYTE	pFrameR[FRAME_WIDE * FRAME_HIGH * 3];
@@ -63,7 +68,7 @@ void setPixel(int x, int y, BYTE r, BYTE g, BYTE b);
 void drawLine(int x1, int x2, int y1, int y2, BYTE r, BYTE g, BYTE b);
 void drawLine(int x1, int x2, int y1, int y2, BYTE r1,BYTE g1,BYTE b1, BYTE r2,BYTE g2,BYTE b2);
 void calculateDDALine(DDALine* ddaLine);
-void drawTriangle(int x1, int y1, int x2, int y2, int x3, int y3, BYTE r, BYTE g, BYTE b);
+void drawTriangle(int x1, int y1, int x2, int y2, int x3, int y3, RGBColour* colour);
 void calculateSLTriangle(int x1, int y1, int x2, int y2, int x3, int y3, ScanLTriangle* slTri);
 
 ////////////////////////////////////////////////////////
@@ -232,11 +237,16 @@ void BuildFrame(BYTE *pFrame, int view)
 
 	//for (int i = 0; i < 3; i++)
 	//{
-		drawTriangle(rand() % FRAME_WIDE, rand() % FRAME_HIGH, 
-						rand() % FRAME_WIDE, rand() % FRAME_HIGH, 
-						rand() % FRAME_WIDE, rand() % FRAME_HIGH, 
-						rand() % 255, rand() % 255, rand() % 255);
-		Sleep(1000);
+	RGBColour* colour = (RGBColour*)malloc(sizeof(RGBColour));
+	colour->red = rand() % 255;
+	colour->green = rand() % 255;
+	colour->blue = rand() % 255;
+	drawTriangle(rand() % FRAME_WIDE, rand() % FRAME_HIGH, 
+					rand() % FRAME_WIDE, rand() % FRAME_HIGH, 
+					rand() % FRAME_WIDE, rand() % FRAME_HIGH, 
+					colour);
+	Sleep(1000);
+	free(colour);
 	//}
 	
 }
@@ -317,7 +327,7 @@ void drawLine(int x1, int x2, int y1, int y2, BYTE r1, BYTE g1, BYTE b1, BYTE r2
 	}
 }
 
-void drawTriangle(int x1, int y1, int x2, int y2, int x3, int y3, BYTE r, BYTE g, BYTE b)
+void drawTriangle(int x1, int y1, int x2, int y2, int x3, int y3,  RGBColour* colour)
 {
 	ScanLTriangle* slTri = (ScanLTriangle*)malloc(sizeof(ScanLTriangle));
 	calculateSLTriangle(x1, y1, x2, y2, x3, y3, slTri);
@@ -352,7 +362,8 @@ void drawTriangle(int x1, int y1, int x2, int y2, int x3, int y3, BYTE r, BYTE g
 		if (y == slTri->hRight) 
 			mR = (slTri->XLeftVert - xR)/(double)(slTri->hLeft - slTri->hRight);
 		//y is the y-Offset from the starting point Y1
-		drawLine(ceil(xL), ceil(xR - 1), slTri->YTopVert - y, slTri->YTopVert - y, r, g, b);
+		drawLine(ceil(xL), ceil(xR - 1), slTri->YTopVert - y, slTri->YTopVert - y,
+					colour->red, colour->green, colour->blue);
 		xL += mL;
 		xR += mR;
 	}
