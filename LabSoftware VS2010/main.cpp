@@ -3,6 +3,7 @@
 #include <string.h>			//- for memset()
 #include <math.h>
 
+
 #ifdef _WIN32
 	#include "libs/glut.h"
 	#include <windows.h>
@@ -226,8 +227,15 @@ void BuildFrame(BYTE *pFrame, int view)
 	//drawLine(FRAME_WIDE/2, FRAME_WIDE - 1, FRAME_HIGH - 1, 200, 255, 255, 255);
 	//drawLine(0, FRAME_WIDE - 1, 0, 200, 255, 255, 255);
 
-
-	drawTriangle(0, FRAME_HIGH - 1, 0, 0, FRAME_WIDE/2, FRAME_HIGH/2, 255, 255, 255);
+	//for (int i = 0; i < 3; i++)
+	//{
+		drawTriangle(rand() % FRAME_WIDE, rand() % FRAME_HIGH, 
+						rand() % FRAME_WIDE, rand() % FRAME_HIGH, 
+						rand() % FRAME_WIDE, rand() % FRAME_HIGH, 
+						rand() % 255, rand() % 255, rand() % 255);
+		Sleep(1000);
+	//}
+	
 }
 
 
