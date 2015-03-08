@@ -34,7 +34,9 @@ typedef struct
 
 typedef struct
 {
-	int XT, YT, XL, YL, XR, YR;
+	int XTopVert, YTopVert, XLeftVert, YLeftVert, XRightVert, YRightVert;
+	int hRight, hLeft;
+
 } ScanLTriangle;
 
 //====== Global Variables ==========
@@ -62,6 +64,7 @@ void drawLine(int x1, int x2, int y1, int y2, BYTE r, BYTE g, BYTE b);
 void drawLine(int x1, int x2, int y1, int y2, BYTE r1,BYTE g1,BYTE b1, BYTE r2,BYTE g2,BYTE b2);
 void calculateDDALine(DDALine* ddaLine);
 void drawTriangle(int x1, int y1, int x2, int y2, int x3, int y3, BYTE r, BYTE g, BYTE b);
+void calculateSLTriangle(int x1, int y1, int x2, int y2, int x3, int y3, ScanLTriangle* slTri);
 
 ////////////////////////////////////////////////////////
 // Program Entry Poinr
@@ -316,6 +319,47 @@ void drawLine(int x1, int x2, int y1, int y2, BYTE r1, BYTE g1, BYTE b1, BYTE r2
 
 void drawTriangle(int x1, int y1, int x2, int y2, int x3, int y3, BYTE r, BYTE g, BYTE b)
 {
+	ScanLTriangle* slTri = (ScanLTriangle*)malloc(sizeof(ScanLTriangle));
+	calculateSLTriangle(x1, y1, x2, y2, x3, y3, slTri);
+	//Assign left/right edges 
+	double mL, mR;
+	mL = (slTri->XLeftVert - slTri->XTopVert)/
+		((double)slTri->YTopVert - slTri->YLeftVert);
+	mR = (slTri->XRightVert - slTri->XTopVert)/
+		((double)slTri->YTopVert - slTri->YRightVert);
+
+	//Assign starting point and check for flat top
+	double xL, xR;
+	if (slTri->YTopVert == slTri->YLeftVert)
+	{
+		xL = slTri->XLeftVert;
+		xR = slTri->XTopVert;
+	} else if (slTri->YTopVert == slTri->YRightVert)
+	{
+		xL = slTri->XLeftVert;
+		xR = slTri->XTopVert;
+	} else xL = xR = slTri->XTopVert; 
+
+	//Find longest edge for end point
+	int high = (slTri->hLeft > slTri->hRight) ? slTri->hLeft : slTri->hRight;
+	for (int y = 0; y < high; y++)
+	{
+		//If we've reached a new edge - modify gradient so we can draw it
+		if (y == slTri->hLeft && slTri->hRight - slTri->hLeft == 0) break; //Only happens when flat bottom triangle
+											//In which case - we're done anyway
+		if (y == slTri->hLeft) //XXX: Divide by 0 possible if hR = hL
+			mL = (slTri->XRightVert - xL)/(double)(slTri->hRight - slTri->hLeft);
+		if (y == slTri->hRight) 
+			mR = (slTri->XLeftVert - xR)/(double)(slTri->hLeft - slTri->hRight);
+		//y is the y-Offset from the starting point Y1
+		drawLine(xL, xR, slTri->YTopVert - y, slTri->YTopVert, r, g, b);
+		xL += mL;
+		xR += mR;
+	}
+}
+
+void calculateSLTriangle(int x1, int y1, int x2, int y2, int x3, int y3, ScanLTriangle* slTri)
+{
 	int X0, X1, X2, Y0, Y1, Y2; //For holding vertices after min (highest) is found
 	int max = max(max(y1, y2), y3);
 	//Reassign to vars for rest of alg to work
@@ -340,66 +384,25 @@ void drawTriangle(int x1, int y1, int x2, int y2, int x3, int y3, BYTE r, BYTE g
 	double edgeA, edgeB;
 	edgeA = atan2((double)Y2 - Y1, X2 - X1); 
 	edgeB = atan2((double)Y0 - Y1, X0 - X1);	
-	//Assign left/right edges 
-	double mL, mR;
-	int hL, hR, xLeftVert, xRightVert;
+	//Assign left/right edges 	
 	if (edgeA > edgeB)
 	{//XXX: Divide by 0, but gets fixed later
-		mL = (X0 - X1)/(double)(Y1 - Y0); 
-		hL = Y1 - Y0;
-		mR = (X2 - X1)/(double)(Y1 - Y2);
-		hR = Y1 - Y2;
-		xLeftVert = X0;
-		xRightVert = X2;
+		slTri->hLeft = Y1 - Y0;
+		slTri->hRight = Y1 - Y2;
+		slTri->XLeftVert = X0;
+		slTri->YLeftVert = Y0;
+		slTri->XRightVert = X2;
+		slTri->YRightVert = Y2;
 	} else
 	{
-		mR = (X0 - X1)/(double)(Y1 - Y0);
-		hR = Y1 - Y0;
-		mL = (X2 - X1)/(double)(Y1 - Y2);
-		hL = Y1 - Y2;
-		xLeftVert = X2;
-		xRightVert = X0;
+		slTri->hRight = Y1 - Y0;
+		slTri->hLeft = Y1 - Y2;
+		slTri->XLeftVert = X2;
+		slTri->YLeftVert = Y2;
+		slTri->XRightVert = X0;
+		slTri->YRightVert = Y0;
 	}
-	//Assign starting point
-	double xL, xR;
-	if (Y1 == Y2)
-	{
-		if (X2 == xLeftVert)
-		{
-			xL = xLeftVert;
-			xR = X1;
-		} else
-		{
-			xL = X1;
-			xR = xRightVert;
-		}
-	} else if (Y1 == Y0)
-	{
-		if (X0 == xLeftVert)
-		{
-			xL = xLeftVert;
-			xR = X1;
-		} else
-		{
-			xL = X1;
-			xR = xRightVert;
-		}
-	} else xL = xR = X1; //XXX: won't work for flat topped triangle
-
-	//Find longest edge for end point
-	int high = (hL > hR) ? hL : hR;
-	for (int y = 0; y < high; y++)
-	{
-		//If we've reached a new edge - modify gradient so we can draw it
-		if (y == hL && hR - hL == 0) break; //Only happens when flat bottom triangle
-											//In which case - we're done anyway
-		if (y == hL) //XXX: Divide by 0 possible if hR = hL
-			mL = (xRightVert - xL)/(double)(hR - hL);
-		if (y == hR) 
-			mR = (xLeftVert - xR)/(double)(hL - hR);
-		//y is the y-Offset from the starting point Y1
-		drawLine(xL, xR, Y1 - y, Y1 - y, r, g, b);
-		xL += mL;
-		xR += mR;
-	}
+	slTri->XTopVert = X1;
+	slTri->YTopVert = Y1;	
+	
 }
