@@ -247,9 +247,9 @@ void BuildFrame(BYTE *pFrame, int view)
 	colour1->red = 255; colour1->green = 0; colour1->blue = 0;
 	colour2->red = 0; colour2->green = 255; colour2->blue = 0;
 	colour3->red = 0; colour3->green = 0; colour3->blue = 255;
-	drawTriangle(FRAME_WIDE/2, FRAME_HIGH - 1, 
-					0, 0, 
-					FRAME_WIDE - 1, 0, 
+	drawTriangle(rand() % FRAME_WIDE, rand() % FRAME_HIGH, 
+					rand() % FRAME_WIDE,rand() % FRAME_HIGH, 
+					rand() % FRAME_WIDE, rand() % FRAME_HIGH, 
 					colour1, colour2, colour3);
 	Sleep(1000);
 	free(colour1);
@@ -402,13 +402,19 @@ void drawTriangle(int x1, int y1, int x2, int y2, int x3, int y3,  RGBColour* co
 											//In which case - we're done anyway
 		if (y == slTri->hLeft) //XXX: Divide by 0 possible if hR = hL
 		{
-			mL = (slTri->XRightVert - xL)/(double)(slTri->hRight - slTri->hLeft);
-			
+			leftDenom = (double)(slTri->hRight - slTri->hLeft);
+			mL = (slTri->XRightVert - xL)/leftDenom;
+			redML = ((double)slTri->colourRight->red - slTri->colourLeft->red)/leftDenom;
+			blueML = ((double)slTri->colourRight->blue - slTri->colourLeft->blue)/leftDenom;
+			greenML = ((double)slTri->colourRight->green - slTri->colourLeft->green)/leftDenom;
 		}
 		if (y == slTri->hRight) 
 		{
-			mR = (slTri->XLeftVert - xR)/(double)(slTri->hLeft - slTri->hRight);
-			
+			rightDenom = (double)(slTri->hLeft - slTri->hRight);
+			mR = (slTri->XLeftVert - xR)/rightDenom;
+			redMR = ((double)slTri->colourLeft->red - slTri->colourRight->red)/rightDenom;
+			blueMR = ((double)slTri->colourLeft->blue - slTri->colourRight->blue)/rightDenom;
+			greenMR = ((double)slTri->colourLeft->green - slTri->colourRight->green)/rightDenom;
 		}
 		//y is the y-Offset from the starting point Y1
 		drawLine(ceil(xL), ceil(xR - 1), slTri->YTopVert - y, slTri->YTopVert - y,
@@ -452,7 +458,7 @@ void calculateSLTriangle(int x1, int y1, int x2, int y2, int x3, int y3,
 	edgeB = atan2((double)Y0 - Y1, X0 - X1);	
 	//Assign left/right edges 	
 	if (edgeA > edgeB)
-	{//XXX: Divide by 0, but gets fixed later
+	{
 		slTri->hLeft = Y1 - Y0;
 		slTri->hRight = Y1 - Y2;
 		slTri->XLeftVert = X0;
