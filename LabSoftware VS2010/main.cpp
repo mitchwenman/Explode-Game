@@ -352,10 +352,11 @@ void drawTriangle(int x1, int y1, int x2, int y2, int x3, int y3, BYTE r, BYTE g
 		if (y == slTri->hRight) 
 			mR = (slTri->XLeftVert - xR)/(double)(slTri->hLeft - slTri->hRight);
 		//y is the y-Offset from the starting point Y1
-		drawLine(xL, xR, slTri->YTopVert - y, slTri->YTopVert - y, r, g, b);
+		drawLine(ceil(xL), ceil(xR - 1), slTri->YTopVert - y, slTri->YTopVert - y, r, g, b);
 		xL += mL;
 		xR += mR;
 	}
+	free(slTri);
 }
 
 void calculateSLTriangle(int x1, int y1, int x2, int y2, int x3, int y3, ScanLTriangle* slTri)
