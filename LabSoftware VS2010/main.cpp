@@ -3,7 +3,6 @@
 #include <string.h>			//- for memset()
 #include <math.h>
 
-
 #ifdef _WIN32
 	#include "libs/glut.h"
 	#include <windows.h>
@@ -228,19 +227,7 @@ void BuildFrame(BYTE *pFrame, int view)
 {
 	
 	BYTE*	screen = (BYTE*)pFrame;		// use copy of screen pointer for safety
-	/*for (int i = 0; i < 2; i++)
-	{
-		drawLine(rand() % FRAME_WIDE, rand() % FRAME_WIDE, rand() % FRAME_HIGH, rand() % FRAME_HIGH,
-					rand() % 255, rand() % 255, rand() % 255, rand() % 255, rand() % 255, rand() % 255);
-	}
-	*/
-	//Triangle test
-	//drawLine(FRAME_WIDE/2, 0, FRAME_HIGH - 1, 0, 255, 255, 255);
-	//drawLine(FRAME_WIDE/2, FRAME_WIDE - 1, FRAME_HIGH - 1, 200, 255, 255, 255);
-	//drawLine(0, FRAME_WIDE - 1, 0, 200, 255, 255, 255);
-
-	//for (int i = 0; i < 3; i++)
-	//{
+	
 	RGBColour* colour1 = (RGBColour*)malloc(sizeof(RGBColour));
 	RGBColour* colour2 = (RGBColour*)malloc(sizeof(RGBColour));
 	RGBColour* colour3 = (RGBColour*)malloc(sizeof(RGBColour));
@@ -261,7 +248,7 @@ void BuildFrame(BYTE *pFrame, int view)
 	free(colour1);
 	free(colour2);
 	free(colour3);
-	//}
+
 	
 }
 
