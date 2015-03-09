@@ -12,9 +12,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="PixelDrawer.cpp" />
     <ClCompile Include="ScanlineTriangle.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="PixelDrawer.h" />
     <ClInclude Include="RGBColor.h" />
     <ClInclude Include="ScanLineTriangle.h" />
   </ItemGroup>
