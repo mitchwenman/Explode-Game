@@ -1,3 +1,6 @@
+#ifndef SCANLINETRIANGLE_
+#define SCANLINETRIANGLE_
+
 #include "RGBColor.h"
 
 class ScanLineTriangle
@@ -13,3 +16,5 @@ public:
 
 	void draw(BYTE* frameBuffer);
 };
+
+#endif

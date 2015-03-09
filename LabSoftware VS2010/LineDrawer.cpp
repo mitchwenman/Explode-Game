@@ -1,5 +1,5 @@
 #include "LineDrawer.h"
-
+#include <stdlib.h>
 
 namespace LineDrawer
 {
@@ -32,6 +32,18 @@ namespace LineDrawer
 		DDALine* line = new DDALine(x1, y1, x2, y2);
 		drawLine(line, colour1, colour2);
 		delete(line);
+	}
+
+	void drawLine(int x1, int y1, int x2, int y2, BYTE r1, BYTE g1, BYTE b1, BYTE r2, BYTE g2, BYTE b2)
+	{
+		RGBColour* c1 = (RGBColour*)malloc(sizeof(RGBColour));
+		RGBColour* c2 = (RGBColour*)malloc(sizeof(RGBColour));
+		c1->red = r1; c1->green = g1; c1->blue = b1;
+		c2->red = r2; c2->green = g2; c2->blue = b2;
+		drawLine(x1, y1, x2, y2, c1, c2);
+		//clean up
+		free(c1);
+		free(c2);
 	}
 	 
 }
