@@ -5,6 +5,7 @@
 
 //Application header files
 #include "RGBColor.h"
+#include "PixelDrawer.h"
 
 #ifdef _WIN32
 	#include "libs/glut.h"
@@ -26,7 +27,7 @@
 
 //====== Structs & typedefs =========
 typedef unsigned char BYTE;
-typedef struct RGBColour;
+
 struct POINT2D {int x, y;};
 
 typedef struct 
@@ -226,7 +227,7 @@ void	PlaySoundEffect(char * filename)
 
 void BuildFrame(BYTE *pFrame, int view)
 {
-	
+	PixelDrawer::setPixel(0, 0, 255, 255, 255, pFrame, NUM_CHANNELS, FRAME_WIDE);
 	BYTE*	screen = (BYTE*)pFrame;		// use copy of screen pointer for safety
 	
 	RGBColour* colour1 = (RGBColour*)malloc(sizeof(RGBColour));
