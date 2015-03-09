@@ -3,6 +3,9 @@
 #include <string.h>			//- for memset()
 #include <math.h>
 
+//Application header files
+#include "RGBColor.h"
+
 #ifdef _WIN32
 	#include "libs/glut.h"
 	#include <windows.h>
@@ -23,6 +26,7 @@
 
 //====== Structs & typedefs =========
 typedef unsigned char BYTE;
+typedef struct RGBColour;
 struct POINT2D {int x, y;};
 
 typedef struct 
@@ -31,10 +35,7 @@ typedef struct
 	double steps, xInc, yInc; 
 } DDALine;
 
-typedef struct
-{
-	BYTE red, green, blue;
-} RGBColour;
+
 
 typedef struct
 {
@@ -256,11 +257,11 @@ void BuildFrame(BYTE *pFrame, int view)
 void setPixel(int x, int y, BYTE r, BYTE g, BYTE b)
 {
 	BYTE* screen = (BYTE*)pFrameR; 
-	enum CHANNEL_OFFSET { RED, GREEN, BLUE}; //Channel offsets
+
 	//Set red, green and blue
-	screen[NUM_CHANNELS * (x + y * FRAME_WIDE) + RED] = r;
-	screen[NUM_CHANNELS * (x + y * FRAME_WIDE) + GREEN] = g;
-	screen[NUM_CHANNELS * (x + y * FRAME_WIDE) + BLUE] = b;
+	screen[NUM_CHANNELS * (x + y * FRAME_WIDE) + RED_OFFSET] = r;
+	screen[NUM_CHANNELS * (x + y * FRAME_WIDE) + GREEN_OFFSET] = g;
+	screen[NUM_CHANNELS * (x + y * FRAME_WIDE) + BLUE_OFFSET] = b;
 }
 
 void drawLine(int x1, int x2, int y1, int y2, BYTE r, BYTE g, BYTE b)
