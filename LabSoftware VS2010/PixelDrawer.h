@@ -1,6 +1,12 @@
 #include "RGBColor.h"
 
-namespace PixelDrawer
+class PixelDrawer
 {
-	void setPixel(int x, int y, BYTE r, BYTE g, BYTE b, BYTE* frameBuffer, int numColourChannels, int frameWidth);
-}
+
+public:
+	static int numColourChannels, frameWidth;
+	static BYTE* frameBuffer;
+
+	static void setPixel(int x, int y, BYTE r, BYTE g, BYTE b);
+	static void setPixel(int x, int y, BYTE r, BYTE g, BYTE b, BYTE* frameBuffer, int numColourChannels, int frameWidth);
+};

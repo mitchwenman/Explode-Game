@@ -11,11 +11,16 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="DDALine.cpp" />
+    <ClCompile Include="GraphicsUtil.h" />
+    <ClCompile Include="LineDrawer.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PixelDrawer.cpp" />
     <ClCompile Include="ScanlineTriangle.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DDALine.h" />
+    <ClInclude Include="LineDrawer.h" />
     <ClInclude Include="PixelDrawer.h" />
     <ClInclude Include="RGBColor.h" />
     <ClInclude Include="ScanLineTriangle.h" />

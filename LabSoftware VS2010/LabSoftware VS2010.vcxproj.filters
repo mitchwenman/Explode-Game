@@ -20,6 +20,15 @@
     <ClCompile Include="PixelDrawer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="LineDrawer.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DDALine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphicsUtil.h">
+      <Filter>Header Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RGBColor.h">
@@ -29,6 +38,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="PixelDrawer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LineDrawer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DDALine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
