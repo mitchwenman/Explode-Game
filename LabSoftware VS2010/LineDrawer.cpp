@@ -33,6 +33,7 @@ namespace LineDrawer
 	{
 		DDALine* line = new DDALine(x1, y1, x2, y2);
 		drawLine(line, colour1, colour2, frameWidth);
+		delete(line);
 	}
 	 
 }
