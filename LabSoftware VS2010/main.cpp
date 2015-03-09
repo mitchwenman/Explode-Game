@@ -250,7 +250,7 @@ void BuildFrame(BYTE *pFrame, int view)
 	colour3->green =  rand () % 255; 
 	colour3->blue =  rand () % 255;
 
-	LineDrawer::drawLine(0, FRAME_HIGH - 1, FRAME_WIDE - 1, 0, colour1, colour2, FRAME_WIDE);
+	LineDrawer::drawLine(0, FRAME_HIGH - 1, FRAME_WIDE - 1, 0, colour1, colour2);
 
 	drawTriangle(rand() % FRAME_WIDE, rand() % FRAME_HIGH, 
 					rand() % FRAME_WIDE,rand() % FRAME_HIGH, 
