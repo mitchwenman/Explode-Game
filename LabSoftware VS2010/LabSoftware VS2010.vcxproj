@@ -12,9 +12,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="ScanlineTriangle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RGBColor.h" />
+    <ClInclude Include="ScanLineTriangle.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{327DBF0B-A54A-434B-AC40-EAF035440FC7}</ProjectGuid>
