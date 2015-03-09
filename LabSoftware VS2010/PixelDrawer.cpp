@@ -1,9 +1,12 @@
 #include "PixelDrawer.h"
 
+int PixelDrawer::frameWidth;
+int PixelDrawer::numColourChannels = 3;
+BYTE* PixelDrawer::frameBuffer;
 
 void PixelDrawer::setPixel(int x, int y, BYTE r, BYTE g, BYTE b)
 {
-	PixelDrawer::setPixel(x, y, r, g, b, frameBuffer, numColourChannels, frameWidth);
+	PixelDrawer::setPixel(x, y, r, g, b, PixelDrawer::frameBuffer, numColourChannels, frameWidth);
 }
 
 void PixelDrawer::setPixel(int x, int y, BYTE r, BYTE g, BYTE b, BYTE* frameBuffer, int numColourChannels, int frameWidth)

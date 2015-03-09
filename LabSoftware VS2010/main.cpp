@@ -6,6 +6,7 @@
 //Application header files
 #include "RGBColor.h"
 #include "PixelDrawer.h"
+#include "LineDrawer.h"
 
 #ifdef _WIN32
 	#include "libs/glut.h"
@@ -29,14 +30,14 @@
 typedef unsigned char BYTE;
 
 struct POINT2D {int x, y;};
-
+/*
 typedef struct 
 { 
 	int x1, x2, y1, y2;
 	double steps, xInc, yInc; 
 } DDALine;
 
-
+*/
 
 typedef struct
 {
@@ -69,9 +70,9 @@ void reshape(int w, int h);
 void OnMouse(int button, int state, int x, int y);
 void OnKeypress(unsigned char key, int x, int y);
 void setPixel(int x, int y, BYTE r, BYTE g, BYTE b);
-void drawLine(int x1, int x2, int y1, int y2, BYTE r, BYTE g, BYTE b);
-void drawLine(int x1, int x2, int y1, int y2, BYTE r1,BYTE g1,BYTE b1, BYTE r2,BYTE g2,BYTE b2);
-void calculateDDALine(DDALine* ddaLine);
+//void drawLine(int x1, int x2, int y1, int y2, BYTE r, BYTE g, BYTE b);
+//void drawLine(int x1, int x2, int y1, int y2, BYTE r1,BYTE g1,BYTE b1, BYTE r2,BYTE g2,BYTE b2);
+//void calculateDDALine(DDALine* ddaLine);
 void drawTriangle(int x1, int y1, int x2, int y2, int x3, int y3, RGBColour* colour1, RGBColour* colour2, RGBColour* colour3);
 void calculateSLTriangle(int x1, int y1, int x2, int y2, int x3, int y3, RGBColour* colour1, RGBColour* colour2, RGBColour* colour3, ScanLTriangle* slTri);
 
@@ -227,7 +228,11 @@ void	PlaySoundEffect(char * filename)
 
 void BuildFrame(BYTE *pFrame, int view)
 {
+	PixelDrawer::frameBuffer = pFrame;
+	PixelDrawer::frameWidth = FRAME_WIDE;
+	PixelDrawer::numColourChannels = 3;
 	PixelDrawer::setPixel(0, 0, 255, 255, 255, pFrame, NUM_CHANNELS, FRAME_WIDE);
+	
 	BYTE*	screen = (BYTE*)pFrame;		// use copy of screen pointer for safety
 	
 	RGBColour* colour1 = (RGBColour*)malloc(sizeof(RGBColour));
@@ -242,6 +247,9 @@ void BuildFrame(BYTE *pFrame, int view)
 	colour3->red =  rand () % 255; 
 	colour3->green =  rand () % 255; 
 	colour3->blue =  rand () % 255;
+
+	LineDrawer::drawLine(0, FRAME_HIGH - 1, FRAME_WIDE - 1, 0, colour1, colour2, FRAME_WIDE);
+
 	drawTriangle(rand() % FRAME_WIDE, rand() % FRAME_HIGH, 
 					rand() % FRAME_WIDE,rand() % FRAME_HIGH, 
 					rand() % FRAME_WIDE, rand() % FRAME_HIGH, 
@@ -264,9 +272,10 @@ void setPixel(int x, int y, BYTE r, BYTE g, BYTE b)
 	screen[NUM_CHANNELS * (x + y * FRAME_WIDE) + GREEN_OFFSET] = g;
 	screen[NUM_CHANNELS * (x + y * FRAME_WIDE) + BLUE_OFFSET] = b;
 }
-
+/*
 void drawLine(int x1, int x2, int y1, int y2, BYTE r, BYTE g, BYTE b)
 {
+	
 	//Create DDALine type for calculation
 	DDALine* dda = new DDALine;
 	dda->x1 = x1; dda->x2 = x2; dda->y1 = y1; dda->y2 = y2;
@@ -329,7 +338,7 @@ void drawLine(int x1, int x2, int y1, int y2, BYTE r1, BYTE g1, BYTE b1, BYTE r2
 		b += bdiff;
 	}
 }
-
+*/
 void drawTriangle(int x1, int y1, int x2, int y2, int x3, int y3,  RGBColour* colour1, RGBColour* colour2, RGBColour* colour3)
 {
 	ScanLTriangle* slTri = (ScanLTriangle*)malloc(sizeof(ScanLTriangle));
@@ -412,9 +421,9 @@ void drawTriangle(int x1, int y1, int x2, int y2, int x3, int y3,  RGBColour* co
 			greenMR = ((double)slTri->colourLeft->green - slTri->colourRight->green)/rightDenom;
 		}
 		//y is the y-Offset from the starting point Y1
-		drawLine(ceil(xL), ceil(xR - 1), slTri->YTopVert - y, slTri->YTopVert - y,
-					clRed, clGreen,clBlue,
-					crRed,crGreen, crBlue);
+		//drawLine(ceil(xL), ceil(xR - 1), slTri->YTopVert - y, slTri->YTopVert - y,
+		//			clRed, clGreen,clBlue,
+		//			crRed,crGreen, crBlue);
 		xL += mL; xR += mR;
 		clRed += redML; clBlue += blueML; clGreen += greenML;
 		crRed += redMR; crBlue += blueMR; crGreen += greenMR;

@@ -13,8 +13,7 @@ DDALine::DDALine(int x1, int y1, int x2, int y2)
 	//Calculate increments for both axes	
 	xInc = dx / (double) steps;
 	yInc = dy / (double) steps;
-	//Place in struct
-	steps = steps;
-	xInc = xInc;
-	yInc = yInc;
+	
+	this->x1 = x1; this->y1 = y1;
+	this->x2 = x2; this->y2 = y2;
 }

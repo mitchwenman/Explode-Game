@@ -27,5 +27,12 @@ namespace LineDrawer
 			b += bdiff;
 		}
 	}
+
+	void drawLine(int x1, int y1, int x2, int y2, RGBColour* colour1, RGBColour* colour2, 
+					int frameWidth)
+	{
+		DDALine* line = new DDALine(x1, y1, x2, y2);
+		drawLine(line, colour1, colour2, frameWidth);
+	}
 	 
 }
