@@ -1,4 +1,5 @@
 #include "PixelDrawer.h"
+#include "GraphicsSettings.h"
 
 int PixelDrawer::frameWidth;
 int PixelDrawer::numColourChannels = 3;
@@ -6,7 +7,9 @@ BYTE* PixelDrawer::frameBuffer;
 
 void PixelDrawer::setPixel(int x, int y, BYTE r, BYTE g, BYTE b)
 {
-	PixelDrawer::setPixel(x, y, r, g, b, PixelDrawer::frameBuffer, numColourChannels, frameWidth);
+	GraphicsSettings* settings = GraphicsSettings::getGraphicsSettings();
+	PixelDrawer::setPixel(x, y, r, g, b, settings->getFrameBuffer(), 
+		settings->getNumberOfChannels(), settings->getFrameWidth());
 }
 
 void PixelDrawer::setPixel(int x, int y, BYTE r, BYTE g, BYTE b, BYTE* frameBuffer, int numColourChannels, int frameWidth)

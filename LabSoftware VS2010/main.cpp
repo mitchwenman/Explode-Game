@@ -7,6 +7,7 @@
 #include "RGBColor.h"
 #include "PixelDrawer.h"
 #include "LineDrawer.h"
+#include "GraphicsSettings.h"
 
 #ifdef _WIN32
 	#include "libs/glut.h"
@@ -228,10 +229,11 @@ void	PlaySoundEffect(char * filename)
 
 void BuildFrame(BYTE *pFrame, int view)
 {
-	PixelDrawer::frameBuffer = pFrame;
-	PixelDrawer::frameWidth = FRAME_WIDE;
-	PixelDrawer::numColourChannels = 3;
-	PixelDrawer::setPixel(0, 0, 255, 255, 255, pFrame, NUM_CHANNELS, FRAME_WIDE);
+	GraphicsSettings* settings = GraphicsSettings::getGraphicsSettings();
+	settings->setFrameDimensions(FRAME_WIDE, FRAME_HIGH);
+	settings->setFrameBuffer(pFrame);
+	settings->setNumberOfChannels(NUM_CHANNELS);
+	
 	
 	BYTE*	screen = (BYTE*)pFrame;		// use copy of screen pointer for safety
 	
