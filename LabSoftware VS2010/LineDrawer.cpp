@@ -3,9 +3,9 @@
 
 namespace LineDrawer
 {
-	void drawLine(DDALine* line, RGBColour* colour1, RGBColour* colour2)
+	void drawLine(GPLine* gpLine, RGBColour* colour1, RGBColour* colour2)
 	{
-		
+		DDALine* line = new DDALine(gpLine);
 		//Create x,y double vars for better rounding
 		double x = line->x1;
 		double y = line->y1;
@@ -29,7 +29,7 @@ namespace LineDrawer
 
 	void drawLine(int x1, int y1, int x2, int y2, RGBColour* colour1, RGBColour* colour2)
 	{
-		DDALine* line = new DDALine(x1, y1, x2, y2);
+		GPLine* line = new GPLine(x1, y1, x2, y2);
 		drawLine(line, colour1, colour2);
 		delete(line);
 	}
