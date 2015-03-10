@@ -1,11 +1,13 @@
 #include "LineDrawer.h"
+#include "DDALine.h"
 #include <stdlib.h>
 
 namespace LineDrawer
 {
 	void drawLine(GPLine* gpLine, RGBColour* colour1, RGBColour* colour2)
 	{
-		DDALine* line = new DDALine(gpLine);
+		GPLine* clippedLine = clipLine(gpLine);
+		DDALine* line = new DDALine(clippedLine);
 		//Create x,y double vars for better rounding
 		double x = line->x1;
 		double y = line->y1;
@@ -44,6 +46,11 @@ namespace LineDrawer
 		//clean up
 		free(c1);
 		free(c2);
+	}
+
+	GPLine* clipLine(GPLine* line)
+	{
+		return new GPLine(line->x1, line->y1, line->x2, line->y2);
 	}
 	 
 }
