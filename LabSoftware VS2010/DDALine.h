@@ -1,12 +1,12 @@
 #ifndef DDALINE_
 #define DDALINE_
 
+#include "GPLine.h"
 
-class DDALine
+class DDALine : public GPLine
 {
 
 public:
-	int x1, x2, y1, y2;
 	double steps, xInc, yInc;
 
 	DDALine(int x1, int y1, int x2, int y2);

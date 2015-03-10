@@ -58,5 +58,8 @@
     <ClInclude Include="ScanLineTriangleDrawer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="GPLine.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

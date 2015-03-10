@@ -22,6 +22,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DDALine.h" />
+    <ClInclude Include="GPLine.h" />
     <ClInclude Include="GraphicsSettings.h" />
     <ClInclude Include="LineDrawer.h" />
     <ClInclude Include="PixelDrawer.h" />
