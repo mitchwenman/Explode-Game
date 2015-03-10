@@ -1,6 +1,12 @@
 #include "LineDrawer.h"
 #include "DDALine.h"
+#include "GraphicsSettings.h"
+#ifdef _WIN32
+	#include <windows.h>
+#endif
+
 #include <stdlib.h>
+#include <math.h>
 
 namespace LineDrawer
 {
@@ -13,6 +19,7 @@ namespace LineDrawer
 			{
 				GPLine* clippedLine = clipLine(gpLine);
 				line = new DDALine(clippedLine);
+				delete(clippedLine);
 			} else
 			{
 				line = new DDALine(gpLine);
@@ -36,7 +43,9 @@ namespace LineDrawer
 				g += gdiff;
 				b += bdiff;
 			}
+			delete(line);
 		}
+		
 		
 	}
 
@@ -61,7 +70,56 @@ namespace LineDrawer
 
 	GPLine* clipLine(GPLine* line)
 	{
-		return new GPLine(line->x1, line->y1, line->x2, line->y2);
+		//Get edge details
+		GraphicsSettings* settings = GraphicsSettings::getGraphicsSettings();
+		int leftEdge = 0;
+		int topEdge = settings->getFrameHeight() - 1;
+		int rightEdge = settings->getFrameWidth() - 1;
+		int bottomEdge = 0;
+
+		//Vars for calculation
+		int x0, y0, x1, y1;
+		x0 = min(line->x1, line->x2);
+		if (x0 == line->x1)
+		{
+			y0 = line->y1;
+			x1 = line->x2;
+			y1 = line->y2;
+		} else
+		{
+			y0 = line->y2;
+			x1 = line->x1;
+			y1 = line->y1;
+		}
+
+		double t0 = 0;
+		double t1 = 1;
+		int deltaX = x1 - x0;
+		int deltaY = y1 - y0;
+		double p, q, r;
+		enum Edges { LEFT, TOP, RIGHT, BOTTOM }; //For readability in loop
+		for (int edge = LEFT; edge <= BOTTOM; edge++)
+		{
+			if (edge == LEFT) {		p = -deltaX;	q = -(leftEdge - x0); }
+			if (edge == TOP) {		p = deltaY;		q = topEdge - y0; }
+			if (edge == RIGHT) {	p = deltaX;		q = rightEdge - x0; }	 
+			if (edge == BOTTOM) {	p = -deltaY;	q = -(bottomEdge - y0); }
+			r = q/p;
+
+			if (p < 0)
+			{
+				if (r > t0) t0 = r;
+			} else if (p > 0)
+			{
+				if (r < t1) t1 = r;
+			}
+			
+		}
+		
+		return new GPLine((double)x0 + t0 * deltaX, 
+							(double)y0 + t0 * deltaY, 
+							(double)x0 + t1 * deltaX, 
+							(double)y0 + t1 * deltaY);
 	}
 
 	bool isLineInFrame(GPLine* line)
@@ -71,7 +129,16 @@ namespace LineDrawer
 
 	bool lineNeedsClipping(GPLine* line)
 	{
-		return true;
+		GraphicsSettings* settings = GraphicsSettings::getGraphicsSettings();
+		int minX = 0; int maxX = settings->getFrameWidth();
+		int minY = 0; int maxY = settings->getFrameHeight();
+		if (line->x1 < minX || line->x1 > maxX) return true;
+		if (line->x2 < minX || line->x2 > maxX) return true;
+		if (line->y1 < minY || line->y1 > maxY) return true;
+		if (line->y2 < minY || line->y2 > maxY) return true;
+		
+		//All conditions failed - line doesn't need clipping
+		return false;
 	}
 	 
 }

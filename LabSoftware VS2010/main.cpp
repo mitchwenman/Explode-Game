@@ -240,8 +240,12 @@ void BuildFrame(BYTE *pFrame, int view)
 					rand() % FRAME_WIDE,rand() % FRAME_HIGH, 
 					rand() % FRAME_WIDE, rand() % FRAME_HIGH, 
 					colour1, colour2, colour3);
-	ScanLineTriangleDrawer::draw(tri);
+	//ScanLineTriangleDrawer::draw(tri);
 	
+	// --------- Testing
+	LineDrawer::drawLine(FRAME_WIDE/2, FRAME_HIGH + 100, FRAME_WIDE/2, -20, colour1, colour2);
+	//--------------
+
 	Sleep(1000);
 	delete(tri);
 	free(colour1);
