@@ -17,6 +17,7 @@
     <ClCompile Include="LineDrawer.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PixelDrawer.cpp" />
+    <ClCompile Include="Polygon2D.cpp" />
     <ClCompile Include="ScanlineTriangle.cpp" />
     <ClCompile Include="ScanLineTriangleDrawer.cpp" />
   </ItemGroup>
@@ -26,6 +27,7 @@
     <ClInclude Include="GraphicsSettings.h" />
     <ClInclude Include="LineDrawer.h" />
     <ClInclude Include="PixelDrawer.h" />
+    <ClInclude Include="Polygon2D.h" />
     <ClInclude Include="RGBColor.h" />
     <ClInclude Include="ScanLineTriangle.h" />
     <ClInclude Include="ScanLineTriangleDrawer.h" />

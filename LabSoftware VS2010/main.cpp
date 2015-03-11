@@ -10,6 +10,7 @@
 #include "GraphicsSettings.h"
 #include "ScanLineTriangle.h"
 #include "ScanLineTriangleDrawer.h"
+#include "Polygon2D.h"
 
 #ifdef _WIN32
 	#include "libs/glut.h"
@@ -236,18 +237,17 @@ void BuildFrame(BYTE *pFrame, int view)
 	colour3->green =  rand () % 255; 
 	colour3->blue =  rand () % 255;
 	
-	ScanLineTriangle* tri = new ScanLineTriangle(rand() % FRAME_WIDE, rand() % FRAME_HIGH, 
-					rand() % FRAME_WIDE,rand() % FRAME_HIGH, 
-					rand() % FRAME_WIDE, rand() % FRAME_HIGH, 
-					colour1, colour2, colour3);
-	//ScanLineTriangleDrawer::draw(tri);
+	//Testing ---------------
+	GPLine* lineA = new GPLine(0, 0, 0, FRAME_HIGH - 1);
+	GPLine* lineB = new GPLine(0, FRAME_HIGH - 1, FRAME_WIDE - 1, FRAME_HIGH - 1);
+	GPLine* lineC = new GPLine(FRAME_WIDE - 1, FRAME_HIGH - 1, 0, 0);
+	GPLine* sides[] = { lineA, lineB, lineC };
+	Polygon2D* p = new Polygon2D(3, sides);
+	//-------------------------
 	
-	// --------- Testing
-	LineDrawer::drawLine(FRAME_WIDE/2, FRAME_HIGH + 100, FRAME_WIDE/2, -20, colour1, colour2);
-	//--------------
 
 	Sleep(1000);
-	delete(tri);
+
 	free(colour1);
 	free(colour2);
 	free(colour3);
