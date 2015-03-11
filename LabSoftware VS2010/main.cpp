@@ -11,6 +11,7 @@
 #include "ScanLineTriangle.h"
 #include "ScanLineTriangleDrawer.h"
 #include "Polygon2D.h"
+#include "DecompPolygon2D.h"
 
 #ifdef _WIN32
 	#include "libs/glut.h"
@@ -243,6 +244,7 @@ void BuildFrame(BYTE *pFrame, int view)
 	GPLine* lineC = new GPLine(FRAME_WIDE - 1, FRAME_HIGH - 1, 0, 0);
 	GPLine* sides[] = { lineA, lineB, lineC };
 	Polygon2D* p = new Polygon2D(3, sides);
+	DecompPolygon2D* dcp = new DecompPolygon2D(p);
 	//-------------------------
 	
 

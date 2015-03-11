@@ -11,6 +11,7 @@ public:
 	int numSides;
 	std::vector<GPLine*> sides;
 
+	Polygon2D() {};
 	Polygon2D(int numSides, GPLine* sides[]);
 };
 
