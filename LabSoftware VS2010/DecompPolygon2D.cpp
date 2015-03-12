@@ -1,6 +1,7 @@
 #include <math.h>
 
 #include "DecompPolygon2D.h"
+#include <algorithm>
 
 #ifdef _WIN32
 	#include <windows.h>
@@ -12,6 +13,13 @@ DecompPolygon2D::DecompPolygon2D(Polygon2D* p)
 	this->sides = p->sides;
 	this->decompSides.assign(sides.begin(), sides.end());
 	this->triangles.reserve(p->numSides - 2);
+	decompose();
+}
+
+
+void DecompPolygon2D::decompose()
+{
+	std::sort(decompSides.begin(), decompSides.end(), compare);
 }
 
 //Returns true if point intersects
@@ -47,4 +55,13 @@ bool DecompPolygon2D::sameSide(POINT2D l1, POINT2D l2, POINT2D pA, POINT2D pB)
 	//int apt = (pA.x-l1.x) * (l2.y-l1.y) - (l2.x-l1.x) * (pA.y-l1.y);
 	//int bpt = (pB.x-l1.x) * (l2.y-l1.y) - (l2.x-l1.x) * (pB.y- l1.y);
 	return ((apt * bpt) > 0);
+}
+
+bool DecompPolygon2D::compare(GPLine* a, GPLine* b)
+{
+	if ((a->x1 < b->x1 && a->x1 < b->x2) ||
+		(a->x2 < b->x1 && a->x2 < b->x2))
+		return true;
+	else
+		return false;
 }

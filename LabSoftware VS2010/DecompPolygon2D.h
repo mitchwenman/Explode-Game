@@ -26,6 +26,11 @@ public:
 
 	bool sameSide(POINT2D l1, POINT2D l2, POINT2D pA, POINT2D pB);
 
+	void decompose();
+
+	//Custom comparison function for sorting
+	static bool compare(GPLine* a, GPLine* b);
+
 };
 
 #endif

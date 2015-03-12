@@ -3,6 +3,7 @@
 #include <string.h>			//- for memset()
 #include <math.h>
 
+
 //Application header files
 #include "RGBColor.h"
 #include "PixelDrawer.h"
@@ -240,19 +241,12 @@ void BuildFrame(BYTE *pFrame, int view)
 	
 	//Testing ---------------
 	GPLine* lineA = new GPLine(0, 0, 0, FRAME_HIGH - 1);
-	GPLine* lineB = new GPLine(0, FRAME_HIGH - 1, FRAME_WIDE - 1, FRAME_HIGH - 1);
+	GPLine* lineB = new GPLine(1, FRAME_HIGH - 1, FRAME_WIDE - 1, FRAME_HIGH - 1);
 	GPLine* lineC = new GPLine(FRAME_WIDE - 1, FRAME_HIGH - 1, 0, 0);
-	GPLine* sides[] = { lineA, lineB, lineC };
+	GPLine* sides[] = { lineC, lineB, lineA };
 	Polygon2D* p = new Polygon2D(3, sides);
 	DecompPolygon2D* dcp = new DecompPolygon2D(p);
-	POINT2D a = { 0, 0 };
-	POINT2D b = { 0, FRAME_HIGH - 50 };
-	POINT2D c = { FRAME_WIDE/2, FRAME_HIGH / 2 };
-	POINT2D test = { 100, 100 };
-	ScanLineTriangle* tri = new ScanLineTriangle(a.x, a.y, b.x, b.y, c.x, c.y, colour1, colour2, colour3);
-	ScanLineTriangleDrawer::draw(tri);
-	PixelDrawer::setPixel(test.x, test.y, 255, 255, 255);
-	bool res = dcp->insideTest(a, b, c, test);
+
 	//-------------------------
 	
 	delete(lineA);
@@ -260,7 +254,7 @@ void BuildFrame(BYTE *pFrame, int view)
 	delete(lineC);
 	delete(p);
 	delete(dcp);
-	delete(tri);
+
 
 	Sleep(1000);
 
