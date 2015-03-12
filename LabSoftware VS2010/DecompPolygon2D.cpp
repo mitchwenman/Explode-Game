@@ -20,6 +20,7 @@ DecompPolygon2D::DecompPolygon2D(Polygon2D* p)
 void DecompPolygon2D::decompose()
 {
 	int n = findLeftMostLineIndex();
+	int adj = findAdjacentLineIndex(n);
 }
 
 //Returns true if point intersects
@@ -78,7 +79,28 @@ int DecompPolygon2D::findLeftMostLineIndex()
 
 int DecompPolygon2D::findAdjacentLineIndex(int lineAInd)
 {
-	return 0;
+	//Get minimum x value x,y pair
+	int x, y;
+	GPLine* lineA = decompSides[lineAInd];
+	x = min(lineA->x1, lineA->x2); 
+	if (x == lineA->x1) 
+		y = lineA->y1;
+	else
+		y = lineA->y2;
+	//Find first line with equal pair that != lineAInd
+	GPLine* cmp;
+	int size = decompSides.size();
+	for (int i = 0; i < size; i++)
+	{
+		if (i != lineAInd && decompSides[i] != NULL)
+		{
+			cmp = decompSides[i];
+			if ((cmp->x1 == x && cmp->y1 == y) ||
+				(cmp->x2 == x && cmp->y2 == y))
+				return i;
+		}
+	}
+	return -1;
 }
 
 GPLine* DecompPolygon2D::createConnectingLine(GPLine* a, GPLine* b)
