@@ -29,3 +29,8 @@ bool DecompPolygon2D::boxTest(POINT2D pA, POINT2D pB, POINT2D pC, POINT2D pTest)
 	
 	return !outside;
 }
+
+bool DecompPolygon2D::insideTest(POINT2D pA, POINT2D pB, POINT2D pC, POINT2D pTest)
+{
+	return boxTest(pA, pB, pC, pTest);
+}

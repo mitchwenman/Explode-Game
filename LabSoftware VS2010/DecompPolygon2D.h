@@ -21,6 +21,9 @@ public:
 	//Returns true if intersecting
 	bool boxTest(POINT2D pA, POINT2D pB, POINT2D pC, POINT2D pTest);
 
+	//Secondary inside test
+	bool insideTest(POINT2D pA, POINT2D pB, POINT2D pC, POINT2D pTest);
+
 
 };
 

@@ -249,7 +249,7 @@ void BuildFrame(BYTE *pFrame, int view)
 	POINT2D b = { 0, FRAME_HIGH - 50 };
 	POINT2D c = { FRAME_WIDE/2, FRAME_HIGH / 2 };
 	POINT2D test = { FRAME_WIDE/2 - 50, FRAME_HIGH - 1 };
-	bool res = dcp->boxTest(a, b, c, test);
+	bool res = dcp->insideTest(a, b, c, test);
 	//-------------------------
 	
 
