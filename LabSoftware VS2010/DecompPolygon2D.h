@@ -3,6 +3,7 @@
 
 #include "Polygon2D.h"
 #include "ScanLineTriangle.h"
+#include "GraphicsUtil.h"
 
 class DecompPolygon2D : public Polygon2D
 {
@@ -18,7 +19,7 @@ public:
 	//Tests if left most point of testLine is within the box formed by
 	//lines a, b and c.
 	//Returns true if intersecting
-	bool boxTest(GPLine* lineA, GPLine* lineB, GPLine* lineC, GPLine* testLine);
+	bool boxTest(POINT2D pA, POINT2D pB, POINT2D pC, POINT2D pTest);
 
 
 };

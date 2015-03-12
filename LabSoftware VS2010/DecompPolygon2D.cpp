@@ -1,4 +1,10 @@
+#include <math.h>
+
 #include "DecompPolygon2D.h"
+
+#ifdef _WIN32
+	#include <windows.h>
+#endif
 
 DecompPolygon2D::DecompPolygon2D(Polygon2D* p)
 {
@@ -8,7 +14,18 @@ DecompPolygon2D::DecompPolygon2D(Polygon2D* p)
 	this->triangles.reserve(p->numSides - 2);
 }
 
-bool DecompPolygon2D::boxTest(GPLine* lineA, GPLine* lineB, GPLine* lineC, GPLine* testLine)
+//Returns true if point intersects
+bool DecompPolygon2D::boxTest(POINT2D pA, POINT2D pB, POINT2D pC, POINT2D pTest)
 {
-	return false;
+	int leftEdge, rightEdge, topEdge, bottomEdge;
+	leftEdge = min(min(pA.x, pB.x), pC.x);
+	rightEdge = max(max(pA.x, pB.x), pC.x);
+	topEdge = max(max(pA.y, pB.y), pC.y);
+	bottomEdge = min(min(pA.y, pB.y), pC.y);
+	//Test
+	bool outside = false;
+	outside = pTest.x < leftEdge || pTest.x > rightEdge;
+	outside = outside || pTest.y < bottomEdge || pTest.y > topEdge;	
+	
+	return !outside;
 }

@@ -34,7 +34,7 @@
 //====== Structs & typedefs =========
 typedef unsigned char BYTE;
 
-struct POINT2D {int x, y;};
+//struct POINT2D {int x, y;};
 
 
 
@@ -245,7 +245,11 @@ void BuildFrame(BYTE *pFrame, int view)
 	GPLine* sides[] = { lineA, lineB, lineC };
 	Polygon2D* p = new Polygon2D(3, sides);
 	DecompPolygon2D* dcp = new DecompPolygon2D(p);
-	bool b = dcp->boxTest(lineA, lineB, lineC, lineA);
+	POINT2D a = { 0, 0 };
+	POINT2D b = { 0, FRAME_HIGH - 50 };
+	POINT2D c = { FRAME_WIDE/2, FRAME_HIGH / 2 };
+	POINT2D test = { FRAME_WIDE/2 - 50, FRAME_HIGH - 1 };
+	bool res = dcp->boxTest(a, b, c, test);
 	//-------------------------
 	
 
