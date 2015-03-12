@@ -19,8 +19,54 @@ DecompPolygon2D::DecompPolygon2D(Polygon2D* p)
 
 void DecompPolygon2D::decompose()
 {
-	int n = findLeftMostLineIndex();
-	int adj = findAdjacentLineIndex(n);
+	RGBColour* c = (RGBColour*)malloc(sizeof(RGBColour));
+	c->red = c->green = c->blue = 255;
+	GPLine* connectingLine;
+	for (int i = 0; i < numSides - 2; i++)
+	{
+		int leftLineInd = findLeftMostLineIndex();
+		int adjLineInd = findAdjacentLineIndex(leftLineInd);
+		GPLine* connLine = createConnectingLine(decompSides[leftLineInd], decompSides[adjLineInd]);
+		//Check every point for intersections
+		for (int j = 0; decompSides.size() > 3 && j < decompSides.size(); j++)
+		{
+			if (!(j == leftLineInd || j == adjLineInd || decompSides[j] == NULL))
+			{
+				int result = insideTest(decompSides[leftLineInd], decompSides[adjLineInd],
+										connLine, decompSides[j]);
+				if (result != 0) //No intersection
+				{
+					
+					
+
+				}
+				
+			}
+		}
+		GPLine* a = decompSides[leftLineInd];
+		GPLine* b = decompSides[adjLineInd];
+		POINT2D pa = { a->x1, a->y1 };
+		POINT2D pb = { a->x2, a->y2 };
+		POINT2D pc;
+		if ((b->x1 == pa.x && b->y1 == pa.y) ||
+			(b->x1 == pb.x && b->y1 == pb.y))
+		{
+			pc.x = b->x2; pc.y = b->y2;
+		} else
+		{	
+			pc.x = b->x1; pc.y = b->y1;
+		}
+		
+		triangles.push_back(new ScanLineTriangle(pa.x, pa.y, pb.x, pb.y,
+													pc.x, pc.y,
+													c, c, c));
+		decompSides.push_back(connLine);
+		decompSides.erase(decompSides.begin() + leftLineInd);
+		decompSides.erase(decompSides.begin() + adjLineInd - 1);
+
+	}
+	
+
 }
 
 //Returns true if point intersects
@@ -37,6 +83,29 @@ bool DecompPolygon2D::boxTest(POINT2D pA, POINT2D pB, POINT2D pC, POINT2D pTest)
 	outside = outside || pTest.y < bottomEdge || pTest.y > topEdge;	
 	
 	return !outside;
+}
+
+int DecompPolygon2D::insideTest(GPLine* a, GPLine* b, GPLine* c, GPLine* test)
+{
+	POINT2D pa = { a->x1, a->y1 };
+	POINT2D pb = { a->x2, a->y2 };
+	POINT2D pc, ptest;
+	if ((b->x1 == pa.x && b->y1 == pa.y) ||
+		(b->x1 == pb.x && b->y1 == pb.y))
+	{
+		pc.x = b->x2; pc.y = b->y2;
+	} else
+	{	
+		pc.x = b->x1; pc.y = b->y1;
+	}
+	//Test X1Y1 then X2Y2
+	ptest.x = test->x1; ptest.y = test->y1;
+	if (insideTest(pa, pb, pc, ptest))
+		return 1; 
+	ptest.x = test->x2; ptest.y = test->y2;
+	if (insideTest(pa, pb, pc, ptest))
+		return 2; 
+	else return 0;
 }
 
 bool DecompPolygon2D::insideTest(POINT2D pA, POINT2D pB, POINT2D pC, POINT2D pTest)
@@ -60,6 +129,8 @@ bool DecompPolygon2D::sameSide(POINT2D l1, POINT2D l2, POINT2D pA, POINT2D pB)
 
 bool DecompPolygon2D::compare(GPLine* a, GPLine* b)
 {
+	if (a == NULL) return false;
+	if (b == NULL) return true;
 	if ((a->x1 < b->x1 && a->x1 < b->x2) ||
 		(a->x2 < b->x1 && a->x2 < b->x2))
 		return true;
@@ -105,5 +176,24 @@ int DecompPolygon2D::findAdjacentLineIndex(int lineAInd)
 
 GPLine* DecompPolygon2D::createConnectingLine(GPLine* a, GPLine* b)
 {
-	return 0;
+	POINT2D common, aPoint, bPoint;
+	//Find 2 points that are not in both lines
+	if ( (a->x1 == b->x1 && a->y1 == b->y1) ||
+		 (a->x1 == b->x2 && a->y1 == b->y2))
+	{
+		common.x = a->x1; common.y = a->y1;
+		aPoint.x = a->x2; aPoint.y = a->y2;
+	} else
+	{
+		common.x = a->x2; common.y = a->y2;
+		aPoint.x = a->x1; aPoint.y = a->y1;
+	}
+	if ( !(b->x1 == common.x && b->y1 == common.y) )
+	{
+		bPoint.x = b->x1; bPoint.y = b->y1;
+	} else
+	{
+		bPoint.x = b->x2; bPoint.y = b->y2;
+	}
+	return new GPLine(aPoint.x, aPoint.y, bPoint.x, bPoint.y);
 }

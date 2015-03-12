@@ -21,6 +21,9 @@ public:
 	//Returns true if intersecting
 	bool boxTest(POINT2D pA, POINT2D pB, POINT2D pC, POINT2D pTest);
 
+	//Returns 1 if test.x1/y1 intersects, 2 if x2/y2 or 0 if doesn't intersect
+	int insideTest(GPLine* a, GPLine* b, GPLine* c, GPLine* test);
+
 	//Returns true if pTest is inside triangle formed by other points
 	bool insideTest(POINT2D pA, POINT2D pB, POINT2D pC, POINT2D pTest);
 

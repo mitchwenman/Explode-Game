@@ -240,18 +240,26 @@ void BuildFrame(BYTE *pFrame, int view)
 	colour3->blue =  rand () % 255;
 	
 	//Testing ---------------
-	GPLine* lineA = new GPLine(0, 0, 0, FRAME_HIGH - 1);
-	GPLine* lineB = new GPLine(0, FRAME_HIGH - 1, FRAME_WIDE - 1, FRAME_HIGH - 1);
-	GPLine* lineC = new GPLine(FRAME_WIDE - 1, FRAME_HIGH - 1, 0, 0);
-	GPLine* sides[] = { lineC, lineB, lineA };
-	Polygon2D* p = new Polygon2D(3, sides);
-	DecompPolygon2D* dcp = new DecompPolygon2D(p);
+	GPLine* lineA = new GPLine(50, 25, 50, FRAME_HIGH - 25);
+	GPLine* lineB = new GPLine(50, FRAME_HIGH - 25, FRAME_WIDE - 50, FRAME_HIGH - 25);
+	GPLine* lineC = new GPLine(FRAME_WIDE - 50, FRAME_HIGH - 25, FRAME_WIDE - 50, 25);
+	GPLine* lineD = new GPLine(FRAME_WIDE - 50, 25, FRAME_WIDE/2, 5);
+	GPLine* lineE = new GPLine(FRAME_WIDE/2, 5, 50, 25);
 
+	GPLine* sides[] = { lineA, lineB, lineC, lineD, lineE };
+	Polygon2D* p = new Polygon2D(5, sides);
+	DecompPolygon2D* dcp = new DecompPolygon2D(p);
+	for (int i = 0; i < dcp->numSides - 2; i++)
+	{
+		ScanLineTriangleDrawer::draw(dcp->triangles[i]);
+	}
 	//-------------------------
 	
 	delete(lineA);
 	delete(lineB);
 	delete(lineC);
+	delete(lineD);
+	delete(lineE);
 	delete(p);
 	delete(dcp);
 
