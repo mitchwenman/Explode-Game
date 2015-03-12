@@ -242,7 +242,7 @@ void BuildFrame(BYTE *pFrame, int view)
 	//Testing ---------------
 	GPLine* lineA = new GPLine(0, 0, 0, FRAME_HIGH - 1);
 	GPLine* lineB = new GPLine(1, FRAME_HIGH - 1, FRAME_WIDE - 1, FRAME_HIGH - 1);
-	GPLine* lineC = new GPLine(FRAME_WIDE - 1, FRAME_HIGH - 1, 0, 0);
+	GPLine* lineC = new GPLine(FRAME_WIDE - 1, FRAME_HIGH - 1, 50, 0);
 	GPLine* sides[] = { lineC, lineB, lineA };
 	Polygon2D* p = new Polygon2D(3, sides);
 	DecompPolygon2D* dcp = new DecompPolygon2D(p);

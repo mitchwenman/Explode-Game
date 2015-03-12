@@ -28,6 +28,12 @@ public:
 
 	void decompose();
 
+	int findLeftMostLineIndex();
+
+	int findAdjacentLineIndex(int lineAInd);
+
+	GPLine* createConnectingLine(GPLine* a, GPLine* b);
+
 	//Custom comparison function for sorting
 	static bool compare(GPLine* a, GPLine* b);
 

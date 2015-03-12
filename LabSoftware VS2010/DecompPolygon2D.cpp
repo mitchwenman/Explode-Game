@@ -19,7 +19,7 @@ DecompPolygon2D::DecompPolygon2D(Polygon2D* p)
 
 void DecompPolygon2D::decompose()
 {
-	std::sort(decompSides.begin(), decompSides.end(), compare);
+	int n = findLeftMostLineIndex();
 }
 
 //Returns true if point intersects
@@ -64,4 +64,24 @@ bool DecompPolygon2D::compare(GPLine* a, GPLine* b)
 		return true;
 	else
 		return false;
+}
+
+int DecompPolygon2D::findLeftMostLineIndex()
+{
+	std::sort(decompSides.begin(), decompSides.end(), compare);
+	int size = decompSides.size();
+	int i = 0;
+	while (i < size && decompSides[i] == NULL)
+		i++;
+	return i;
+}
+
+int DecompPolygon2D::findAdjacentLineIndex(int lineAInd)
+{
+	return 0;
+}
+
+GPLine* DecompPolygon2D::createConnectingLine(GPLine* a, GPLine* b)
+{
+	return 0;
 }
