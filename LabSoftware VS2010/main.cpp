@@ -245,6 +245,7 @@ void BuildFrame(BYTE *pFrame, int view)
 	GPLine* sides[] = { lineA, lineB, lineC };
 	Polygon2D* p = new Polygon2D(3, sides);
 	DecompPolygon2D* dcp = new DecompPolygon2D(p);
+	bool b = dcp->boxTest(lineA, lineB, lineC, lineA);
 	//-------------------------
 	
 
