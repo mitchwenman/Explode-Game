@@ -15,15 +15,16 @@ public:
 	//Transforms and decomposes normal polygon
 	DecompPolygon2D(Polygon2D* p);
 
-	//Quick box test - use first before inside test
+	//Quick box test
 	//Tests if left most point of testLine is within the box formed by
 	//lines a, b and c.
 	//Returns true if intersecting
 	bool boxTest(POINT2D pA, POINT2D pB, POINT2D pC, POINT2D pTest);
 
-	//Secondary inside test
+	//Returns true if pTest is inside triangle formed by other points
 	bool insideTest(POINT2D pA, POINT2D pB, POINT2D pC, POINT2D pTest);
 
+	bool sameSide(POINT2D l1, POINT2D l2, POINT2D pA, POINT2D pB);
 
 };
 

@@ -32,5 +32,19 @@ bool DecompPolygon2D::boxTest(POINT2D pA, POINT2D pB, POINT2D pC, POINT2D pTest)
 
 bool DecompPolygon2D::insideTest(POINT2D pA, POINT2D pB, POINT2D pC, POINT2D pTest)
 {
-	return boxTest(pA, pB, pC, pTest);
+	if (!boxTest(pA, pB, pC, pTest)) 
+		return true;
+	else
+		return sameSide(pA, pB, pC, pTest) &&
+				sameSide(pA, pC, pB, pTest) &&
+				sameSide(pB, pC, pA, pTest);
+}
+
+bool DecompPolygon2D::sameSide(POINT2D l1, POINT2D l2, POINT2D pA, POINT2D pB)
+{
+	double apt = (l2.x - l1.x) * (pA.y - l1.y) - (l2.y - l1.y) * (pA.x - l1.x);
+	double bpt = (l2.x - l1.x) * (pB.y - l1.y) - (l2.y - l1.y) * (pB.x - l1.x);
+	//int apt = (pA.x-l1.x) * (l2.y-l1.y) - (l2.x-l1.x) * (pA.y-l1.y);
+	//int bpt = (pB.x-l1.x) * (l2.y-l1.y) - (l2.x-l1.x) * (pB.y- l1.y);
+	return ((apt * bpt) > 0);
 }

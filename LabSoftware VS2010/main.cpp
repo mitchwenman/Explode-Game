@@ -248,10 +248,19 @@ void BuildFrame(BYTE *pFrame, int view)
 	POINT2D a = { 0, 0 };
 	POINT2D b = { 0, FRAME_HIGH - 50 };
 	POINT2D c = { FRAME_WIDE/2, FRAME_HIGH / 2 };
-	POINT2D test = { FRAME_WIDE/2 - 50, FRAME_HIGH - 1 };
+	POINT2D test = { 100, 100 };
+	ScanLineTriangle* tri = new ScanLineTriangle(a.x, a.y, b.x, b.y, c.x, c.y, colour1, colour2, colour3);
+	ScanLineTriangleDrawer::draw(tri);
+	PixelDrawer::setPixel(test.x, test.y, 255, 255, 255);
 	bool res = dcp->insideTest(a, b, c, test);
 	//-------------------------
 	
+	delete(lineA);
+	delete(lineB);
+	delete(lineC);
+	delete(p);
+	delete(dcp);
+	delete(tri);
 
 	Sleep(1000);
 
