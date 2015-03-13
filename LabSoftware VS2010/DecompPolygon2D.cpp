@@ -16,6 +16,21 @@ DecompPolygon2D::DecompPolygon2D(Polygon2D* p)
 	decompose();
 }
 
+bool findCommonPoints(GPLine* a, GPLine* b, POINT2D* common)
+{
+	if ( (a->x1 == b->x1 && a->y1 == b->y1) ||
+		 (a->x1 == b->x2 && a->y1 == b->y2))
+	{
+		common->x = a->x1; common->y = a->y1;
+	} else
+	{
+		common->x = a->x2; common->y = a->y2;
+	}
+	return true;
+}
+
+
+
 
 void DecompPolygon2D::decompose()
 {
@@ -34,8 +49,50 @@ void DecompPolygon2D::decompose()
 			{
 				int result = insideTest(decompSides[leftLineInd], decompSides[adjLineInd],
 										connLine, decompSides[j]);
-				if (result != 0) //No intersection
+				if (result != 0) //Intersection
 				{
+					POINT2D pa = { decompSides[leftLineInd]->x1, decompSides[leftLineInd]->y1 };
+					POINT2D pb = { decompSides[leftLineInd]->x2, decompSides[leftLineInd]->y2 };
+					POINT2D intersect;
+					if (result == 1)
+					{
+						intersect.x = decompSides[j]->x1;
+						intersect.y = decompSides[j]->y1;
+					} else
+					{
+						intersect.x = decompSides[j]->x2;
+						intersect.y = decompSides[j]->y2;
+					}
+					for (int k = 0; k < decompSides.size(); k++)
+					{
+						if (!(k == leftLineInd || k == adjLineInd || decompSides[k] == NULL))
+						{
+							GPLine* test = decompSides[k];
+							POINT2D ptest = { test->x1, test->y1 };
+							if (!insideTest(pa, pb, intersect, ptest))
+							{
+								intersect.x = test->x1; intersect.y = test->y1;
+								k = 0;
+								continue;
+							} 
+							intersect.x = test->x2; intersect.y = test->y2;
+							if (!insideTest(pa, pb, intersect, ptest))
+							{
+								intersect.x = test->x1; intersect.y = test->y1;
+								k = 0;
+								continue;
+							} 
+						}
+					}
+
+						//Check if any adjacent has an adjacent line with intersecting coordinates
+						//Get coordinates of the other end of leftLine and other end of adjacent line
+						//See if any line matches (left.otherEnd, intersect) or (adj.otherend, intersect)
+							//If line found - foundline index = adjacent line
+								//test with those coords
+								//Delete and recreate connLine
+							
+
 					
 					
 
