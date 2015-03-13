@@ -16,7 +16,7 @@ DecompPolygon2D::DecompPolygon2D(Polygon2D* p)
 	decompose();
 }
 
-bool findCommonPoints(GPLine* a, GPLine* b, POINT2D* common)
+bool findCommonPoint(GPLine* a, GPLine* b, POINT2D* common)
 {
 	if ( (a->x1 == b->x1 && a->y1 == b->y1) ||
 		 (a->x1 == b->x2 && a->y1 == b->y2))
@@ -29,7 +29,35 @@ bool findCommonPoints(GPLine* a, GPLine* b, POINT2D* common)
 	return true;
 }
 
+bool findUncommonPoint(GPLine* a, GPLine*b, POINT2D* ucB)
+{
+	POINT2D common, aPoint, bPoint;
+	findCommonPoint(a, b, &common);	
+	if (b->x1 == common.x && b->y1 == common.y)
+	{
+		ucB->x = b->x2; ucB->y = b->y2;
+	} else
+	{
+		ucB->x = b->x1; ucB->y = b->y1;
+	}
+	return true;
+}
 
+int DecompPolygon2D::findLineWithCoords(POINT2D p1, POINT2D p2)
+{
+	for (int i = 0; i < decompSides.size(); i++)
+	{
+		GPLine* line = decompSides[i];
+		if ((line->x1 == p1.x && line->y1 == p1.y &&
+			line->x2 == p2.x && line->y2 == p2.y) ||
+			(line->x1 == p2.x && line->y1 == p2.y &&
+			line->x2 == p1.x && line->y2 == p1.y))
+		{
+			return i;
+		}
+	}
+	return -1;
+}
 
 
 void DecompPolygon2D::decompose()
@@ -40,87 +68,59 @@ void DecompPolygon2D::decompose()
 	for (int i = 0; i < numSides - 2; i++)
 	{
 		int leftLineInd = findLeftMostLineIndex();
-		int adjLineInd = findAdjacentLineIndex(leftLineInd);
-		GPLine* connLine = createConnectingLine(decompSides[leftLineInd], decompSides[adjLineInd]);
+		
+		POINT2D pa = { decompSides[leftLineInd]->x1, decompSides[leftLineInd]->y1 };
+		POINT2D pb = { decompSides[leftLineInd]->x2, decompSides[leftLineInd]->y2 };
+		POINT2D pvar;
+		findUncommonPoint(decompSides[leftLineInd], decompSides[leftLineInd + 1], &pvar);
 		//Check every point for intersections
-		for (int j = 0; decompSides.size() > 3 && j < decompSides.size(); j++)
+		for (int j = 0; j < decompSides.size(); j++)
 		{
-			if (!(j == leftLineInd || j == adjLineInd || decompSides[j] == NULL))
+			if (j != leftLineInd)
 			{
-				int result = insideTest(decompSides[leftLineInd], decompSides[adjLineInd],
-										connLine, decompSides[j]);
-				if (result != 0) //Intersection
+				GPLine* test = decompSides[j];
+				POINT2D pInside = { test->x1, test->y1 }; //Testing if ptest is inside
+				if (!((pInside.x == pa.x && pInside.y == pa.y) ||
+						(pInside.x == pb.x && pInside.y == pb.y) ||
+						(pInside.x == pvar.x && pInside.y == pvar.y)))
 				{
-					POINT2D pa = { decompSides[leftLineInd]->x1, decompSides[leftLineInd]->y1 };
-					POINT2D pb = { decompSides[leftLineInd]->x2, decompSides[leftLineInd]->y2 };
-					POINT2D intersect;
-					if (result == 1)
+					if (insideTest(pa, pb, pvar, pInside))
+					{					
+						pvar.x = pInside.x; pvar.y = pInside.y;
+						j = -1;
+						continue;
+					} 
+				}
+				
+				pInside.x = test->x2; pInside.y = test->y2;
+				if (!((pInside.x == pa.x && pInside.y == pa.y) ||
+						(pInside.x == pb.x && pInside.y == pb.y) ||
+						(pInside.x == pvar.x && pInside.y ==pvar.y)))
+				{
+					if (insideTest(pa, pb, pvar, pInside))
 					{
-						intersect.x = decompSides[j]->x1;
-						intersect.y = decompSides[j]->y1;
-					} else
-					{
-						intersect.x = decompSides[j]->x2;
-						intersect.y = decompSides[j]->y2;
-					}
-					for (int k = 0; k < decompSides.size(); k++)
-					{
-						if (!(k == leftLineInd || k == adjLineInd || decompSides[k] == NULL))
-						{
-							GPLine* test = decompSides[k];
-							POINT2D ptest = { test->x1, test->y1 };
-							if (!insideTest(pa, pb, intersect, ptest))
-							{
-								intersect.x = test->x1; intersect.y = test->y1;
-								k = 0;
-								continue;
-							} 
-							intersect.x = test->x2; intersect.y = test->y2;
-							if (!insideTest(pa, pb, intersect, ptest))
-							{
-								intersect.x = test->x1; intersect.y = test->y1;
-								k = 0;
-								continue;
-							} 
-						}
-					}
-
-						//Check if any adjacent has an adjacent line with intersecting coordinates
-						//Get coordinates of the other end of leftLine and other end of adjacent line
-						//See if any line matches (left.otherEnd, intersect) or (adj.otherend, intersect)
-							//If line found - foundline index = adjacent line
-								//test with those coords
-								//Delete and recreate connLine
-							
-
-					
-					
-
+						pvar.x = test->x1; pvar.y = test->y1;
+						j = -1;
+						continue;
+					} 
 				}
 				
 			}
+			
 		}
-		GPLine* a = decompSides[leftLineInd];
-		GPLine* b = decompSides[adjLineInd];
-		POINT2D pa = { a->x1, a->y1 };
-		POINT2D pb = { a->x2, a->y2 };
-		POINT2D pc;
-		if ((b->x1 == pa.x && b->y1 == pa.y) ||
-			(b->x1 == pb.x && b->y1 == pb.y))
-		{
-			pc.x = b->x2; pc.y = b->y2;
-		} else
-		{	
-			pc.x = b->x1; pc.y = b->y1;
-		}
-		
-		triangles.push_back(new ScanLineTriangle(pa.x, pa.y, pb.x, pb.y,
-													pc.x, pc.y,
-													c, c, c));
-		decompSides.push_back(connLine);
 		decompSides.erase(decompSides.begin() + leftLineInd);
-		decompSides.erase(decompSides.begin() + adjLineInd - 1);
-
+		int paPVLine = findLineWithCoords(pa, pvar);
+		if (paPVLine != -1)
+			decompSides.erase(decompSides.begin() + paPVLine);
+		else 
+			decompSides.push_back(new GPLine(pa.x , pa.y, pvar.x, pvar.y));
+		int pbPVLine = findLineWithCoords(pb, pvar);
+		if (pbPVLine != -1)
+			decompSides.erase(decompSides.begin() + pbPVLine);
+		else
+			decompSides.push_back(new GPLine(pb.x, pb.y, pvar.x, pvar.y));
+		
+		triangles.push_back(new ScanLineTriangle(pa.x , pa.y, pb.x, pb.y, pvar.x, pvar.y, c, c, c));		
 	}
 	
 
@@ -168,7 +168,7 @@ int DecompPolygon2D::insideTest(GPLine* a, GPLine* b, GPLine* c, GPLine* test)
 bool DecompPolygon2D::insideTest(POINT2D pA, POINT2D pB, POINT2D pC, POINT2D pTest)
 {
 	if (!boxTest(pA, pB, pC, pTest)) 
-		return true;
+		return false;
 	else
 		return sameSide(pA, pB, pC, pTest) &&
 				sameSide(pA, pC, pB, pTest) &&
@@ -179,8 +179,6 @@ bool DecompPolygon2D::sameSide(POINT2D l1, POINT2D l2, POINT2D pA, POINT2D pB)
 {
 	double apt = (l2.x - l1.x) * (pA.y - l1.y) - (l2.y - l1.y) * (pA.x - l1.x);
 	double bpt = (l2.x - l1.x) * (pB.y - l1.y) - (l2.y - l1.y) * (pB.x - l1.x);
-	//int apt = (pA.x-l1.x) * (l2.y-l1.y) - (l2.x-l1.x) * (pA.y-l1.y);
-	//int bpt = (pB.x-l1.x) * (l2.y-l1.y) - (l2.x-l1.x) * (pB.y- l1.y);
 	return ((apt * bpt) > 0);
 }
 

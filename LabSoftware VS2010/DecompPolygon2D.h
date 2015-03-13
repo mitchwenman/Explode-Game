@@ -37,6 +37,8 @@ public:
 
 	GPLine* createConnectingLine(GPLine* a, GPLine* b);
 
+	int DecompPolygon2D::findLineWithCoords(POINT2D p1, POINT2D p2);
+
 	//Custom comparison function for sorting
 	static bool compare(GPLine* a, GPLine* b);
 
