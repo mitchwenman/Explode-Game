@@ -240,14 +240,18 @@ void BuildFrame(BYTE *pFrame, int view)
 	colour3->blue =  rand () % 255;
 	
 	//Testing ---------------
-	GPLine* lineA = new GPLine(50, 25, 50, FRAME_HIGH - 25);
-	GPLine* lineB = new GPLine(50, FRAME_HIGH - 25, FRAME_WIDE - 50, FRAME_HIGH - 25);
-	GPLine* lineC = new GPLine(FRAME_WIDE - 50, FRAME_HIGH - 25, FRAME_WIDE - 50, 25);
-	GPLine* lineD = new GPLine(FRAME_WIDE - 50, 25, FRAME_WIDE/2, 5);
-	GPLine* lineE = new GPLine(FRAME_WIDE/2, 5, 50, 25);
+	GPLine* l1 = new GPLine(50, 25, 50, FRAME_HIGH - 25);
+	GPLine* l2 = new GPLine(50, FRAME_HIGH - 25, FRAME_WIDE - 25, FRAME_HIGH - 25);
+	GPLine* l3 = new GPLine(FRAME_WIDE - 25,  FRAME_HIGH - 25, FRAME_WIDE - 25, FRAME_HIGH - 75);
+	GPLine* l4 = new GPLine(FRAME_WIDE - 25, FRAME_HIGH - 75, 100, FRAME_HIGH - 75);
+	GPLine* l5 = new GPLine(100, FRAME_HIGH - 75, 100, 100);
+	GPLine* l6 = new GPLine(100, 100, FRAME_WIDE - 25, 100);
+	GPLine* l7 = new GPLine(FRAME_WIDE - 25, 100, FRAME_WIDE - 25, 25);
+	GPLine* l8 = new GPLine(FRAME_WIDE - 25, 25, 50, 25);
 
-	GPLine* sides[] = { lineA, lineB, lineC, lineD, lineE };
-	Polygon2D* p = new Polygon2D(5, sides);
+
+	GPLine* sides[] = { l1, l2, l3, l4, l5, l6, l7, l8 };
+	Polygon2D* p = new Polygon2D(8, sides);
 	DecompPolygon2D* dcp = new DecompPolygon2D(p);
 	for (int i = 0; i < dcp->numSides - 2; i++)
 	{
@@ -255,11 +259,14 @@ void BuildFrame(BYTE *pFrame, int view)
 	}
 	//-------------------------
 	
-	delete(lineA);
-	delete(lineB);
-	delete(lineC);
-	delete(lineD);
-	delete(lineE);
+	delete(l1);
+	delete(l2);
+	delete(l3);
+	delete(l4);
+	delete(l5);
+	delete(l6);
+	delete(l7);
+	delete(l8);
 	delete(p);
 	delete(dcp);
 

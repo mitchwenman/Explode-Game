@@ -72,7 +72,12 @@ void DecompPolygon2D::decompose()
 		POINT2D pa = { decompSides[leftLineInd]->x1, decompSides[leftLineInd]->y1 };
 		POINT2D pb = { decompSides[leftLineInd]->x2, decompSides[leftLineInd]->y2 };
 		POINT2D pvar;
-		findUncommonPoint(decompSides[leftLineInd], decompSides[leftLineInd + 1], &pvar);
+		for (int k = 1; k < decompSides.size(); k++)
+		{
+			findUncommonPoint(decompSides[leftLineInd], decompSides[leftLineInd + k], &pvar);
+			if (pvar.x > min(pa.x, pb.x)) break;
+		}
+		
 		//Check every point for intersections
 		for (int j = 0; j < decompSides.size(); j++)
 		{
@@ -80,7 +85,8 @@ void DecompPolygon2D::decompose()
 			{
 				GPLine* test = decompSides[j];
 				POINT2D pInside = { test->x1, test->y1 }; //Testing if ptest is inside
-				if (!((pInside.x == pa.x && pInside.y == pa.y) ||
+				if (pvar.x > min(pa.x, pb.x) &&
+					!((pInside.x == pa.x && pInside.y == pa.y) ||
 						(pInside.x == pb.x && pInside.y == pb.y) ||
 						(pInside.x == pvar.x && pInside.y == pvar.y)))
 				{
@@ -93,13 +99,14 @@ void DecompPolygon2D::decompose()
 				}
 				
 				pInside.x = test->x2; pInside.y = test->y2;
-				if (!((pInside.x == pa.x && pInside.y == pa.y) ||
+				if (pvar.x > min(pa.x, pb.x) &&
+					!((pInside.x == pa.x && pInside.y == pa.y) ||
 						(pInside.x == pb.x && pInside.y == pb.y) ||
 						(pInside.x == pvar.x && pInside.y ==pvar.y)))
 				{
 					if (insideTest(pa, pb, pvar, pInside))
 					{
-						pvar.x = test->x1; pvar.y = test->y1;
+						pvar.x = pInside.x; pvar.y = pInside.y;
 						j = -1;
 						continue;
 					} 
@@ -179,7 +186,7 @@ bool DecompPolygon2D::sameSide(POINT2D l1, POINT2D l2, POINT2D pA, POINT2D pB)
 {
 	double apt = (l2.x - l1.x) * (pA.y - l1.y) - (l2.y - l1.y) * (pA.x - l1.x);
 	double bpt = (l2.x - l1.x) * (pB.y - l1.y) - (l2.y - l1.y) * (pB.x - l1.x);
-	return ((apt * bpt) > 0);
+	return ((apt * bpt) >= 0);
 }
 
 bool DecompPolygon2D::compare(GPLine* a, GPLine* b)
