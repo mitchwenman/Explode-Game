@@ -240,14 +240,10 @@ void BuildFrame(BYTE *pFrame, int view)
 	colour3->blue =  rand () % 255;
 	
 	//Testing ---------------
-	GPLine* l1 = new GPLine(-50, 25, -50, FRAME_HIGH - 25);
-	GPLine* l2 = new GPLine(-50, FRAME_HIGH - 25, FRAME_WIDE - 25, FRAME_HIGH - 25);
-	GPLine* l3 = new GPLine(FRAME_WIDE - 25, FRAME_HIGH - 25, FRAME_WIDE - 25, 25);
-	GPLine* l4 = new GPLine(FRAME_WIDE - 25, 25, -50, 25);
+
 	
-	
-	GPLine* sides[] = { l1, l2, l3, l4 };
-	Polygon2D* p = new Polygon2D(4, sides);
+	POINT2D verts[] = { { 25, 50 }, { 25, 300 }, { 500, 300 }, { 500, 50 } };
+	Polygon2D* p = new Polygon2D(4, verts);
 	DecompPolygon2D* dcp = new DecompPolygon2D(p);
 	for (int i = 0; i < dcp->numSides - 2; i++)
 	{
@@ -255,10 +251,7 @@ void BuildFrame(BYTE *pFrame, int view)
 	}
 	//-------------------------
 	
-	delete(l1);
-	delete(l2);
-	delete(l3);
-	delete(l4);
+	
 	
 	delete(p);
 	delete(dcp);
