@@ -12,39 +12,39 @@ namespace LineDrawer
 {
 	void drawLine(GPLine* gpLine, RGBColour* colour1, RGBColour* colour2)
 	{
-		if (isLineInFrame(gpLine))
+		DDALine* line;
+		if (lineNeedsClipping(gpLine))
 		{
-			DDALine* line;
-			if (lineNeedsClipping(gpLine))
-			{
-				GPLine* clippedLine = clipLine(gpLine);
-				line = new DDALine(clippedLine);
-				delete(clippedLine);
-			} else
-			{
-				line = new DDALine(gpLine);
-			}					
-			//Create x,y double vars for better rounding
-			double x = line->x1;
-			double y = line->y1;
-			//Calculate colour diffs
-			double r, g, b, rdiff, gdiff, bdiff;
-			r = (double)colour1->red; g = (double)colour1->green; b = (double)colour1->blue;
-			rdiff = (colour2->red - colour1->red)/line->steps;
-			gdiff = (colour2->green - colour1->green)/line->steps;
-			bdiff = (colour2->blue - colour1->blue)/line->steps;
-			//Draw the line
-			for (int i = 0; i < line->steps; i++)
-			{
-				PixelDrawer::setPixel(ROUND(x), ROUND(y), (int)r, (int)g, (int)b);
-				x += line->xInc;
-				y += line->yInc;
-				r += rdiff; 
-				g += gdiff;
-				b += bdiff;
-			}
-			delete(line);
+			GPLine* clippedLine = clipLine(gpLine);
+			if (clippedLine == NULL) 
+				return; //Line is outside frame, don't draw anything
+			line = new DDALine(clippedLine);
+			delete(clippedLine);
+		} else
+		{
+			line = new DDALine(gpLine);
+		}					
+		//Create x,y double vars for better rounding
+		double x = line->x1;
+		double y = line->y1;
+		//Calculate colour diffs
+		double r, g, b, rdiff, gdiff, bdiff;
+		r = (double)colour1->red; g = (double)colour1->green; b = (double)colour1->blue;
+		rdiff = (colour2->red - colour1->red)/line->steps;
+		gdiff = (colour2->green - colour1->green)/line->steps;
+		bdiff = (colour2->blue - colour1->blue)/line->steps;
+		//Draw the line
+		for (int i = 0; i < line->steps; i++)
+		{
+			PixelDrawer::setPixel(ROUND(x), ROUND(y), (int)r, (int)g, (int)b);
+			x += line->xInc;
+			y += line->yInc;
+			r += rdiff; 
+			g += gdiff;
+			b += bdiff;
 		}
+		delete(line);
+		
 		
 		
 	}
@@ -108,11 +108,14 @@ namespace LineDrawer
 
 			if (p < 0)
 			{
-				if (r > t0) t0 = r;
+				if (r > t1) return NULL;
+				else if (r > t0) t0 = r;
 			} else if (p > 0)
 			{
-				if (r < t1) t1 = r;
-			}
+				if ( r < t0) return NULL;
+				else if (r < t1) t1 = r;
+			} else if (q < 0)
+				return NULL;
 			
 		}
 		
@@ -120,11 +123,6 @@ namespace LineDrawer
 							(double)y0 + t0 * deltaY, 
 							(double)x0 + t1 * deltaX, 
 							(double)y0 + t1 * deltaY);
-	}
-
-	bool isLineInFrame(GPLine* line)
-	{
-		return true;
 	}
 
 	bool lineNeedsClipping(GPLine* line)

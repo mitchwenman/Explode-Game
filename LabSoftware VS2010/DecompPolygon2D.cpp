@@ -116,6 +116,7 @@ void DecompPolygon2D::decompose()
 			
 		}
 		decompSides.erase(decompSides.begin() + leftLineInd);
+		//Delete line only if it already exists, otherwise add it
 		int paPVLine = findLineWithCoords(pa, pvar);
 		if (paPVLine != -1)
 			decompSides.erase(decompSides.begin() + paPVLine);

@@ -12,8 +12,6 @@ namespace LineDrawer
 
 	GPLine* clipLine(GPLine* line);
 
-	bool isLineInFrame(GPLine* line);
-
 	bool lineNeedsClipping(GPLine* line);
 	 
 }
