@@ -194,11 +194,20 @@ bool DecompPolygon2D::compare(GPLine* a, GPLine* b)
 {
 	if (a == NULL) return false;
 	if (b == NULL) return true;
-	if ((a->x1 < b->x1 && a->x1 < b->x2) ||
-		(a->x2 < b->x1 && a->x2 < b->x2))
-		return true;
-	else
-		return false;
+	int minax = min(a->x1, a->x2);
+	int minbx = min(b->x1, b->x2);
+	if (minax < minbx) return true;
+	else if (minbx < minax) return false;
+	else //equal
+	{
+		int maxax = max(a->x1, a->x2);
+		int maxbx = max(b->x1, b->x2);
+		if (maxax < maxbx)
+			return true;
+		else
+			return false;
+	}
+	
 }
 
 int DecompPolygon2D::findLeftMostLineIndex()
