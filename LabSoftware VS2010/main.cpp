@@ -240,15 +240,8 @@ void BuildFrame(BYTE *pFrame, int view)
 	colour3->blue =  rand () % 255;
 	
 	//Testing ---------------
-	
-	PixelDrawer::setPixel(50, 250, 255, 255, 255);
-	PixelDrawer::setPixel(500,  500, 255, 255, 255);
-	PixelDrawer::setPixel(500, 450, 255, 255, 255);
-	PixelDrawer::setPixel(100, 350, 255, 255, 255);
-	PixelDrawer::setPixel(150, 300, 255, 255, 255);
-	PixelDrawer::setPixel(100, 250 , 255, 255, 255);
-	PixelDrawer::setPixel( 500, 50, 255, 255, 255);
-	POINT2D verts[] = { { 50,250}, { 500,  500 }, { 500, 450 }, { 150, 300 }, { 150, 250 }, { 500, 50 } };
+	VERTEX verts[] = { { 50, 250, colour1 }, { 500,  500, colour2 }, { 500, 450, colour3 }, { 150, 300, colour1 }, { 150, 250, colour2}, { 500, 50, colour3 } };
+	//POINT2D verts[] = { { 50,250}, { 500,  500 }, { 500, 450 }, { 150, 300 }, { 150, 250 }, { 500, 50 } };
 	Polygon2D* p = new Polygon2D(6, verts);
 	DecompPolygon2D* dcp = new DecompPolygon2D(p);
 	for (int i = 0; i < dcp->numSides - 2; i++)

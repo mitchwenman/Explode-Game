@@ -16,34 +16,35 @@ DecompPolygon2D::DecompPolygon2D(Polygon2D* p)
 	decompose();
 }
 
-bool findCommonPoint(GPLine* a, GPLine* b, POINT2D* common)
+bool findCommonPoint(GPLine* a, GPLine* b, VERTEX* common)
 {
 	if ( (a->x1 == b->x1 && a->y1 == b->y1) ||
 		 (a->x1 == b->x2 && a->y1 == b->y2))
 	{
-		common->x = a->x1; common->y = a->y1;
+		common->x = a->x1; common->y = a->y1; common->c = a->c1;
 	} else
 	{
-		common->x = a->x2; common->y = a->y2;
+		common->x = a->x2; common->y = a->y2; common->c = a->c2;
 	}
 	return true;
 }
 
-bool findUncommonPoint(GPLine* a, GPLine*b, POINT2D* ucB)
+//Returns b's non intersecting point with line A
+bool findUncommonPoint(GPLine* a, GPLine*b, VERTEX* ucB)
 {
-	POINT2D common, aPoint, bPoint;
+	VERTEX common, aPoint, bPoint;
 	findCommonPoint(a, b, &common);	
 	if (b->x1 == common.x && b->y1 == common.y)
 	{
-		ucB->x = b->x2; ucB->y = b->y2;
+		ucB->x = b->x2; ucB->y = b->y2; ucB->c = b->c2;
 	} else
 	{
-		ucB->x = b->x1; ucB->y = b->y1;
+		ucB->x = b->x1; ucB->y = b->y1; ucB->c = b->c1;
 	}
 	return true;
 }
 
-int DecompPolygon2D::findLineWithCoords(POINT2D p1, POINT2D p2)
+int DecompPolygon2D::findLineWithCoords(VERTEX p1, VERTEX p2)
 {
 	for (int i = 0; i < decompSides.size(); i++)
 	{
@@ -69,9 +70,9 @@ void DecompPolygon2D::decompose()
 	{
 		int leftLineInd = findLeftMostLineIndex();
 		
-		POINT2D pa = { decompSides[leftLineInd]->x1, decompSides[leftLineInd]->y1 };
-		POINT2D pb = { decompSides[leftLineInd]->x2, decompSides[leftLineInd]->y2 };
-		POINT2D pvar;
+		VERTEX pa = { decompSides[leftLineInd]->x1, decompSides[leftLineInd]->y1, decompSides[leftLineInd]->c1 };
+		VERTEX pb = { decompSides[leftLineInd]->x2, decompSides[leftLineInd]->y2, decompSides[leftLineInd]->c2 };
+		VERTEX pvar;
 		for (int k = 1; k < decompSides.size(); k++)
 		{
 			findUncommonPoint(decompSides[leftLineInd], decompSides[leftLineInd + k], &pvar);
@@ -84,7 +85,7 @@ void DecompPolygon2D::decompose()
 			if (j != leftLineInd)
 			{
 				GPLine* test = decompSides[j];
-				POINT2D pInside = { test->x1, test->y1 }; //Testing if ptest is inside
+				VERTEX pInside = { test->x1, test->y1, test->c1 }; //Testing if ptest is inside
 				if (pvar.x > min(pa.x, pb.x) &&
 					!((pInside.x == pa.x && pInside.y == pa.y) ||
 						(pInside.x == pb.x && pInside.y == pb.y) ||
@@ -92,13 +93,13 @@ void DecompPolygon2D::decompose()
 				{
 					if (insideTest(pa, pb, pvar, pInside))
 					{					
-						pvar.x = pInside.x; pvar.y = pInside.y;
+						pvar.x = pInside.x; pvar.y = pInside.y; pvar.c = pInside.c;
 						j = -1;
 						continue;
 					} 
 				}
 				
-				pInside.x = test->x2; pInside.y = test->y2;
+				pInside.x = test->x2; pInside.y = test->y2; pInside.c = test->c2;
 				if (pvar.x > min(pa.x, pb.x) &&
 					!((pInside.x == pa.x && pInside.y == pa.y) ||
 						(pInside.x == pb.x && pInside.y == pb.y) ||
@@ -106,7 +107,7 @@ void DecompPolygon2D::decompose()
 				{
 					if (insideTest(pa, pb, pvar, pInside))
 					{
-						pvar.x = pInside.x; pvar.y = pInside.y;
+						pvar.x = pInside.x; pvar.y = pInside.y; pvar.c = pInside.c;
 						j = -1;
 						continue;
 					} 
@@ -121,21 +122,21 @@ void DecompPolygon2D::decompose()
 		if (paPVLine != -1)
 			decompSides.erase(decompSides.begin() + paPVLine);
 		else 
-			decompSides.push_back(new GPLine(pa.x , pa.y, pvar.x, pvar.y));
+			decompSides.push_back(new GPLine(pa, pvar));
 		int pbPVLine = findLineWithCoords(pb, pvar);
 		if (pbPVLine != -1)
 			decompSides.erase(decompSides.begin() + pbPVLine);
 		else
-			decompSides.push_back(new GPLine(pb.x, pb.y, pvar.x, pvar.y));
+			decompSides.push_back(new GPLine(pb, pvar));
 		
-		triangles.push_back(new ScanLineTriangle(pa.x , pa.y, pb.x, pb.y, pvar.x, pvar.y, c, c, c));		
+		triangles.push_back(new ScanLineTriangle(pa.x , pa.y, pb.x, pb.y, pvar.x, pvar.y, pa.c, pb.c, pvar.c));		
 	}
 	
 
 }
 
 //Returns true if point intersects
-bool DecompPolygon2D::boxTest(POINT2D pA, POINT2D pB, POINT2D pC, POINT2D pTest)
+bool DecompPolygon2D::boxTest(VERTEX pA, VERTEX pB, VERTEX pC, VERTEX pTest)
 {
 	int leftEdge, rightEdge, topEdge, bottomEdge;
 	leftEdge = min(min(pA.x, pB.x), pC.x);
@@ -152,9 +153,9 @@ bool DecompPolygon2D::boxTest(POINT2D pA, POINT2D pB, POINT2D pC, POINT2D pTest)
 
 int DecompPolygon2D::insideTest(GPLine* a, GPLine* b, GPLine* c, GPLine* test)
 {
-	POINT2D pa = { a->x1, a->y1 };
-	POINT2D pb = { a->x2, a->y2 };
-	POINT2D pc, ptest;
+	VERTEX pa = { a->x1, a->y1 };
+	VERTEX pb = { a->x2, a->y2 };
+	VERTEX pc, ptest;
 	if ((b->x1 == pa.x && b->y1 == pa.y) ||
 		(b->x1 == pb.x && b->y1 == pb.y))
 	{
@@ -173,7 +174,7 @@ int DecompPolygon2D::insideTest(GPLine* a, GPLine* b, GPLine* c, GPLine* test)
 	else return 0;
 }
 
-bool DecompPolygon2D::insideTest(POINT2D pA, POINT2D pB, POINT2D pC, POINT2D pTest)
+bool DecompPolygon2D::insideTest(VERTEX pA, VERTEX pB, VERTEX pC, VERTEX pTest)
 {
 	if (!boxTest(pA, pB, pC, pTest)) 
 		return false;
@@ -183,7 +184,7 @@ bool DecompPolygon2D::insideTest(POINT2D pA, POINT2D pB, POINT2D pC, POINT2D pTe
 				sameSide(pB, pC, pA, pTest);
 }
 
-bool DecompPolygon2D::sameSide(POINT2D l1, POINT2D l2, POINT2D pA, POINT2D pB)
+bool DecompPolygon2D::sameSide(VERTEX l1, VERTEX l2, VERTEX pA, VERTEX pB)
 {
 	double apt = (l2.x - l1.x) * (pA.y - l1.y) - (l2.y - l1.y) * (pA.x - l1.x);
 	double bpt = (l2.x - l1.x) * (pB.y - l1.y) - (l2.y - l1.y) * (pB.x - l1.x);
@@ -248,24 +249,24 @@ int DecompPolygon2D::findAdjacentLineIndex(int lineAInd)
 
 GPLine* DecompPolygon2D::createConnectingLine(GPLine* a, GPLine* b)
 {
-	POINT2D common, aPoint, bPoint;
+	VERTEX common, aPoint, bPoint;
 	//Find 2 points that are not in both lines
 	if ( (a->x1 == b->x1 && a->y1 == b->y1) ||
 		 (a->x1 == b->x2 && a->y1 == b->y2))
 	{
 		common.x = a->x1; common.y = a->y1;
-		aPoint.x = a->x2; aPoint.y = a->y2;
+		aPoint.x = a->x2; aPoint.y = a->y2; aPoint.c = a->c2;
 	} else
 	{
 		common.x = a->x2; common.y = a->y2;
-		aPoint.x = a->x1; aPoint.y = a->y1;
+		aPoint.x = a->x1; aPoint.y = a->y1; aPoint.c = a->c1;
 	}
 	if ( !(b->x1 == common.x && b->y1 == common.y) )
 	{
-		bPoint.x = b->x1; bPoint.y = b->y1;
+		bPoint.x = b->x1; bPoint.y = b->y1; bPoint.c = b->c1;
 	} else
 	{
-		bPoint.x = b->x2; bPoint.y = b->y2;
+		bPoint.x = b->x2; bPoint.y = b->y2; bPoint.c = b->c2;
 	}
-	return new GPLine(aPoint.x, aPoint.y, bPoint.x, bPoint.y);
+	return new GPLine(aPoint, bPoint);
 }

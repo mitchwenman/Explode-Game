@@ -19,15 +19,15 @@ public:
 	//Tests if left most point of testLine is within the box formed by
 	//lines a, b and c.
 	//Returns true if intersecting
-	bool boxTest(POINT2D pA, POINT2D pB, POINT2D pC, POINT2D pTest);
+	bool boxTest(VERTEX pA, VERTEX pB, VERTEX pC, VERTEX pTest);
 
 	//Returns 1 if test.x1/y1 intersects, 2 if x2/y2 or 0 if doesn't intersect
 	int insideTest(GPLine* a, GPLine* b, GPLine* c, GPLine* test);
 
 	//Returns true if pTest is inside triangle formed by other points
-	bool insideTest(POINT2D pA, POINT2D pB, POINT2D pC, POINT2D pTest);
+	bool insideTest(VERTEX pA, VERTEX pB, VERTEX pC, VERTEX pTest);
 
-	bool sameSide(POINT2D l1, POINT2D l2, POINT2D pA, POINT2D pB);
+	bool sameSide(VERTEX l1, VERTEX l2, VERTEX pA, VERTEX pB);
 
 	void decompose();
 
@@ -37,7 +37,7 @@ public:
 
 	GPLine* createConnectingLine(GPLine* a, GPLine* b);
 
-	int DecompPolygon2D::findLineWithCoords(POINT2D p1, POINT2D p2);
+	int DecompPolygon2D::findLineWithCoords(VERTEX p1, VERTEX p2);
 
 	//Custom comparison function for sorting
 	static bool compare(GPLine* a, GPLine* b);
