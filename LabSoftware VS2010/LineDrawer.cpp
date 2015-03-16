@@ -121,7 +121,7 @@ namespace LineDrawer
 		VERTEX p1 = { (int)(x0 + t0 * deltaX), (int)(y0 + t0 * deltaY), line->c1 };
 		VERTEX p2 = { (int)(x0 + t1 * deltaX), (int)(y0 + t1 * deltaY), line->c2 };
 
-		if (x0 == line->x1 && y0 == line->y1)
+ 		if (x0 == line->x1 && y0 == line->y1)
 			return new GPLine(p1, p2);
 		else
 			return new GPLine(p2, p1);
