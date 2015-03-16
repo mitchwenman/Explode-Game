@@ -241,7 +241,7 @@ void BuildFrame(BYTE *pFrame, int view)
 	colour3->blue =  rand () % 255;
 	
 	//Testing ---------------
-	VERTEX verts[] = { { -50, 250, colour1 }, { 500,  500, colour2 }, { 500, 450, colour3 }, { 150, 300, colour1 }, { 150, 250, colour2}, { 500, 50, colour3 } };
+	VERTEX verts[] = { { -200, 250, colour1 }, { 500,  500, colour2 }, { 500, 450, colour3 }, { 150, 300, colour1 }, { 150, 250, colour2}, { 500, 50, colour3 } };
 	//POINT2D verts[] = { { 50,250}, { 500,  500 }, { 500, 450 }, { 150, 300 }, { 150, 250 }, { 500, 50 } };
 	Polygon2D* p = new Polygon2D(6, verts);
 	PolygonDrawer::draw(p);

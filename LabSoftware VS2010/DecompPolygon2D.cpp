@@ -63,8 +63,7 @@ int DecompPolygon2D::findLineWithCoords(VERTEX p1, VERTEX p2)
 
 void DecompPolygon2D::decompose()
 {
-	RGBColour* c = (RGBColour*)malloc(sizeof(RGBColour));
-	c->red = c->green = c->blue = 255;
+
 	GPLine* connectingLine;
 	for (int i = 0; i < numSides - 2; i++)
 	{
@@ -72,7 +71,7 @@ void DecompPolygon2D::decompose()
 		
 		VERTEX pa = { decompSides[leftLineInd]->x1, decompSides[leftLineInd]->y1, decompSides[leftLineInd]->c1 };
 		VERTEX pb = { decompSides[leftLineInd]->x2, decompSides[leftLineInd]->y2, decompSides[leftLineInd]->c2 };
-		VERTEX pvar;
+		VERTEX pvar = { 0, 0, NULL } ;
 		for (int k = 1; k < decompSides.size(); k++)
 		{
 			findUncommonPoint(decompSides[leftLineInd], decompSides[leftLineInd + k], &pvar);
