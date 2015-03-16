@@ -10,7 +10,7 @@
 
 namespace LineDrawer
 {
-	void drawLine(GPLine* gpLine, RGBColour* colour1, RGBColour* colour2)
+	void drawLine(GPLine* gpLine)
 	{
 		DDALine* line;
 		if (lineNeedsClipping(gpLine))
@@ -23,7 +23,9 @@ namespace LineDrawer
 		} else
 		{
 			line = new DDALine(gpLine);
-		}					
+		}	
+		RGBColour* colour1 = line->c1;
+		RGBColour* colour2 = line->c2;
 		//Create x,y double vars for better rounding
 		double x = line->x1;
 		double y = line->y1;
@@ -36,7 +38,7 @@ namespace LineDrawer
 		//Draw the line
 		for (int i = 0; i < line->steps; i++)
 		{
-			PixelDrawer::setPixel(ROUND(x), ROUND(y), (int)r, (int)g, (int)b);
+			PixelDrawer::setPixel(ceil(x), ceil(y - 1), (int)r, (int)g, (int)b);
 			x += line->xInc;
 			y += line->yInc;
 			r += rdiff; 
@@ -52,7 +54,8 @@ namespace LineDrawer
 	void drawLine(int x1, int y1, int x2, int y2, RGBColour* colour1, RGBColour* colour2)
 	{
 		GPLine* line = new GPLine(x1, y1, x2, y2);
-		drawLine(line, colour1, colour2);
+		line->c1 = colour1; line->c2 = colour2;
+		drawLine(line);
 		delete(line);
 	}
 

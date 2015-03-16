@@ -9,6 +9,8 @@ DDALine::DDALine(int x1, int y1, int x2, int y2) : GPLine(x1, y1, x2, y2)
 DDALine::DDALine(GPLine* gpLine) : GPLine(gpLine->x1, gpLine->y1, gpLine->x2, gpLine->y2) 
 {
 	initDDALine();
+	this->c1 = gpLine->c1;
+	this->c2 = gpLine->c2;
 }
 
 void DDALine::initDDALine()
