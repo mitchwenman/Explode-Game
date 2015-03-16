@@ -118,11 +118,10 @@ namespace LineDrawer
 				return NULL;
 			
 		}
-		
-		return new GPLine((double)x0 + t0 * deltaX, 
-							(double)y0 + t0 * deltaY, 
-							(double)x0 + t1 * deltaX, 
-							(double)y0 + t1 * deltaY);
+		VERTEX p1 = { (int)(x0 + t0 * deltaX), (int)(y0 + t0 * deltaY), line->c1 };
+		VERTEX p2 = { (int)(x0 + t1 * deltaX), (int)(y0 + t1 * deltaY), line->c2 };
+
+		return new GPLine(p1, p2);
 	}
 
 	bool lineNeedsClipping(GPLine* line)

@@ -13,6 +13,7 @@
 #include "ScanLineTriangleDrawer.h"
 #include "Polygon2D.h"
 #include "DecompPolygon2D.h"
+#include "PolygonDrawer.h"
 
 #ifdef _WIN32
 	#include "libs/glut.h"
@@ -240,20 +241,16 @@ void BuildFrame(BYTE *pFrame, int view)
 	colour3->blue =  rand () % 255;
 	
 	//Testing ---------------
-	VERTEX verts[] = { { 50, 250, colour1 }, { 500,  500, colour2 }, { 500, 450, colour3 }, { 150, 300, colour1 }, { 150, 250, colour2}, { 500, 50, colour3 } };
+	VERTEX verts[] = { { -50, 250, colour1 }, { 500,  500, colour2 }, { 500, 450, colour3 }, { 150, 300, colour1 }, { 150, 250, colour2}, { 500, 50, colour3 } };
 	//POINT2D verts[] = { { 50,250}, { 500,  500 }, { 500, 450 }, { 150, 300 }, { 150, 250 }, { 500, 50 } };
 	Polygon2D* p = new Polygon2D(6, verts);
-	DecompPolygon2D* dcp = new DecompPolygon2D(p);
-	for (int i = 0; i < dcp->numSides - 2; i++)
-	{
-		ScanLineTriangleDrawer::draw(dcp->triangles[i]);
-	}
+	PolygonDrawer::draw(p);
 	//-------------------------
 	
 	
 	
 	delete(p);
-	delete(dcp);
+
 
 
 	Sleep(1000);
