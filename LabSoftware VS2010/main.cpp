@@ -242,7 +242,7 @@ void BuildFrame(BYTE *pFrame, int view)
 	colour3->blue =  rand () % 255;
 	
 	//Testing ---------------
-	VJSReader::read("VJSTest.txt");
+	Polygon3D* p = VJSReader::read("VJSTest.txt");
 	//-------------------------
 	
 	
