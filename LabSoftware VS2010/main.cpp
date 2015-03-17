@@ -14,6 +14,7 @@
 #include "Polygon2D.h"
 #include "DecompPolygon2D.h"
 #include "PolygonDrawer.h"
+#include "VJSReader.h"
 
 #ifdef _WIN32
 	#include "libs/glut.h"
@@ -241,7 +242,7 @@ void BuildFrame(BYTE *pFrame, int view)
 	colour3->blue =  rand () % 255;
 	
 	//Testing ---------------
-	
+	VJSReader::read("VJSTest.txt");
 	//-------------------------
 	
 	

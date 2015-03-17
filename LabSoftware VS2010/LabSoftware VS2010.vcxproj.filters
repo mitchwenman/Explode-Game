@@ -44,6 +44,9 @@
     <ClCompile Include="PolygonDrawer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="VJSReader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RGBColor.h">
@@ -79,5 +82,14 @@
     <ClInclude Include="PolygonDrawer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Polygon3D.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VJSReader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="VJSTest.txt" />
   </ItemGroup>
 </Project>

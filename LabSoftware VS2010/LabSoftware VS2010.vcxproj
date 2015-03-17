@@ -22,6 +22,7 @@
     <ClCompile Include="PolygonDrawer.cpp" />
     <ClCompile Include="ScanlineTriangle.cpp" />
     <ClCompile Include="ScanLineTriangleDrawer.cpp" />
+    <ClCompile Include="VJSReader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DDALine.h" />
@@ -31,10 +32,15 @@
     <ClInclude Include="LineDrawer.h" />
     <ClInclude Include="PixelDrawer.h" />
     <ClInclude Include="Polygon2D.h" />
+    <ClInclude Include="Polygon3D.h" />
     <ClInclude Include="PolygonDrawer.h" />
     <ClInclude Include="RGBColor.h" />
     <ClInclude Include="ScanLineTriangle.h" />
     <ClInclude Include="ScanLineTriangleDrawer.h" />
+    <ClInclude Include="VJSReader.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="VJSTest.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{327DBF0B-A54A-434B-AC40-EAF035440FC7}</ProjectGuid>
