@@ -241,24 +241,12 @@ void BuildFrame(BYTE *pFrame, int view)
 	colour3->blue =  rand () % 255;
 	
 	//Testing ---------------
-	GPLine *a, *b, *c;
-	a = new GPLine(600, FRAME_HIGH + 100, FRAME_WIDE + 100, 500);
-	a->c1 = colour1; a->c2 = colour1;
-	b = new GPLine(500, FRAME_HIGH + 100, 500, 200);
-	b->c1 = colour1; b->c2 = colour1;
-	LineDrawer::drawLine(a);
-	LineDrawer::drawLine(b);
-	VERTEX verts[] = { { -100, 500, colour1 }, { 300,  500, colour2 }, { 300, 450, colour3 }, { 100, 100, colour1 }, { 300, 100, colour2}, { 300, 50, colour3 }, { -100, 50, colour3 }, { 200, 450, colour3 }, { -100, 450, colour3 } };
-	Polygon2D* p = new Polygon2D(9, verts);
-
-	PolygonDrawer::draw(p);
+	
 	//-------------------------
 	
 	
 	
-	delete(p);
-	delete(a);
-	delete(b);
+	
 
 
 	Sleep(1000);
