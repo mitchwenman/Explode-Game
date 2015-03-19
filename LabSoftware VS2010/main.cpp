@@ -15,6 +15,7 @@
 #include "DecompPolygon2D.h"
 #include "PolygonDrawer.h"
 #include "VJSReader.h"
+#include "3DPolygonDrawer.h"
 
 #ifdef _WIN32
 	#include "libs/glut.h"
@@ -222,10 +223,7 @@ void	PlaySoundEffect(char * filename)
 ////////////////////////////////////////////////////////
 
 void BuildFrame(BYTE *pFrame, int view)
-{
-	
-	
-	
+{	
 	BYTE*	screen = (BYTE*)pFrame;		// use copy of screen pointer for safety
 	
 	RGBColour* colour1 = (RGBColour*)malloc(sizeof(RGBColour));
@@ -243,6 +241,7 @@ void BuildFrame(BYTE *pFrame, int view)
 	
 	//Testing ---------------
 	Polygon3D* p = VJSReader::read("VJSTest.txt");
+	PolygonDrawer3D::draw(p);
 	//-------------------------
 	
 	

@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="3DPolygonDrawer.cpp" />
     <ClCompile Include="DDALine.cpp" />
     <ClCompile Include="DecompPolygon2D.cpp" />
     <ClCompile Include="GraphicsSettings.cpp" />
@@ -25,6 +26,7 @@
     <ClCompile Include="VJSReader.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="3DPolygonDrawer.h" />
     <ClInclude Include="DDALine.h" />
     <ClInclude Include="DecompPolygon2D.h" />
     <ClInclude Include="GPLine.h" />

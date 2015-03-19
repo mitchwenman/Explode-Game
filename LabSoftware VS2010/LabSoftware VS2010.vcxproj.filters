@@ -47,6 +47,9 @@
     <ClCompile Include="VJSReader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="3DPolygonDrawer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RGBColor.h">
@@ -86,6 +89,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="VJSReader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="3DPolygonDrawer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
