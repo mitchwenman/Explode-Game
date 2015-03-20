@@ -225,7 +225,10 @@ void	PlaySoundEffect(char * filename)
 void BuildFrame(BYTE *pFrame, int view)
 {	
 	BYTE*	screen = (BYTE*)pFrame;		// use copy of screen pointer for safety
-	
+	GraphicsSettings* gSettings = GraphicsSettings::getGraphicsSettings();
+	gSettings->setFrameBuffer(screen);
+	gSettings->setView(view);
+
 	RGBColour* colour1 = (RGBColour*)malloc(sizeof(RGBColour));
 	RGBColour* colour2 = (RGBColour*)malloc(sizeof(RGBColour));
 	RGBColour* colour3 = (RGBColour*)malloc(sizeof(RGBColour));
@@ -256,7 +259,7 @@ void BuildFrame(BYTE *pFrame, int view)
 	
 
 
-	Sleep(1000);
+	//Sleep(1000);
 
 	free(colour1);
 	free(colour2);

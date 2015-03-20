@@ -28,3 +28,8 @@ void GraphicsSettings::setFrameBuffer(BYTE* buffer)
 {
 	frameBuffer = buffer;
 }
+
+void GraphicsSettings::setView(int view)
+{
+	this->view = view;
+}

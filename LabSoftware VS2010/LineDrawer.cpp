@@ -12,6 +12,10 @@ namespace LineDrawer
 {
 	void drawLine(GPLine* gpLine)
 	{
+		GraphicsSettings* gSettings = GraphicsSettings::getGraphicsSettings();
+		int view = gSettings->getView();
+		gpLine->x1 += view; 
+		gpLine->x2 += view;
 		DDALine* line;
 		if (lineNeedsClipping(gpLine))
 		{
