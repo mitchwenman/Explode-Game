@@ -42,6 +42,7 @@
     <ClInclude Include="VJSReader.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="TestPoly.txt" />
     <None Include="VJSTest.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

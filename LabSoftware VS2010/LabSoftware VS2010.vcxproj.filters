@@ -97,5 +97,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="VJSTest.txt" />
+    <None Include="TestPoly.txt" />
   </ItemGroup>
 </Project>

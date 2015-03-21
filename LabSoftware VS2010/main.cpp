@@ -243,15 +243,16 @@ void BuildFrame(BYTE *pFrame, int view)
 	colour3->blue =  rand () % 255;
 	
 	//Testing ---------------
-	//Polygon3D* p = VJSReader::read("VJSTest.txt");
-	//PolygonDrawer3D::draw(p);
-
+	Polygon3D* p = VJSReader::read("VJSTest.txt");
+	PolygonDrawer3D::draw(p);
+	/*
 	VERTEX a[] = { { 300, 300, colour1 }, { 400, 400, colour1 }, {400, 200, colour1 }, { 300, 100, colour1 } };
 	VERTEX b[] = { { 400, 400, colour1 }, { 600, 400, colour1 }, { 600, 200, colour1 }, { 400, 200, colour2 } };
 	VERTEX c[] = { { 300, 100, colour1 }, { 400, 200, colour1 }, { 600, 200, colour1 }, { 550, 100, colour3 } };
 	PolygonDrawer::draw(new Polygon2D(4, a));
 	PolygonDrawer::draw(new Polygon2D(4, b));
 	PolygonDrawer::draw(new Polygon2D(4, c));
+	*/
 	//-------------------------
 	
 	
