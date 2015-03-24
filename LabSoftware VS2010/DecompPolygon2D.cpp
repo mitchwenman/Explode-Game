@@ -77,7 +77,10 @@ void DecompPolygon2D::decompose()
 			findUncommonPoint(decompSides[leftLineInd], decompSides[leftLineInd + k], &pvar);
 			if (pvar.x >= min(pa.x, pb.x)) break;
 		}
-		
+		if (decompSides.size() == 1)
+		{
+			pvar.x = pa.x; pvar.y = pa.y; pvar.c = pa.c;
+		}
 		//Check every point for intersections
 		for (int j = 0; j < decompSides.size(); j++)
 		{

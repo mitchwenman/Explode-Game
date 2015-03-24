@@ -15,19 +15,18 @@ namespace PolygonDrawer3D
 		GraphicsSettings *gset = GraphicsSettings::getGraphicsSettings();
 		int centrex = gset->getFrameWidth() / 2;
 		int centrey = gset->getFrameHeight() / 2;
-		int zoom = 500;
+		int fov = 100;
 		for (int i = 0; i < p->polygons.size(); i++)
 		{
 			std::vector<VERTEX> vList2d;
-			std::vector<VERTEX_3D*> vList3d = p->polygons[i];
-			
+			std::vector<VERTEX_3D*> vList3d = p->polygons[i];			
 			for (int j = 0; j < vList3d.size(); j++)
 			{
-				int x = vList3d[j]->x;
-				int y = vList3d[j]->y;
+				int x = vList3d[j]->x - centrex;
+				int y = vList3d[j]->y - centrey;
 				int z = vList3d[j]->z;
-				int newx = x / (z + zoom) + centrex;
-				int newy = y / (z + zoom) + centrey;
+				int newx = x * fov / (z + fov) + centrex;
+				int newy = y * fov / (z + fov) + centrey;
 				VERTEX vert = { newx, newy, vList3d[j]->c };
 				vList2d.push_back(vert);
 			}
