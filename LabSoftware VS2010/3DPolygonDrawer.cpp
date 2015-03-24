@@ -15,20 +15,25 @@ namespace PolygonDrawer3D
 		GraphicsSettings *gset = GraphicsSettings::getGraphicsSettings();
 		int centrex = gset->getFrameWidth() / 2;
 		int centrey = gset->getFrameHeight() / 2;
-		int zoom = 150;
+		int zoom = 500;
 		for (int i = 0; i < p->polygons.size(); i++)
 		{
 			std::vector<VERTEX> vList2d;
 			std::vector<VERTEX_3D*> vList3d = p->polygons[i];
+			
 			for (int j = 0; j < vList3d.size(); j++)
 			{
+				int tx = vList3d[j]->x - centrex;
+				int ty = vList3d[j]->y - 700;
 				int z = vList3d[j]->z;
-				VERTEX vert = { vList3d[j]->x / z * zoom + centrex, vList3d[j]->y / z * zoom + centrey, vList3d[j]->c };
+				int newx = tx * zoom / (z + zoom);
+				int newy = ty * zoom / (z + zoom);
+				VERTEX vert = { ((newx + centrex) * zoom) / (zoom +  z), ((newy + 700) * zoom)/(zoom + z), vList3d[j]->c };
 				vList2d.push_back(vert);
 			}
-			Polygon2D* p = new Polygon2D(vList2d.size(), vList2d.data());
-			PolygonDrawer::draw(p);
-			delete(p);
+			Polygon2D* p2d = new Polygon2D(vList2d.size(), vList2d.data());
+			PolygonDrawer::draw(p2d);
+			delete(p2d);
 		}
 	}
 }

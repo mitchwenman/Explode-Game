@@ -20,6 +20,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PixelDrawer.cpp" />
     <ClCompile Include="Polygon2D.cpp" />
+    <ClCompile Include="Polygon3DTranslator.cpp" />
     <ClCompile Include="PolygonDrawer.cpp" />
     <ClCompile Include="ScanlineTriangle.cpp" />
     <ClCompile Include="ScanLineTriangleDrawer.cpp" />
@@ -35,6 +36,7 @@
     <ClInclude Include="PixelDrawer.h" />
     <ClInclude Include="Polygon2D.h" />
     <ClInclude Include="Polygon3D.h" />
+    <ClInclude Include="Polygon3DTranslator.h" />
     <ClInclude Include="PolygonDrawer.h" />
     <ClInclude Include="RGBColor.h" />
     <ClInclude Include="ScanLineTriangle.h" />

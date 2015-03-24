@@ -16,6 +16,7 @@
 #include "PolygonDrawer.h"
 #include "VJSReader.h"
 #include "3DPolygonDrawer.h"
+#include "Polygon3DTranslator.h"
 
 #ifdef _WIN32
 	#include "libs/glut.h"
@@ -244,7 +245,14 @@ void BuildFrame(BYTE *pFrame, int view)
 	
 	//Testing ---------------
 	Polygon3D* p = VJSReader::read("VJSTest.txt");
+	for (int i = 0; i < p->vertices.size(); i++)
+	{
+		p->vertices[i].x += 500;
+		p->vertices[i].y += 700;
+	}
 	PolygonDrawer3D::draw(p);
+	Polygon3DTranslator::translate(p, 200, 0, 0);
+	//PolygonDrawer3D::draw(p);
 	/*
 	VERTEX a[] = { { 300, 300, colour1 }, { 400, 400, colour1 }, {400, 200, colour1 }, { 300, 100, colour1 } };
 	VERTEX b[] = { { 400, 400, colour1 }, { 600, 400, colour1 }, { 600, 200, colour1 }, { 400, 200, colour2 } };
@@ -261,7 +269,7 @@ void BuildFrame(BYTE *pFrame, int view)
 
 
 	//Sleep(1000);
-
+	delete(p);
 	free(colour1);
 	free(colour2);
 	free(colour3);
