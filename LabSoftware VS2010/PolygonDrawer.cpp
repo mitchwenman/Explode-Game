@@ -11,11 +11,15 @@ namespace PolygonDrawer
 	void draw(Polygon2D* p)
 	{
 		Polygon2D* cp = clipPolygon(p);
-		DecompPolygon2D* d = new DecompPolygon2D(cp);
-		for (int i = 0; i < d->triangles.size(); i++)
+		if (cp != NULL)
 		{
-			ScanLineTriangleDrawer::draw(d->triangles[i]);
+			DecompPolygon2D* d = new DecompPolygon2D(cp);
+			for (int i = 0; i < d->triangles.size(); i++)
+			{
+				ScanLineTriangleDrawer::draw(d->triangles[i]);
+			}
 		}
+		
 	}
 
 	Polygon2D* clipPolygon(Polygon2D* p)
@@ -56,7 +60,10 @@ namespace PolygonDrawer
 				VERTEX p2 = { old->x2, old->y2, old->c2 };
 				newVerts.push_back(p2);
 			}
-		}		
-		return new Polygon2D(newVerts.size(), newVerts.data()); 
+		}
+		if (newVerts.size() > 0)
+			return new Polygon2D(newVerts.size(), newVerts.data()); 
+		else
+			return NULL;
 	}
 }

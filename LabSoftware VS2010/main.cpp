@@ -245,11 +245,7 @@ void BuildFrame(BYTE *pFrame, int view)
 	
 	//Testing ---------------
 	Polygon3D* p = VJSReader::read("VJSTest.txt");
-	for (int i = 0; i < p->vertices.size(); i++)
-	{
-		p->vertices[i].x += 500;
-		p->vertices[i].y += 700;
-	}
+
 	PolygonDrawer3D::draw(p);
 	Polygon3DTranslator::translate(p, 200, 0, 0);
 	//PolygonDrawer3D::draw(p);

@@ -71,11 +71,11 @@ void DecompPolygon2D::decompose()
 		
 		VERTEX pa = { decompSides[leftLineInd]->x1, decompSides[leftLineInd]->y1, decompSides[leftLineInd]->c1 };
 		VERTEX pb = { decompSides[leftLineInd]->x2, decompSides[leftLineInd]->y2, decompSides[leftLineInd]->c2 };
-		VERTEX pvar = { 0, 0, NULL } ;
+		VERTEX pvar;
 		for (int k = 1; k < decompSides.size(); k++)
 		{
 			findUncommonPoint(decompSides[leftLineInd], decompSides[leftLineInd + k], &pvar);
-			if (pvar.x > min(pa.x, pb.x)) break;
+			if (pvar.x >= min(pa.x, pb.x)) break;
 		}
 		
 		//Check every point for intersections

@@ -23,12 +23,12 @@ namespace PolygonDrawer3D
 			
 			for (int j = 0; j < vList3d.size(); j++)
 			{
-				int tx = vList3d[j]->x - centrex;
-				int ty = vList3d[j]->y - 700;
+				int x = vList3d[j]->x;
+				int y = vList3d[j]->y;
 				int z = vList3d[j]->z;
-				int newx = tx * zoom / (z + zoom);
-				int newy = ty * zoom / (z + zoom);
-				VERTEX vert = { ((newx + centrex) * zoom) / (zoom +  z), ((newy + 700) * zoom)/(zoom + z), vList3d[j]->c };
+				int newx = x / (z + zoom) + centrex;
+				int newy = y / (z + zoom) + centrey;
+				VERTEX vert = { newx, newy, vList3d[j]->c };
 				vList2d.push_back(vert);
 			}
 			Polygon2D* p2d = new Polygon2D(vList2d.size(), vList2d.data());
