@@ -12,6 +12,37 @@ namespace LineDrawer
 {
 	void drawLine(GPLine* gpLine)
 	{
+		DDALine* line = calculateAndClipLine(gpLine);	
+		if (line != NULL)
+		{
+			RGBColour* colour1 = line->c1;
+			RGBColour* colour2 = line->c2;
+			//Create x,y double vars for better rounding
+			double x = line->x1;
+			double y = line->y1;
+			//Calculate colour diffs
+			double r, g, b, rdiff, gdiff, bdiff;
+			r = (double)colour1->red; g = (double)colour1->green; b = (double)colour1->blue;
+			rdiff = (colour2->red - colour1->red)/line->steps;
+			gdiff = (colour2->green - colour1->green)/line->steps;
+			bdiff = (colour2->blue - colour1->blue)/line->steps;
+			//Draw the line
+			for (int i = 0; i < line->steps; i++)
+			{
+				PixelDrawer::setPixel(ceil(x), ceil(y - 1), (int)r, (int)g, (int)b);
+				x += line->xInc;
+				y += line->yInc;
+				r += rdiff; 
+				g += gdiff;
+				b += bdiff;
+			}
+			delete(line);
+		}
+				
+	}
+
+	DDALine* calculateAndClipLine(GPLine* gpLine)
+	{
 		GraphicsSettings* gSettings = GraphicsSettings::getGraphicsSettings();
 		int view = gSettings->getView();
 		gpLine->x1 += view; 
@@ -21,38 +52,14 @@ namespace LineDrawer
 		{
 			GPLine* clippedLine = clipLine(gpLine);
 			if (clippedLine == NULL) 
-				return; //Line is outside frame, don't draw anything
+				return NULL; //Line is outside frame, don't draw anything
 			line = new DDALine(clippedLine);
 			delete(clippedLine);
 		} else
 		{
 			line = new DDALine(gpLine);
-		}	
-		RGBColour* colour1 = line->c1;
-		RGBColour* colour2 = line->c2;
-		//Create x,y double vars for better rounding
-		double x = line->x1;
-		double y = line->y1;
-		//Calculate colour diffs
-		double r, g, b, rdiff, gdiff, bdiff;
-		r = (double)colour1->red; g = (double)colour1->green; b = (double)colour1->blue;
-		rdiff = (colour2->red - colour1->red)/line->steps;
-		gdiff = (colour2->green - colour1->green)/line->steps;
-		bdiff = (colour2->blue - colour1->blue)/line->steps;
-		//Draw the line
-		for (int i = 0; i < line->steps; i++)
-		{
-			PixelDrawer::setPixel(ceil(x), ceil(y - 1), (int)r, (int)g, (int)b);
-			x += line->xInc;
-			y += line->yInc;
-			r += rdiff; 
-			g += gdiff;
-			b += bdiff;
 		}
-		delete(line);
-		
-		
-		
+		return line;
 	}
 
 	void drawLine(int x1, int y1, int x2, int y2, RGBColour* colour1, RGBColour* colour2)

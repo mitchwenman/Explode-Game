@@ -1,10 +1,13 @@
 #include "PixelDrawer.h"
 #include "GPLine.h"
 #include "GraphicsUtil.h"
+#include "DDALine.h"
 
 namespace LineDrawer
 {
 	void drawLine(GPLine* gpLine);
+
+	DDALine* calculateAndClipLine(GPLine* gpLine);
 
 	void drawLine(int x1, int y1, int x2, int y2, RGBColour* colour1, RGBColour* colour2);
 

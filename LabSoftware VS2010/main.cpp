@@ -247,8 +247,11 @@ void BuildFrame(BYTE *pFrame, int view)
 	//Testing ---------------
 	World* world = World::getSingleton();
 	Polygon3D* p = VJSReader::read("TestPoly.txt");
-		
-	world->insert3DPolyAtPosition(p, 100, 100, 0);
+	Polygon3D* p2 = VJSReader::read("TestPoly.txt");
+	Polygon3D* p3 = VJSReader::read("TestPoly.txt");
+	//world->insert3DPolyAtPosition(p, 100, 100, 500);
+	world->insert3DPolyAtPosition(p2, 0, 0, 0);
+	//world->insert3DPolyAtPosition(p3, 400, 350, 0);
 
 	/*
 	VERTEX a[] = { { 300, 300, colour1 }, { 400, 400, colour1 }, {400, 200, colour1 }, { 300, 100, colour1 } };
