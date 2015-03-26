@@ -15,7 +15,7 @@ namespace PolygonDrawer3D
 		GraphicsSettings *gset = GraphicsSettings::getGraphicsSettings();
 		int centrex = gset->getFrameWidth() / 2;
 		int centrey = gset->getFrameHeight() / 2;
-		int fov = 600;
+		int fov = 500;
 		for (int i = 0; i < p->polygons.size(); i++)
 		{
 			std::vector<VERTEX> vList2d;
@@ -25,7 +25,7 @@ namespace PolygonDrawer3D
 				int x = vList3d[j]->x;
 				int y = vList3d[j]->y;
 				int z = vList3d[j]->z;
-				int newx = x * fov / (z + fov) + centrex ;
+				int newx = x * fov / (z + fov) + centrex;
 				int newy = y * fov / (z + fov) + centrey;
 				VERTEX vert = { newx, newy, vList3d[j]->c };
 				vList2d.push_back(vert);

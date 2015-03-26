@@ -25,6 +25,7 @@
     <ClCompile Include="ScanlineTriangle.cpp" />
     <ClCompile Include="ScanLineTriangleDrawer.cpp" />
     <ClCompile Include="VJSReader.cpp" />
+    <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="3DPolygonDrawer.h" />
@@ -42,10 +43,10 @@
     <ClInclude Include="ScanLineTriangle.h" />
     <ClInclude Include="ScanLineTriangleDrawer.h" />
     <ClInclude Include="VJSReader.h" />
+    <ClInclude Include="World.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="TestPoly.txt" />
-    <None Include="VJSTest.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{327DBF0B-A54A-434B-AC40-EAF035440FC7}</ProjectGuid>
