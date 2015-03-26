@@ -250,7 +250,7 @@ void BuildFrame(BYTE *pFrame, int view)
 	Polygon3D* p2 = VJSReader::read("TestPoly.txt");
 	Polygon3D* p3 = VJSReader::read("TestPoly.txt");
 	//world->insert3DPolyAtPosition(p, 100, 100, 500);
-	world->insert3DPolyAtPosition(p2, 0, 0, 0);
+	world->insert3DPolyAtPosition(p2, 0, 0, 100);
 	//world->insert3DPolyAtPosition(p3, 400, 350, 0);
 
 	/*
