@@ -23,30 +23,66 @@ VERTEX_3D* BoundingBox::calculateCenterPoint()
 
 int BoundingBox::findMaxX()
 {
-	return 200;
+	int max = p->vertices[0].x;
+	for (int i = 1; i < p->vertices.size(); i++)
+	{
+		if (p->vertices[i].x > max)
+			max = p->vertices[i].x;
+	}
+	return max;
 }
 
 int BoundingBox::findMinX()
 {
-	return 0;
+	int min = p->vertices[0].x;
+	for (int i = 1; i < p->vertices.size(); i++)
+	{
+		if (p->vertices[i].x < min)
+			min = p->vertices[i].x;
+	}
+	return min;
 }
 	
 int BoundingBox::findMaxY()
 {
-	return 200;
+	int max = p->vertices[0].y;
+	for (int i = 1; i < p->vertices.size(); i++)
+	{
+		if (p->vertices[i].y > max)
+			max = p->vertices[i].y;
+	}
+	return max;
 }
 
 int BoundingBox::findMinY()
 {
-	return 0;
+	int min = p->vertices[0].y;
+	for (int i = 1; i < p->vertices.size(); i++)
+	{
+		if (p->vertices[i].y < min)
+			min = p->vertices[i].y;
+	}
+	return min;
 }
 
 int BoundingBox::findMaxZ()
 {
-	return 200;
+	int max = p->vertices[0].y;
+	for (int i = 1; i < p->vertices.size(); i++)
+	{
+		if (p->vertices[i].y > max)
+			max = p->vertices[i].y;
+	}
+	return max;
 }
 
 int BoundingBox::findMinZ()
 {
-	return 0;
+	int min = p->vertices[0].z;
+	for (int i = 1; i < p->vertices.size(); i++)
+	{
+		if (p->vertices[i].z < min)
+			min = p->vertices[i].z;
+	}
+	return min;
 }
