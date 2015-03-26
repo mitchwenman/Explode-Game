@@ -25,8 +25,6 @@ void World::insert3DPolyAtPosition(Polygon3D* p, int x, int y, int z)
 	//Create bounding box
 	BoundingBox* bbox = new BoundingBox(p);
 	VERTEX_3D* v = bbox->calculateCenterPoint();
-
-
 	//Add difference
 	int dx = x - v->x - width/2;
 	int dy = y - v->y - height/2;
@@ -35,5 +33,7 @@ void World::insert3DPolyAtPosition(Polygon3D* p, int x, int y, int z)
 	Polygon3DTranslator::translate(p, dx, dy, dz);
 	//Draw
 	PolygonDrawer3D::draw(p);
+	delete(bbox);
+	delete(v);
 
 }

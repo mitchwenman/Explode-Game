@@ -232,7 +232,7 @@ void BuildFrame(BYTE *pFrame, int view)
 	gSettings->setView(view);
 
 	RGBColour* colour1 = (RGBColour*)malloc(sizeof(RGBColour));
-	RGBColour* colour2 = (RGBColour*)malloc(sizeof(RGBColour));
+	RGBColour* colour2 = (RGBColour*)malloc(sizeof(RGBColour)); 
 	RGBColour* colour3 = (RGBColour*)malloc(sizeof(RGBColour));
 	colour1->red = rand () % 255; 
 	colour1->green =  rand () % 255;
@@ -249,9 +249,9 @@ void BuildFrame(BYTE *pFrame, int view)
 	Polygon3D* p = VJSReader::read("TestPoly.txt");
 	Polygon3D* p2 = VJSReader::read("TestPoly.txt");
 	Polygon3D* p3 = VJSReader::read("TestPoly.txt");
-	//world->insert3DPolyAtPosition(p, 100, 100, 500);
+	world->insert3DPolyAtPosition(p, 100, 100, 500);
 	world->insert3DPolyAtPosition(p2, 500, 300, 0);
-	//world->insert3DPolyAtPosition(p3, 400, 350, 0);
+	world->insert3DPolyAtPosition(p3, 400, 350, 0);
 
 	/*
 	VERTEX a[] = { { 300, 300, colour1 }, { 400, 400, colour1 }, {400, 200, colour1 }, { 300, 100, colour1 } };
