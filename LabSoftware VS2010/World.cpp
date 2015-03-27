@@ -31,9 +31,6 @@ void World::insert3DPolyAtPosition(Polygon3D* p, int x, int y, int z)
 	int dz = z - v->z;
 	//Translate
 	Polygon3DTranslator::translate(p, dx, dy, dz);
-	//Draw
-	PolygonDrawer3D::draw(p);
-	delete(bbox);
-	delete(v);
-
+	
+	this->polygon3ds.push_back(p);
 }

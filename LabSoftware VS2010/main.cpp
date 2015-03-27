@@ -18,6 +18,7 @@
 #include "3DPolygonDrawer.h"
 #include "Polygon3DTranslator.h"
 #include "World.h"
+#include "Polygon3DScaler.h"
 
 #ifdef _WIN32
 	#include "libs/glut.h"
@@ -106,9 +107,10 @@ int main(int argc, char** argv)
 
 	GraphicsSettings* settings = GraphicsSettings::getGraphicsSettings();
 	settings->setFrameDimensions(FRAME_WIDE, FRAME_HIGH);
-	settings->setFrameBuffer(pFrameR);
 	settings->setNumberOfChannels(NUM_CHANNELS);
-
+	World* world = World::getSingleton();
+	Polygon3D* p = VJSReader::read("TestPoly.txt");
+	world->insert3DPolyAtPosition(p, 500, 300, 0);
 	//-- run the program
 	glutMainLoop();
 	return 0;
@@ -157,12 +159,74 @@ void OnMouse(int button, int state, int x, int y)
 
 void OnKeypress(unsigned char key, int x, int y)
 {
+	World *w = World::getSingleton();
+	Polygon3D* p = w->polygon3ds[0];
 	switch (key) 
 	{ 
 	case ' ': xypos.x = xypos.y = 0; break;
-	case 's': stereo ^= 1, eyes = 10;break;
+	case '3': stereo ^= 1, eyes = 10;break;
 	case ']': eyes++;	break;
 	case '[': eyes--;	break;
+	case 'w': 
+		{			
+			Polygon3DTranslator::translate(p, 0, 0, 10);
+			break;
+		}
+	case 's':
+		{
+			Polygon3DTranslator::translate(p, 0, 0, -10);
+			break;
+		}
+	case 'a':
+		{
+			Polygon3DTranslator::translate(p, -10, 0, 0);
+			break;
+		}
+	case 'd':
+	{
+		Polygon3DTranslator::translate(p, 10, 0, 0);
+		break;
+	}
+	case 'r':
+		{
+			Polygon3DTranslator::translate(p, 0, 10, 0);
+			break;
+		}
+	case 'f':
+		{
+			Polygon3DTranslator::translate(p, 0, -10, 0);
+			break;
+		}
+	case '7':
+		{
+			Polygon3DScaler::scale(p, 1.1, 1, 1);
+			break;
+		}
+	case '4':
+		{
+			Polygon3DScaler::scale(p, 0.9, 1, 1);
+			break;
+		}
+	case '8':
+		{
+			Polygon3DScaler::scale(p, 1, 1.1, 1);
+			break;
+		}
+	case '5':
+		{
+			Polygon3DScaler::scale(p, 1, 0.9, 1);
+			break;
+		}
+	case '9':
+		{
+			Polygon3DScaler::scale(p, 1, 1, 1.1);
+			break;
+		}
+	case '6':
+		{
+			Polygon3DScaler::scale(p, 1, 1, 0.9);
+			break;
+		}
 	case 27 : exit(0);
 	}
 	PlaySoundEffect("Whoosh.wav"); 
@@ -230,50 +294,19 @@ void BuildFrame(BYTE *pFrame, int view)
 	GraphicsSettings* gSettings = GraphicsSettings::getGraphicsSettings();
 	gSettings->setFrameBuffer(screen);
 	gSettings->setView(view);
-
-	RGBColour* colour1 = (RGBColour*)malloc(sizeof(RGBColour));
-	RGBColour* colour2 = (RGBColour*)malloc(sizeof(RGBColour)); 
-	RGBColour* colour3 = (RGBColour*)malloc(sizeof(RGBColour));
-	colour1->red = rand () % 255; 
-	colour1->green =  rand () % 255;
-	colour1->blue =  rand () % 255;
-	colour2->red =  rand () % 255; 
-	colour2->green =  rand () % 255; 
-	colour2->blue =  rand () % 255;
-	colour3->red =  rand () % 255; 
-	colour3->green =  rand () % 255; 
-	colour3->blue =  rand () % 255;
 	
 	//Testing ---------------
-	World* world = World::getSingleton();
-	Polygon3D* p = VJSReader::read("TestPoly.txt");
-	Polygon3D* p2 = VJSReader::read("TestPoly.txt");
-	Polygon3D* p3 = VJSReader::read("TestPoly.txt");
-	world->insert3DPolyAtPosition(p, 100, 100, 500);
-	world->insert3DPolyAtPosition(p2, 500, 300, 0);
-	world->insert3DPolyAtPosition(p3, 400, 350, 0);
+	World *world = World::getSingleton();
+	for (int i = 0; i < world->polygon3ds.size(); i++)
+	{
+		PolygonDrawer3D::draw(world->polygon3ds[i]);
+	}
+	
+	
 
-	/*
-	VERTEX a[] = { { 300, 300, colour1 }, { 400, 400, colour1 }, {400, 200, colour1 }, { 300, 100, colour1 } };
-	VERTEX b[] = { { 400, 400, colour1 }, { 600, 400, colour1 }, { 600, 200, colour1 }, { 400, 200, colour2 } };
-	VERTEX c[] = { { 300, 100, colour1 }, { 400, 200, colour1 }, { 600, 200, colour1 }, { 550, 100, colour3 } };
-	PolygonDrawer::draw(new Polygon2D(4, a));
-	PolygonDrawer::draw(new Polygon2D(4, b));
-	PolygonDrawer::draw(new Polygon2D(4, c));
-	*/
 	//-------------------------
 	
 	
-	
-	
-
-
-	//Sleep(1000);
-	delete(p);
-	free(colour1);
-	free(colour2);
-	free(colour3);
-
 	
 }
 

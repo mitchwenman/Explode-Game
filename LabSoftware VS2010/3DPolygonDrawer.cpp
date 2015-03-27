@@ -15,7 +15,7 @@ namespace PolygonDrawer3D
 		GraphicsSettings *gset = GraphicsSettings::getGraphicsSettings();
 		int centrex = gset->getFrameWidth() / 2;
 		int centrey = gset->getFrameHeight() / 2;
-		int fov = 500;
+		int fov = 1000;
 		for (int i = 0; i < p->polygons.size(); i++)
 		{
 			std::vector<VERTEX> vList2d;

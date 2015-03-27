@@ -9,12 +9,12 @@
 class World
 {
 
-private:
-	std::vector<Polygon3D *> polygon3ds;
-	
+private:	
 	World() { };
 
 public:
+	std::vector<Polygon3D *> polygon3ds;
+
 	static World* getSingleton();
 
 	void insert3DPolyAtPosition(Polygon3D* p, int x, int y, int z);
