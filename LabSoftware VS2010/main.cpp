@@ -110,7 +110,7 @@ int main(int argc, char** argv)
 	settings->setNumberOfChannels(NUM_CHANNELS);
 	World* world = World::getSingleton();
 	Polygon3D* p = VJSReader::read("TestPoly.txt");
-	world->insert3DPolyAtPosition(p, 500, 300, 0);
+	world->insert3DPolyAtPosition(p, 0, 0, 0);
 	//-- run the program
 	glutMainLoop();
 	return 0;
