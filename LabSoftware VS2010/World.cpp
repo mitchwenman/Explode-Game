@@ -34,3 +34,8 @@ void World::insert3DPolyAtPosition(Polygon3D* p, int x, int y, int z)
 	
 	this->polygon3ds.push_back(p);
 }
+
+void World::insert2DPoly(Polygon2D* p)
+{
+	this->polygon2ds.push_back(p);
+}

@@ -44,13 +44,13 @@ namespace PolygonDrawer
 								(nl->x2 == old->x2 || nl->y2 == old->y2))
 					{
 						VERTEX p1 = { nl->x1, nl->y1, nl->c1 };
-						VERTEX p2 = { nl->x2, nl->y2, nl->c1 };
+						VERTEX p2 = { nl->x2, nl->y2, nl->c2 };
 						newVerts.push_back(p1);
 						newVerts.push_back(p2);
 					} else
 					{
 						VERTEX p1 = { nl->x1, nl->y1, nl->c1 };
-						VERTEX p2 = { nl->x2, nl->y2, nl->c1 };
+						VERTEX p2 = { nl->x2, nl->y2, nl->c2 };
 						newVerts.push_back(p1);
 						newVerts.push_back(p2);
 					}
