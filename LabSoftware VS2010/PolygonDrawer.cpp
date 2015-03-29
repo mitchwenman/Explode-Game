@@ -58,7 +58,82 @@ namespace PolygonDrawer
 	std::vector<VERTEX> clipHorizontal(std::vector<VERTEX> input, int boundary, ClipType c)
 	{
 		std::vector<VERTEX> output;
-		return input;
+		for (unsigned int i = 0; i < input.size(); i++)
+		{
+			VERTEX p1 = input[i];
+			VERTEX p2 = input[(i + 1) % input.size()];
+			if (c == MIN)
+			{
+				if (p1.y < boundary && p2.y >= boundary) //1st out, 2nd in
+				{
+
+					if (p2.x == p1.x)
+					{
+						VERTEX intersect = { p1.x, boundary, p1.c };
+						output.push_back(intersect);
+						output.push_back(p2);
+					} else
+					{
+						int gradient = (p2.y - p1.y)/(p2.x - p1.x);
+     						VERTEX intersect = { (boundary - p1.y + gradient * p1.x) / gradient, boundary , p1.c };
+						output.push_back(intersect);
+						output.push_back(p2);
+					}
+					
+				} else if (p2.y < boundary && p1.y >= boundary) //1st in, 2nd out
+				{
+					if (p2.x == p1.x)
+					{
+						VERTEX intersect = { p1.x, boundary, p1.c };
+						output.push_back(intersect);
+					} else
+					{
+						int gradient = (p2.y - p1.y)/(p2.x - p1.x);
+						VERTEX intersect = { (boundary - p1.y + gradient * p1.x) / gradient, boundary , p2.c };
+						output.push_back(intersect);
+					}					
+				} else if (p1.y >= boundary && p2.y >= boundary) //both in
+				{
+					output.push_back(p2);
+				}
+			} else 
+			{
+				if (p1.y > boundary && p2.y <= boundary) //1st out, 2nd in
+				{
+
+					if (p2.x == p1.x)
+					{
+						VERTEX intersect = { p1.x, boundary, p1.c };
+						output.push_back(intersect);
+						output.push_back(p2);
+					} else
+					{
+						int gradient = (p2.y - p1.y)/(p2.x - p1.x);
+						VERTEX intersect = { (boundary - p1.y + gradient * p1.x) / gradient, boundary , p1.c };
+						output.push_back(intersect);
+						output.push_back(p2);
+					}
+					
+				} else if (p2.y > boundary && p1.y <= boundary) //1st in, 2nd out
+				{
+					if (p2.x == p1.x)
+					{
+						VERTEX intersect = { p1.x, boundary, p1.c };
+						output.push_back(intersect);
+					} else
+					{
+						int gradient = (p2.y - p1.y)/(p2.x - p1.x);
+						VERTEX intersect = { (boundary - p1.y + gradient * p1.x) / gradient, boundary , p2.c };
+						output.push_back(intersect);
+					}					
+				} else if (p1.y <= boundary && p2.y <= boundary)
+				{
+					output.push_back(p2);
+				}
+			}
+			
+		}
+		return output;
 	}
 
 	std::vector<VERTEX> clipVertical(std::vector<VERTEX> input, int boundary, ClipType c)
@@ -85,7 +160,24 @@ namespace PolygonDrawer
 				{
 					output.push_back(p2);
 				}
-			} else return input;
+			} else 
+			{
+				if (p1.x > boundary && p2.x <= boundary) //1st out, 2nd in
+				{
+					int gradient = (p2.y - p1.y)/(p2.x - p1.x);
+					VERTEX intersect = { boundary, gradient * (boundary - p1.x) + p1.y, p1.c };
+					output.push_back(intersect);
+					output.push_back(p2);
+				} else if (p2.x > boundary && p1.x <= boundary) //1st in, 2nd out
+				{
+					int gradient = (p2.y - p1.y)/(p2.x - p1.x);
+					VERTEX intersect = { boundary, gradient * (boundary - p1.x) + p1.y, p2.c };
+					output.push_back(intersect);
+				} else if (p1.x <= boundary && p2.x <= boundary)
+				{
+					output.push_back(p2);
+				}
+			}
 			
 		}
 		return output;
