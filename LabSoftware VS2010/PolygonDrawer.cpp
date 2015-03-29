@@ -62,7 +62,7 @@ namespace PolygonDrawer
 		{
 			VERTEX p1 = input[i];
 			VERTEX p2 = input[(i + 1) % input.size()];
-			if (c == MIN)
+			if (c == MIN) //Outside points less than boundary
 			{
 				if (p1.y < boundary && p2.y >= boundary) //1st out, 2nd in
 				{
@@ -98,7 +98,7 @@ namespace PolygonDrawer
 				{
 					output.push_back(p2);
 				}
-			} else 
+			} else //Outside points greater than boundary
 			{
 				if (p1.y > boundary && p2.y <= boundary) //1st out, 2nd in
 				{
@@ -147,7 +147,7 @@ namespace PolygonDrawer
 		{
 			VERTEX p1 = input[i];
 			VERTEX p2 = input[(i + 1) % input.size()];
-			if (c == MIN)
+			if (c == MIN) //Outside points are less than the boundary
 			{
 				if (p1.x < boundary && p2.x >= boundary) //1st out, 2nd in
 				{
@@ -166,7 +166,7 @@ namespace PolygonDrawer
 				{
 					output.push_back(p2);
 				}
-			} else 
+			} else //Outside points are greater than the boundary
 			{
 				if (p1.x >= boundary && p2.x < boundary) //1st out, 2nd in
 				{
