@@ -3,6 +3,7 @@
 #include "ScanLineTriangleDrawer.h"
 #include "GPLine.h"
 #include "LineDrawer.h"
+#include "GraphicsSettings.h"
 
 #include <vector>
 
@@ -10,7 +11,12 @@ namespace PolygonDrawer
 {
 	void draw(Polygon2D* p)
 	{
-		Polygon2D* cp = clipPolygon(p);
+		GraphicsSettings *g = GraphicsSettings::getGraphicsSettings();
+		int topEdge = g->getFrameHeight();
+		int rightEdge = g->getFrameWidth();
+		int leftEdge, bottomEdge;
+		leftEdge = bottomEdge = 0;
+		Polygon2D* cp = clipPolygon2(p, leftEdge, topEdge, rightEdge, bottomEdge);
 		if (cp != NULL)
 		{
 			DecompPolygon2D* d = new DecompPolygon2D(cp);
@@ -20,6 +26,69 @@ namespace PolygonDrawer
 			}
 		}
 		
+	}
+
+	Polygon2D* clipPolygon2(Polygon2D* p, int leftEdge, int topEdge, int rightEdge, int bottomEdge)
+	{
+		//Get vert list from existing edges
+		std::vector<GPLine *> inputLines = p->sides;
+		std::vector<VERTEX> input, output;
+		for (unsigned int i = 0; i < inputLines.size(); i++)
+		{
+			VERTEX v = { inputLines[i]->x1, inputLines[i]->y1, inputLines[i]->c1 };
+			input.push_back(v);
+		}
+		
+		//Get vert list from left edge
+		output = clipVertical(input, leftEdge, MIN);
+		input = output;
+		//Top edge
+		input = output = clipHorizontal(input, topEdge, MAX);
+		
+		//Right edge
+		input = output = clipVertical(input, rightEdge, MAX);
+		//bottom edge
+		output = clipHorizontal(input, bottomEdge, MIN);
+		if (output.size() > 0)
+			return new Polygon2D(output.size(), output.data());
+		else 
+			return NULL;
+	}
+
+	std::vector<VERTEX> clipHorizontal(std::vector<VERTEX> input, int boundary, ClipType c)
+	{
+		std::vector<VERTEX> output;
+		return input;
+	}
+
+	std::vector<VERTEX> clipVertical(std::vector<VERTEX> input, int boundary, ClipType c)
+	{
+		std::vector<VERTEX> output;
+		for (unsigned int i = 0; i < input.size(); i++)
+		{
+			VERTEX p1 = input[i];
+			VERTEX p2 = input[(i + 1) % input.size()];
+			if (c == MIN)
+			{
+				if (p1.x < boundary && p2.x >= boundary) //1st out, 2nd in
+				{
+					int gradient = (p2.y - p1.y)/(p2.x - p1.x);
+					VERTEX intersect = { boundary, gradient * (boundary - p1.x) + p1.y, p1.c };
+					output.push_back(intersect);
+					output.push_back(p2);
+				} else if (p2.x < boundary && p1.x >= boundary) //1st in, 2nd out
+				{
+					int gradient = (p2.y - p1.y)/(p2.x - p1.x);
+					VERTEX intersect = { boundary, gradient * (boundary - p1.x) + p1.y, p2.c };
+					output.push_back(intersect);
+				} else if (p1.x >= boundary && p2.x >= boundary)
+				{
+					output.push_back(p2);
+				}
+			} else return input;
+			
+		}
+		return output;
 	}
 
 	Polygon2D* clipPolygon(Polygon2D* p)
