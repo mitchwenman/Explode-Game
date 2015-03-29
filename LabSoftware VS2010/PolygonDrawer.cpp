@@ -147,14 +147,16 @@ namespace PolygonDrawer
 			{
 				if (p1.x < boundary && p2.x >= boundary) //1st out, 2nd in
 				{
-					int gradient = (p2.y - p1.y)/(p2.x - p1.x);
-					VERTEX intersect = { boundary, gradient * (boundary - p1.x) + p1.y, p1.c };
+					double gradient = (p2.y - p1.y)/(p2.x - p1.x);
+					int b = p1.y - gradient * p1.x;
+					VERTEX intersect = { boundary, gradient * boundary + b, p1.c };
 					output.push_back(intersect);
 					output.push_back(p2);
 				} else if (p2.x < boundary && p1.x >= boundary) //1st in, 2nd out
 				{
-					int gradient = (p2.y - p1.y)/(p2.x - p1.x);
-					VERTEX intersect = { boundary, gradient * (boundary - p1.x) + p1.y, p2.c };
+					double gradient = (p2.y - p1.y)/(p2.x - p1.x);
+					int b = p2.y - gradient * p2.x;
+					VERTEX intersect = { boundary, gradient * boundary + b, p2.c };
 					output.push_back(intersect);
 				} else if (p1.x >= boundary && p2.x >= boundary)
 				{
@@ -162,18 +164,20 @@ namespace PolygonDrawer
 				}
 			} else 
 			{
-				if (p1.x > boundary && p2.x <= boundary) //1st out, 2nd in
+				if (p1.x >= boundary && p2.x < boundary) //1st out, 2nd in
 				{
-					int gradient = (p2.y - p1.y)/(p2.x - p1.x);
-					VERTEX intersect = { boundary, gradient * (boundary - p1.x) + p1.y, p1.c };
+					double gradient = (p2.y - p1.y)/(p2.x - p1.x);
+					int b = p1.y - gradient * p1.x;
+					VERTEX intersect = { boundary - 1, gradient * (boundary - 1) + b, p1.c };
 					output.push_back(intersect);
 					output.push_back(p2);
-				} else if (p2.x > boundary && p1.x <= boundary) //1st in, 2nd out
+				} else if (p2.x >= boundary && p1.x < boundary) //1st in, 2nd out
 				{
-					int gradient = (p2.y - p1.y)/(p2.x - p1.x);
-					VERTEX intersect = { boundary, gradient * (boundary - p1.x) + p1.y, p2.c };
+					double gradient = (p2.y - p1.y)/(p2.x - p1.x);
+					int b = p2.y - gradient * p2.x;
+					VERTEX intersect = { boundary - 1, gradient * (boundary - 1) + b, p2.c };
 					output.push_back(intersect);
-				} else if (p1.x <= boundary && p2.x <= boundary)
+				} else if (p1.x < boundary && p2.x < boundary)
 				{
 					output.push_back(p2);
 				}

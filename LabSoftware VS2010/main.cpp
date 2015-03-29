@@ -112,7 +112,7 @@ int main(int argc, char** argv)
 	Polygon3D* p = VJSReader::read("TestPoly.txt");
 	world->insert3DPolyAtPosition(p, 0, 0, 0);
 	RGBColour c = { 255, 255, 255 };
-	VERTEX verts[] = { { 100, 100, &c }, { 100, 400, &c }, { 400, 400, &c }, { 400, 100, &c } };
+	VERTEX verts[] = { { 5, 25, &c }, { 100, 400, &c }, { 400, 400, &c }, { 600, 100, &c } };
 	Polygon2D *p2d = new Polygon2D(4, verts);
 	world->insert2DPoly(p2d);
 	//-- run the program
@@ -340,11 +340,11 @@ void BuildFrame(BYTE *pFrame, int view)
 	World *world = World::getSingleton();
 	for (int i = 0; i < world->polygon3ds.size(); i++)
 	{
-		PolygonDrawer3D::draw(world->polygon3ds[i]);
+		//PolygonDrawer3D::draw(world->polygon3ds[i]);
 	}
 	for (unsigned int i = 0; i < world->polygon2ds.size(); i++)
 	{
-		//PolygonDrawer::draw(world->polygon2ds[i]);
+		PolygonDrawer::draw(world->polygon2ds[i]);
 	}
 
 	
