@@ -111,7 +111,7 @@ int main(int argc, char** argv)
 	World* world = World::getSingleton();
 	Polygon3D* p = VJSReader::read("TestPoly.txt");
 	world->insert3DPolyAtPosition(p, 0, 0, 0);
-	RGBColour c = { 255, 255, 255 };
+	RGBColour c = { 0, 0, 255 };
 	VERTEX verts[] = { { 5, 25, &c }, { 100, 400, &c }, { 400, 400, &c }, { 600, 100, &c } };
 	Polygon2D *p2d = new Polygon2D(4, verts);
 	world->insert2DPoly(p2d);

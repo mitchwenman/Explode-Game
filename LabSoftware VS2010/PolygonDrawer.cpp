@@ -74,8 +74,9 @@ namespace PolygonDrawer
 						output.push_back(p2);
 					} else
 					{
-						int gradient = (p2.y - p1.y)/(p2.x - p1.x);
-     						VERTEX intersect = { (boundary - p1.y + gradient * p1.x) / gradient, boundary , p1.c };
+						double gradient = (p2.y - p1.y)/(p2.x - p1.x);
+						int b = p1.y - gradient * p1.x;
+     					VERTEX intersect = { (boundary - b) / gradient, boundary, p1.c };
 						output.push_back(intersect);
 						output.push_back(p2);
 					}
@@ -88,8 +89,9 @@ namespace PolygonDrawer
 						output.push_back(intersect);
 					} else
 					{
-						int gradient = (p2.y - p1.y)/(p2.x - p1.x);
-						VERTEX intersect = { (boundary - p1.y + gradient * p1.x) / gradient, boundary , p2.c };
+						double gradient = (p2.y - p1.y)/(p2.x - p1.x);
+						int b = p2.y - gradient * p2.x;
+						VERTEX intersect = { (boundary - b) / gradient, boundary, p2.c };
 						output.push_back(intersect);
 					}					
 				} else if (p1.y >= boundary && p2.y >= boundary) //both in
@@ -103,13 +105,14 @@ namespace PolygonDrawer
 
 					if (p2.x == p1.x)
 					{
-						VERTEX intersect = { p1.x, boundary, p1.c };
+						VERTEX intersect = { p1.x, boundary - 1, p1.c };
 						output.push_back(intersect);
 						output.push_back(p2);
 					} else
 					{
-						int gradient = (p2.y - p1.y)/(p2.x - p1.x);
-						VERTEX intersect = { (boundary - p1.y + gradient * p1.x) / gradient, boundary , p1.c };
+						double gradient = (p2.y - p1.y)/(p2.x - p1.x);
+						int b = p1.y - gradient * p1.x;
+						VERTEX intersect = { (boundary - b) / gradient, boundary - 1, p1.c };
 						output.push_back(intersect);
 						output.push_back(p2);
 					}
@@ -118,12 +121,13 @@ namespace PolygonDrawer
 				{
 					if (p2.x == p1.x)
 					{
-						VERTEX intersect = { p1.x, boundary, p1.c };
+						VERTEX intersect = { p1.x, boundary - 1, p1.c };
 						output.push_back(intersect);
 					} else
 					{
-						int gradient = (p2.y - p1.y)/(p2.x - p1.x);
-						VERTEX intersect = { (boundary - p1.y + gradient * p1.x) / gradient, boundary , p2.c };
+						double gradient = (p2.y - p1.y)/(p2.x - p1.x);
+						int b = p2.y - gradient * p2.x;
+						VERTEX intersect = { (boundary - b) / gradient, boundary - 1 , p2.c };
 						output.push_back(intersect);
 					}					
 				} else if (p1.y <= boundary && p2.y <= boundary)
