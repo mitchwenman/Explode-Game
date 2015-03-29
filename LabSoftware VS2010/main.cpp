@@ -340,11 +340,11 @@ void BuildFrame(BYTE *pFrame, int view)
 	World *world = World::getSingleton();
 	for (int i = 0; i < world->polygon3ds.size(); i++)
 	{
-		//PolygonDrawer3D::draw(world->polygon3ds[i]);
+		PolygonDrawer3D::draw(world->polygon3ds[i]);
 	}
 	for (unsigned int i = 0; i < world->polygon2ds.size(); i++)
 	{
-		PolygonDrawer::draw(world->polygon2ds[i]);
+		//PolygonDrawer::draw(world->polygon2ds[i]);
 	}
 
 	

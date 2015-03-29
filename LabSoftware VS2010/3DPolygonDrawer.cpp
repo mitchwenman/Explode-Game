@@ -25,14 +25,22 @@ namespace PolygonDrawer3D
 				int x = vList3d[j]->x;
 				int y = vList3d[j]->y;
 				int z = vList3d[j]->z;
+				if (z <= -fov)
+					z = -fov + 1;
 				int newx = x * fov / (z + fov) + centrex;
 				int newy = y * fov / (z + fov) + centrey;
 				VERTEX vert = { newx, newy, vList3d[j]->c };
 				vList2d.push_back(vert);
+
+				
 			}
-			Polygon2D* p2d = new Polygon2D(vList2d.size(), vList2d.data());
-			PolygonDrawer::draw(p2d);
-			delete(p2d);
+			if (vList2d.size() != 0)
+			{
+				Polygon2D* p2d = new Polygon2D(vList2d.size(), vList2d.data());
+				PolygonDrawer::draw(p2d);
+				delete(p2d);
+			}
+			
 		}
 	}
 }
