@@ -26,6 +26,7 @@
     <ClCompile Include="PolygonDrawer.cpp" />
     <ClCompile Include="ScanlineTriangle.cpp" />
     <ClCompile Include="ScanLineTriangleDrawer.cpp" />
+    <ClCompile Include="TrigLookup.cpp" />
     <ClCompile Include="VJSReader.cpp" />
     <ClCompile Include="World.cpp" />
   </ItemGroup>
@@ -46,6 +47,7 @@
     <ClInclude Include="RGBColor.h" />
     <ClInclude Include="ScanLineTriangle.h" />
     <ClInclude Include="ScanLineTriangleDrawer.h" />
+    <ClInclude Include="TrigLookup.h" />
     <ClInclude Include="VJSReader.h" />
     <ClInclude Include="World.h" />
   </ItemGroup>
