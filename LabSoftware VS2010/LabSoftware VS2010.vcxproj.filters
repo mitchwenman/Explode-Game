@@ -120,6 +120,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="TestPoly.txt" />
+    <None Include="TestCube.txt" />
   </ItemGroup>
 </Project>

@@ -109,11 +109,12 @@ int main(int argc, char** argv)
 	settings->setFrameDimensions(FRAME_WIDE, FRAME_HIGH);
 	settings->setNumberOfChannels(NUM_CHANNELS);
 	World* world = World::getSingleton();
-	Polygon3D* p = VJSReader::read("TestPoly.txt");
+	Polygon3D* p = VJSReader::read("TestCube.txt");
 	world->insert3DPolyAtPosition(p, 0, 0, 0);
 	RGBColour c = { 0, 0, 255 };
-	VERTEX verts[] = { { 5, 25, &c }, { 100, 400, &c }, { 400, 400, &c }, { 600, 100, &c } };
-	Polygon2D *p2d = new Polygon2D(4, verts);
+	const int OFFSET = 600;
+	VERTEX verts[] = { { 100 + OFFSET, 100, &c }, { 100 + OFFSET, 400, &c }, { 400 + OFFSET, 400, &c }, { 300 + OFFSET, 300, &c}, { 600 + OFFSET, 100, &c } };
+	Polygon2D *p2d = new Polygon2D(5, verts);
 	world->insert2DPoly(p2d);
 	//-- run the program
 	glutMainLoop();

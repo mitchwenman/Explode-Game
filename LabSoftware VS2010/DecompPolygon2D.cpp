@@ -1,4 +1,4 @@
-#include <math.h>
+ #include <math.h>
 
 #include "DecompPolygon2D.h"
 #include <algorithm>
@@ -65,18 +65,20 @@ void DecompPolygon2D::decompose()
 {
 
 	GPLine* connectingLine;
-	for (int i = 0; i < numSides - 2; i++)
+	int limit = numSides - 2;
+	for (int i = 0; i < limit; i++)
 	{
 		int leftLineInd = findLeftMostLineIndex();
 		
 		VERTEX pa = { decompSides[leftLineInd]->x1, decompSides[leftLineInd]->y1, decompSides[leftLineInd]->c1 };
 		VERTEX pb = { decompSides[leftLineInd]->x2, decompSides[leftLineInd]->y2, decompSides[leftLineInd]->c2 };
 		VERTEX pvar;
-		for (int k = 1; k < decompSides.size(); k++)
-		{
-			findUncommonPoint(decompSides[leftLineInd], decompSides[leftLineInd + k], &pvar);
-			if (pvar.x >= min(pa.x, pb.x)) break;
-		}
+
+			int adjLine = findAdjacentLineIndex(leftLineInd);
+			if (adjLine == -1) return;
+			findUncommonPoint(decompSides[leftLineInd], decompSides[adjLine], &pvar);
+			
+		
 		if (decompSides.size() == 1)
 		{
 			pvar.x = pa.x; pvar.y = pa.y; pvar.c = pa.c;
@@ -84,7 +86,7 @@ void DecompPolygon2D::decompose()
 		//Check every point for intersections
 		for (int j = 0; j < decompSides.size(); j++)
 		{
-			if (j != leftLineInd)
+			if (j != leftLineInd && j != adjLine)
 			{
 				GPLine* test = decompSides[j];
 				VERTEX pInside = { test->x1, test->y1, test->c1 }; //Testing if ptest is inside
@@ -93,7 +95,7 @@ void DecompPolygon2D::decompose()
 						(pInside.x == pb.x && pInside.y == pb.y) ||
 						(pInside.x == pvar.x && pInside.y == pvar.y)))
 				{
-					if (insideTest(pa, pb, pvar, pInside))
+					if (insideTest(pa, pb, pvar, pInside)) //If inside then set inside as pvar and run whole test again
 					{					
 						pvar.x = pInside.x; pvar.y = pInside.y; pvar.c = pInside.c;
 						j = -1;
@@ -207,8 +209,17 @@ bool DecompPolygon2D::compare(GPLine* a, GPLine* b)
 		int maxbx = max(b->x1, b->x2);
 		if (maxax < maxbx)
 			return true;
-		else
-			return false;
+		else if (maxax > maxbx)
+			return false;	
+		else //sort by height
+		{
+			int maxay = max(a->y1, a->y2);
+			int maxby = max(b->y1, b->y2);
+			if (maxay < maxby)
+				return true;
+			else
+				return false;
+		}
 	}
 	
 }
