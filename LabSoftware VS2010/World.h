@@ -23,6 +23,8 @@ public:
 
 	void insert2DPoly(Polygon2D* p);
 
+	void drawWorld();
+
 
 };
 

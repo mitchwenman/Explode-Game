@@ -2,6 +2,7 @@
 #include "GraphicsSettings.h"
 #include "GraphicsUtil.h"
 #include "3DPolygonDrawer.h"
+#include "PolygonDrawer.h"
 #include "Polygon3DTranslator.h"
 #include "BoundingBox.h"
 
@@ -38,4 +39,17 @@ void World::insert3DPolyAtPosition(Polygon3D* p, int x, int y, int z)
 void World::insert2DPoly(Polygon2D* p)
 {
 	this->polygon2ds.push_back(p);
+}
+
+void World::drawWorld()
+{
+	for (unsigned int i = 0; i < this->polygon2ds.size(); i++)
+	{
+		PolygonDrawer::draw(this->polygon2ds[i]);
+	}
+	for (unsigned int i = 0; i < this->polygon3ds.size(); i++)
+	{
+		PolygonDrawer3D::draw(this->polygon3ds[i]);
+
+	}
 }
