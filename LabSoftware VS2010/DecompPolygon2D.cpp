@@ -209,11 +209,21 @@ bool DecompPolygon2D::compare(GPLine* a, GPLine* b)
 	else if (minbx < minax) return false;
 	else //equal
 	{
-		int maxay = max(a->y1, a->y2);
-		int maxby = max(b->y1, b->y2);
-
-		if (maxby < maxay) return true;
-		else return false;
+		int maxax = max(a->x1, a->x2);
+		int maxbx = max(b->x1, b->x2);
+		if (maxax < maxbx)
+			return true;
+		else if (maxax > maxbx)
+			return false;	
+		else //sort by height
+		{
+			int maxay = max(a->y1, a->y2);
+			int maxby = max(b->y1, b->y2);
+			if (maxay < maxby)
+				return true;
+			else
+				return false;
+		}
 		
 	}
 	
