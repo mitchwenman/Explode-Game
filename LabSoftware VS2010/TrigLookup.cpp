@@ -1,5 +1,7 @@
 #include "TrigLookup.h"
-
+#ifdef _WIN32
+	#include <windows.h>
+#endif
 #include <math.h>
 
 static TrigLookup* _instance;
@@ -12,21 +14,21 @@ TrigLookup* TrigLookup::getSingleton()
 	return _instance;
 }
 
-double TrigLookup::cos(int x)
+double TrigLookup::cosLookup(int x)
 {
-	return this->cosLookup[x];
+	return this->cosL[x];
 }
 
-double TrigLookup::sin(int x)
+double TrigLookup::sinLookup(int x)
 {
-	return this->sinLookup[x];
+	return this->sinL[x];
 }
 
 TrigLookup::TrigLookup()
 {
 	for (unsigned int i = 0; i < MAX_VALUES; i++)
 	{
-		this->cosLookup[i] = cos(i);
-		this->sinLookup[i] = sin(i);
+		this->cosL[i] = cos((double)((2 * PI * i) / 360));
+		this->sinL[i] = sin((double)((2 * PI * i) / 360));
 	}
 }

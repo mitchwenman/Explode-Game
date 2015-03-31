@@ -45,7 +45,7 @@ void World::drawWorld()
 {
 	for (unsigned int i = 0; i < this->polygon2ds.size(); i++)
 	{
-		PolygonDrawer::draw(this->polygon2ds[i]);
+		//PolygonDrawer::draw(this->polygon2ds[i]);
 	}
 	for (unsigned int i = 0; i < this->polygon3ds.size(); i++)
 	{

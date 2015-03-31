@@ -19,6 +19,7 @@
 #include "Polygon3DTranslator.h"
 #include "World.h"
 #include "Polygon3DScaler.h"
+#include "Polygon3DRotator.h"
 
 #ifdef _WIN32
 	#include "libs/glut.h"
@@ -111,7 +112,11 @@ int main(int argc, char** argv)
 	World* world = World::getSingleton();
 	Polygon3D* p = VJSReader::read("TestCube.txt");
 	world->insert3DPolyAtPosition(p, 0, 0, 0);
-
+	RGBColour c = { 255, 255, 255 };
+	const int OFFSET = 0;
+	VERTEX verts[] = { { 100 + OFFSET, 100, &c }, { 200 + OFFSET, 200, &c }, { 100 + OFFSET, 400, &c }, { 400 + OFFSET, 400, &c }, { 300 + OFFSET, 300, &c}, { 600 + OFFSET, 100, &c } };
+	Polygon2D *p2d = new Polygon2D(6, verts);
+ 	world->insert2DPoly(p2d);
 	//-- run the program
 	glutMainLoop();
 	return 0;
@@ -162,12 +167,49 @@ void OnKeypress(unsigned char key, int x, int y)
 {
 	World *w = World::getSingleton();
 	Polygon3D* p = w->polygon3ds[0];
+	Polygon2D* p2d = w->polygon2ds[0];
 	switch (key) 
 	{ 
 	case ' ': xypos.x = xypos.y = 0; break;
 	case '3': stereo ^= 1, eyes = 10;break;
 	case ']': eyes++;	break;
 	case '[': eyes--;	break;
+	case 'i': 
+		{			
+			for (int i = 0; i < p2d->numSides; i++)
+			{
+				p2d->sides[i]->y1 += 10;
+				p2d->sides[i]->y2 += 10;
+			}
+			break;
+		}
+	case 'k':
+		{
+			for (int i = 0; i < p2d->numSides; i++)
+			{
+				p2d->sides[i]->y1 -= 10;
+				p2d->sides[i]->y2 -= 10;
+			}
+			break;
+		}
+	case 'j':
+		{
+			for (int i = 0; i < p2d->numSides; i++)
+			{
+				p2d->sides[i]->x1 -= 10;
+				p2d->sides[i]->x2 -= 10;
+			}
+			break;
+		}
+	case 'l':
+	{
+		for (int i = 0; i < p2d->numSides; i++)
+			{
+				p2d->sides[i]->x1 += 10;
+				p2d->sides[i]->x2 += 10;
+			}
+		break;
+	}
 	case 'w': 
 		{			
 			Polygon3DTranslator::translate(p, 0, 0, 10);
@@ -299,7 +341,7 @@ void BuildFrame(BYTE *pFrame, int view)
 	//Testing ---------------
 	World *world = World::getSingleton();
 	world->drawWorld();
-
+	Polygon3DRotator::Rotate(world->polygon3ds[0], 0, 0, 0);
 	
 
 	//-------------------------

@@ -195,6 +195,10 @@ bool DecompPolygon2D::sameSide(VERTEX l1, VERTEX l2, VERTEX pA, VERTEX pB)
 	return ((apt * bpt) >= 0);
 }
 
+/* a < b if a has minimum x value
+   If both have minimum x value then
+   a < b if it has highest y value
+*/
 bool DecompPolygon2D::compare(GPLine* a, GPLine* b)
 {
 	if (a == NULL) return false;
@@ -205,21 +209,12 @@ bool DecompPolygon2D::compare(GPLine* a, GPLine* b)
 	else if (minbx < minax) return false;
 	else //equal
 	{
-		int maxax = max(a->x1, a->x2);
-		int maxbx = max(b->x1, b->x2);
-		if (maxax < maxbx)
-			return true;
-		else if (maxax > maxbx)
-			return false;	
-		else //sort by height
-		{
-			int maxay = max(a->y1, a->y2);
-			int maxby = max(b->y1, b->y2);
-			if (maxay < maxby)
-				return true;
-			else
-				return false;
-		}
+		int maxay = max(a->y1, a->y2);
+		int maxby = max(b->y1, b->y2);
+
+		if (maxby < maxay) return true;
+		else return false;
+		
 	}
 	
 }
