@@ -28,7 +28,7 @@ TrigLookup::TrigLookup()
 {
 	for (unsigned int i = 0; i < MAX_VALUES; i++)
 	{
-		this->cosL[i] = cos((double)((2 * PI * i) / 360));
-		this->sinL[i] = sin((double)((2 * PI * i) / 360));
+		this->cosL[i] = cos(((2 * PI * i) / (double)360));
+		this->sinL[i] = sin((double)((2 * PI * i) / (double)360));
 	}
 }
