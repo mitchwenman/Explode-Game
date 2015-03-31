@@ -33,10 +33,10 @@ namespace Polygon3DRotator
 		{
 			int x = verts[i].x;
 			int y = verts[i].y;
-			int z = verts[y].z;
-			verts[i].x = (xx + y) * (xy + x) + z * xz - (xx_xy + x * y);
-			verts[i].y = (yx + y) * (yy + x) + z * yz - (yx_yy + x * y);
-			verts[i].z = (zx + y) * (zy + x) + z * zz - (zx_zy + x * y); 
+			int z = verts[i].z;
+			p->vertices[i].x = (xx + y) * (xy + x) + z * xz - (xx_xy + x * y);
+			p->vertices[i].y = (yx + y) * (yy + x) + z * yz - (yx_yy + x * y);
+			p->vertices[i].z = (zx + y) * (zy + x) + z * zz - (zx_zy + x * y); 
 		}
 	}
 }

@@ -270,6 +270,16 @@ void OnKeypress(unsigned char key, int x, int y)
 			Polygon3DScaler::scale(p, 1, 1, 0.9);
 			break;
 		}
+	case 'z':
+		{
+			Polygon3DRotator::Rotate(p, 0, 0, 1);
+			break;
+		}
+	case 'x':
+		{
+			Polygon3DRotator::Rotate(p, 1, 0, 0);
+			break;
+		}
 	case 27 : exit(0);
 	}
 	PlaySoundEffect("Whoosh.wav"); 
@@ -341,7 +351,7 @@ void BuildFrame(BYTE *pFrame, int view)
 	//Testing ---------------
 	World *world = World::getSingleton();
 	world->drawWorld();
-	Polygon3DRotator::Rotate(world->polygon3ds[0], 0, 0, 0);
+
 	
 
 	//-------------------------
