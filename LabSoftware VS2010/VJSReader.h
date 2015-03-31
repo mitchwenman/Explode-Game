@@ -5,6 +5,7 @@
 
 namespace VJSReader
 {
+	//Reads a VJS file and creates a polygon from it
 	Polygon3D* read(std::string fileName);
 }
 

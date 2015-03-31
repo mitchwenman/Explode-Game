@@ -7,6 +7,7 @@
 
 typedef unsigned char BYTE;
 
+//A typedef for storing RGB colour values
 typedef struct RGBColour
 {
 	BYTE red, green, blue;

@@ -3,6 +3,8 @@
 
 #include "RGBColor.h"
 
+/* A utility file for random but useful functions/types */
+
 #define ROUND(x) ((int)(x + 0.5))
 
 typedef struct  {int x, y;} POINT2D;

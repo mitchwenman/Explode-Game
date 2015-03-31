@@ -5,6 +5,7 @@
 
 namespace PolygonDrawer3D 
 {
+	//Draws a given 3D polygon
 	void draw(Polygon3D* p);
 }
 
