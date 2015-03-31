@@ -110,7 +110,7 @@ int main(int argc, char** argv)
 	settings->setFrameDimensions(FRAME_WIDE, FRAME_HIGH);
 	settings->setNumberOfChannels(NUM_CHANNELS);
 	World* world = World::getSingleton();
-	Polygon3D* p = VJSReader::read("TestCube.txt");
+	Polygon3D* p = VJSReader::read("TestPyramid.txt");
 	world->insert3DPolyAtPosition(p, 0, 0, 200);
 	RGBColour c = { 255, 255, 255 };
 	const int OFFSET = 0;

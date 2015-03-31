@@ -55,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="TestCube.txt" />
+    <None Include="TestPyramid.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{327DBF0B-A54A-434B-AC40-EAF035440FC7}</ProjectGuid>
