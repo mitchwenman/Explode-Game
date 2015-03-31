@@ -111,7 +111,7 @@ int main(int argc, char** argv)
 	settings->setNumberOfChannels(NUM_CHANNELS);
 	World* world = World::getSingleton();
 	Polygon3D* p = VJSReader::read("TestCube.txt");
-	world->insert3DPolyAtPosition(p, 0, 0, 0);
+	world->insert3DPolyAtPosition(p, 0, 0, 200);
 	RGBColour c = { 255, 255, 255 };
 	const int OFFSET = 0;
 	VERTEX verts[] = { { 100 + OFFSET, 100, &c }, { 200 + OFFSET, 200, &c }, { 100 + OFFSET, 400, &c }, { 400 + OFFSET, 400, &c }, { 300 + OFFSET, 300, &c}, { 600 + OFFSET, 100, &c } };

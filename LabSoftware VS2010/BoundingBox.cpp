@@ -67,11 +67,11 @@ int BoundingBox::findMinY()
 
 int BoundingBox::findMaxZ()
 {
-	int max = p->vertices[0].y;
+	int max = p->vertices[0].z;
 	for (int i = 1; i < p->vertices.size(); i++)
 	{
-		if (p->vertices[i].y > max)
-			max = p->vertices[i].y;
+		if (p->vertices[i].z > max)
+			max = p->vertices[i].z;
 	}
 	return max;
 }

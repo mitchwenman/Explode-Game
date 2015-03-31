@@ -1,10 +1,17 @@
 #include "Polygon3DRotator.h"
+#include "Polygon3DTranslator.h"
 #include "TrigLookup.h"
+#include "BoundingBox.h"
 
 namespace Polygon3DRotator
 {
 	void Rotate(Polygon3D* p, int tx, int ty, int tz)
 	{
+		//Translate to origin
+		BoundingBox *b = new BoundingBox(p);
+		VERTEX_3D *origCenter = b->calculateCenterPoint();
+		Polygon3DTranslator::translate(p, -origCenter->x, -origCenter->y, -origCenter->z);
+		//Get lookup singeton
 		TrigLookup* l = TrigLookup::getSingleton();
 		
 		//Calculate constants
@@ -24,19 +31,19 @@ namespace Polygon3DRotator
 
 		//Object kept intact - constants
 		double xx_xy = xx * xy;
-		double yx_yy = yz * yy;
+		double yx_yy = yx * yy;
 		double zx_zy = zx * zy;
 
 		//Perform the operations
-		std::vector<VERTEX_3D> verts = p->vertices;
-		for (unsigned int i = 0; i < verts.size(); i++)
+		for (unsigned int i = 0; i < p->vertices.size(); i++)
 		{
-			int x = verts[i].x;
-			int y = verts[i].y;
-			int z = verts[i].z;
+			int x = p->vertices[i].x;
+			int y = p->vertices[i].y;
+			int z = p->vertices[i].z;
 			p->vertices[i].x = (xx + y) * (xy + x) + z * xz - (xx_xy + x * y);
 			p->vertices[i].y = (yx + y) * (yy + x) + z * yz - (yx_yy + x * y);
 			p->vertices[i].z = (zx + y) * (zy + x) + z * zz - (zx_zy + x * y); 
 		}
+		Polygon3DTranslator::translate(p, origCenter->x, origCenter->y, origCenter->z);
 	}
 }
