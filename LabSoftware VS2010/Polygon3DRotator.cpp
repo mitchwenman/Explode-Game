@@ -40,9 +40,9 @@ namespace Polygon3DRotator
 			int x = p->vertices[i].x;
 			int y = p->vertices[i].y;
 			int z = p->vertices[i].z;			
-			p->vertices[i].x = floor((xx + y) * (xy + x) + z * xz - (xx_xy + x * y));
-			p->vertices[i].y = floor((yx + y) * (yy + x) + z * yz - (yx_yy + x * y));
-			p->vertices[i].z = floor((zx + y) * (zy + x) + z * zz - (zx_zy + x * y));   
+			p->vertices[i].x = ceil((xx + y) * (xy + x) + z * xz - (xx_xy + x * y));
+			p->vertices[i].y = ceil((yx + y) * (yy + x) + z * yz - (yx_yy + x * y));
+			p->vertices[i].z = ceil((zx + y) * (zy + x) + z * zz - (zx_zy + x * y));   
 		}
 		BoundingBox* newB = new BoundingBox(p);
 		VERTEX_3D* newCenter = newB->calculateCenterPoint();

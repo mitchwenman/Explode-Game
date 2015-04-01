@@ -112,7 +112,9 @@ int main(int argc, char** argv)
 	settings->setNumberOfChannels(NUM_CHANNELS);
 	World* world = World::getSingleton();
 	Polygon3D* p = VJSReader::read("TestCube.txt");
-	world->insert3DPolyAtPosition(p, 0, 0, 200);
+	world->insert3DPolyAtPosition(p, 500, 0, 200);
+	Polygon3D* pyr = VJSReader::read("TestPyramid.txt");
+	world->insert3DPolyAtPosition(pyr, 0, 0, 100);
 	RGBColour c = { 255, 255, 255 };
 	const int OFFSET = 0;
 	VERTEX verts[] = { { 100 + OFFSET, 100, &c }, { 200 + OFFSET, 200, &c }, { 100 + OFFSET, 400, &c }, { 400 + OFFSET, 400, &c }, { 300 + OFFSET, 300, &c}, { 600 + OFFSET, 100, &c } };
@@ -285,6 +287,12 @@ void BuildFrame(BYTE *pFrame, int view)
 	
 	//Testing ---------------
 	World *world = World::getSingleton();
+	for (unsigned int i = 0; i < world->polygon3ds.size(); i++)
+	{
+		Polygon3DTranslator::translate(world->polygon3ds[i], -5, 0, 0);
+		Polygon3DRotator::Rotate(world->polygon3ds[i], 1, 1, 1);
+	}
+
 	world->drawWorld();
 
 	
