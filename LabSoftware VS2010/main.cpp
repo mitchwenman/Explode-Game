@@ -20,6 +20,7 @@
 #include "World.h"
 #include "Polygon3DScaler.h"
 #include "Polygon3DRotator.h"
+#include "UserInput.h"
 
 #ifdef _WIN32
 	#include "libs/glut.h"
@@ -169,120 +170,54 @@ void OnKeypress(unsigned char key, int x, int y)
 	Polygon3D* p = w->polygon3ds[0];
 	Polygon2D* p2d = w->polygon2ds[0];
 	switch (key) 
-	{ 
-	case ' ': xypos.x = xypos.y = 0; break;
-	case '3': stereo ^= 1, eyes = 10;break;
-	case ']': eyes++;	break;
-	case '[': eyes--;	break;
-	case 'i': 
-		{			
+	{ 	
+		case '3': stereo ^= 1, eyes = 10;break;
+		case ']': eyes++;	break;
+		case '[': eyes--;	break;
+		case 'i': 
+			{			
+				for (int i = 0; i < p2d->numSides; i++)
+				{
+					p2d->sides[i]->y1 += 10;
+					p2d->sides[i]->y2 += 10;
+				}
+				break;
+			}
+		case 'k':
+			{
+				for (int i = 0; i < p2d->numSides; i++)
+				{
+					p2d->sides[i]->y1 -= 10;
+					p2d->sides[i]->y2 -= 10;
+				}
+				break;
+			}
+		case 'j':
+			{
+				for (int i = 0; i < p2d->numSides; i++)
+				{
+					p2d->sides[i]->x1 -= 10;
+					p2d->sides[i]->x2 -= 10;
+				}
+				break;
+			}
+		case 'l':
+		{
 			for (int i = 0; i < p2d->numSides; i++)
-			{
-				p2d->sides[i]->y1 += 10;
-				p2d->sides[i]->y2 += 10;
-			}
+				{
+					p2d->sides[i]->x1 += 10;
+					p2d->sides[i]->x2 += 10;
+				}
 			break;
-		}
-	case 'k':
+		}	
+		case 27 : exit(0);
+		default:
 		{
-			for (int i = 0; i < p2d->numSides; i++)
-			{
-				p2d->sides[i]->y1 -= 10;
-				p2d->sides[i]->y2 -= 10;
-			}
-			break;
+			UserInput::getSingleton()->handleKeyInput(key);
 		}
-	case 'j':
-		{
-			for (int i = 0; i < p2d->numSides; i++)
-			{
-				p2d->sides[i]->x1 -= 10;
-				p2d->sides[i]->x2 -= 10;
-			}
-			break;
-		}
-	case 'l':
-	{
-		for (int i = 0; i < p2d->numSides; i++)
-			{
-				p2d->sides[i]->x1 += 10;
-				p2d->sides[i]->x2 += 10;
-			}
-		break;
+
 	}
-	case 'w': 
-		{			
-			Polygon3DTranslator::translate(p, 0, 0, 10);
-			break;
-		}
-	case 's':
-		{
-			Polygon3DTranslator::translate(p, 0, 0, -10);
-			break;
-		}
-	case 'a':
-		{
-			Polygon3DTranslator::translate(p, -10, 0, 0);
-			break;
-		}
-	case 'd':
-	{
-		Polygon3DTranslator::translate(p, 10, 0, 0);
-		break;
-	}
-	case 'r':
-		{
-			Polygon3DTranslator::translate(p, 0, 10, 0);
-			break;
-		}
-	case 'f':
-		{
-			Polygon3DTranslator::translate(p, 0, -10, 0);
-			break;
-		}
-	case '7':
-		{
-			Polygon3DScaler::scale(p, 1.1, 1, 1);
-			break;
-		}
-	case '4':
-		{
-			Polygon3DScaler::scale(p, 0.9, 1, 1);
-			break;
-		}
-	case '8':
-		{
-			Polygon3DScaler::scale(p, 1, 1.1, 1);
-			break;
-		}
-	case '5':
-		{
-			Polygon3DScaler::scale(p, 1, 0.9, 1);
-			break;
-		}
-	case '9':
-		{
-			Polygon3DScaler::scale(p, 1, 1, 1.1);
-			break;
-		}
-	case '6':
-		{
-			Polygon3DScaler::scale(p, 1, 1, 0.9);
-			break;
-		}
-	case 'z':
-		{
-			Polygon3DRotator::Rotate(p, 0, 0, 1);
-			break;
-		}
-	case 'x':
-		{
-			Polygon3DRotator::Rotate(p, 1, 0, 0);
-			break;
-		}
-	case 27 : exit(0);
-	}
-	PlaySoundEffect("Whoosh.wav"); 
+
 }
 
 
