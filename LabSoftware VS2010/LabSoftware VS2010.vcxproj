@@ -47,6 +47,7 @@
     <ClInclude Include="Polygon3DScaler.h" />
     <ClInclude Include="Polygon3DTranslator.h" />
     <ClInclude Include="PolygonDrawer.h" />
+    <ClInclude Include="Reference3DPolygon.h" />
     <ClInclude Include="RGBColor.h" />
     <ClInclude Include="ScanLineTriangle.h" />
     <ClInclude Include="ScanLineTriangleDrawer.h" />
