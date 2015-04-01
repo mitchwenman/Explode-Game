@@ -14,6 +14,10 @@ private:
 	//Constructor
 	World() { };
 
+	//A vector of polygons pre-all transformations 
+	//Used to combat loss of precision in rotate operations
+	std::vector<Polygon3D *> originalPolygons;
+
 public:
 
 	std::vector<Polygon3D *> polygon3ds;
@@ -31,6 +35,15 @@ public:
 
 	//Draws the 2D and 3D to the frame buffer stored in GraphicsSettings
 	void drawWorld();
+
+	//Translates the polygon at the index i in polygon3ds
+	void translate3DPolyAtIndex(int i, int dx, int dy, int dz);
+
+	//Rotates the polygon at the index i in polygon3ds
+	void rotate3DPolyAtIndex(int i, int dx, int dy, int dz);
+
+	//Scales the polygon at the index i in polygon3ds
+	void scale3DPolyAtIndex(int i, int sx, int sy, int sz);
 
 
 };
