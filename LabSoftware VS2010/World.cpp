@@ -6,6 +6,8 @@
 #include "Polygon3DTranslator.h"
 #include "BoundingBox.h"
 #include "Reference3DPolygon.h"
+#include "Polygon3DScaler.h"
+#include "Polygon3DRotator.h"
 
 static World* _instance;
 
@@ -74,8 +76,42 @@ void World::translate3DPolyAtIndex(int i, int dx, int dy, int dz)
 
 void World::rotate3DPolyAtIndex(int i, int dx, int dy, int dz)
 {
+	if (i >= 0 && i < polygon3ds.size())
+	{
+		Polygon3D *p = polygon3ds[i];
+		Reference3DPolygon *refP = originalPolygons[i];
+		refP->numRotates++;
+		refP->rx += dx;
+		refP->ry += dy;
+		refP->rz += dz;
+		if (false)//refP->numRotates > N_ROTATES_BEFORE_REDRAW)
+		{
+			refP->numRotates = 0;
+			delete(polygon3ds[i]);
+			p = new Polygon3D(*refP->originalPoly);
+			polygon3ds[i] = p;
+			Polygon3DTranslator::translate(p, refP->tx, refP->ty, refP->tz);
+			Polygon3DScaler::scale(p, refP->sx, refP->sy, refP->sz);
+			Polygon3DRotator::Rotate(p, refP->rx % 360, refP->ry % 360, refP->rz % 360);
+		} else
+		{
+			Polygon3DRotator::Rotate(p, dx, dy, dz);
+		}
+			
+		
+		
+	}
 }
 
-void World::scale3DPolyAtIndex(int i, int sx, int sy, int sz)
+void World::scale3DPolyAtIndex(int i, double sx, double sy, double sz)
 {
+	if (i >= 0 && i < polygon3ds.size())
+	{
+		Polygon3D *p = polygon3ds[i];
+		Reference3DPolygon *refP = originalPolygons[i];
+		Polygon3DScaler::scale(p, sx, sy, sz);
+		refP->sx *= sx;
+		refP->sy *= sy;
+		refP->sz *= sz;
+	}
 }

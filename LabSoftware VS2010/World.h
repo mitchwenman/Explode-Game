@@ -11,6 +11,8 @@
 class World
 {
 
+	static const int N_ROTATES_BEFORE_REDRAW = 1;
+
 private:
 	//Constructor
 	World() { };
@@ -44,7 +46,7 @@ public:
 	void rotate3DPolyAtIndex(int i, int dx, int dy, int dz);
 
 	//Scales the polygon at the index i in polygon3ds
-	void scale3DPolyAtIndex(int i, int sx, int sy, int sz);
+	void scale3DPolyAtIndex(int i, double sx, double sy, double sz);
 
 
 };

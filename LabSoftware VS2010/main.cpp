@@ -287,14 +287,16 @@ void BuildFrame(BYTE *pFrame, int view)
 	GraphicsSettings* gSettings = GraphicsSettings::getGraphicsSettings();
 	gSettings->setFrameBuffer(screen);
 	gSettings->setView(view);
-	
-	//Testing ---------------
 	World *world = World::getSingleton();
+	//Testing ---------------
+
 	for (unsigned int i = 0; i < world->polygon3ds.size(); i++)
 	{
-		//Polygon3DTranslator::translate(world->polygon3ds[i], -5, 0, 0);
-		Polygon3DRotator::Rotate(world->polygon3ds[i], 1, 1, 1);
+		//world->translate3DPolyAtIndex(i, -5, 0, 0);		
+		world->rotate3DPolyAtIndex(i, 1, 1, 1);
 	}
+	
+	
 
 	world->drawWorld();
 

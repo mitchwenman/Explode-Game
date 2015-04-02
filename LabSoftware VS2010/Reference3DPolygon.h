@@ -20,5 +20,6 @@ public:
 	//Current translation from original poly
 	int tx, ty, tz;
 
-	//
+	//Number of rotation operations
+	int numRotates;
 };
