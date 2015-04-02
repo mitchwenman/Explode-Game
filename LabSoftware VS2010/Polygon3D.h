@@ -16,7 +16,7 @@ public:
 
 	//A vector, with each element containing a vector of pointers
 	//to the vertices that make up that polygon
-	std::vector<std::vector<VERTEX_3D*>> polygons;
+	std::vector<std::vector<int>> polygons;
 
 };
 

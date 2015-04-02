@@ -19,17 +19,18 @@ namespace PolygonDrawer3D
 		for (int i = 0; i < p->polygons.size(); i++)
 		{
 			std::vector<VERTEX> vList2d;
-			std::vector<VERTEX_3D*> vList3d = p->polygons[i];			
-			for (int j = 0; j < vList3d.size(); j++)
+			std::vector<VERTEX_3D> vList3d = p->vertices;
+			std::vector<int> polyVerts = p->polygons[i];
+			for (int j = 0; j < polyVerts.size(); j++)
 			{
-				int x = vList3d[j]->x;
-				int y = vList3d[j]->y;
-				int z = vList3d[j]->z;
+				int x = vList3d[polyVerts[j]].x;
+				int y = vList3d[polyVerts[j]].y;
+				int z = vList3d[polyVerts[j]].z;
 				if (z <= -fov)
 					z = -fov + 1;
 				int newx = x * fov / (z + fov) + centrex;
 				int newy = y * fov / (z + fov) + centrey;
-				VERTEX vert = { newx, newy, vList3d[j]->c };
+				VERTEX vert = { newx, newy, vList3d[polyVerts[j]].c };
 				vList2d.push_back(vert);
 
 				

@@ -80,7 +80,7 @@ Polygon3D* VJSReader::read(string fileName)
 			{
 				getline(linecpy, s, ' ');
 			}
-			vector<VERTEX_3D*> vList;
+			vector<int> vList;
 			int j = 0;
 			do 
 			{
@@ -92,7 +92,7 @@ Polygon3D* VJSReader::read(string fileName)
 				else
 				{
 					int vIndex = stoi(s);				
-					vList.push_back(&(p->vertices[vIndex]));
+					vList.push_back(vIndex);
 					getline(linecpy, s, ' ');
 					if (!s.empty() && stoi(s) == vIndex) break;
 				}
