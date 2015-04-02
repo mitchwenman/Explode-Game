@@ -17,6 +17,11 @@ void UserInput::handleKeyInput(char key)
 		p = world->polygon3ds[selectedPolygon3D];
 		switch (key)
 	{
+	case '\t':
+		{
+			selectedPolygon3D = (selectedPolygon3D + 1) % world->polygon3ds.size();
+			break;
+		}
 	case 'w': 
 		{			
 			Polygon3DTranslator::translate(p, 0, 0, 10);
