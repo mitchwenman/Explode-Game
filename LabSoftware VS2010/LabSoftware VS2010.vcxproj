@@ -13,6 +13,7 @@
   <ItemGroup>
     <ClCompile Include="3DPolygonDrawer.cpp" />
     <ClCompile Include="BoundingBox.cpp" />
+    <ClCompile Include="BoundingBoxDrawer.cpp" />
     <ClCompile Include="DDALine.cpp" />
     <ClCompile Include="DecompPolygon2D.cpp" />
     <ClCompile Include="GraphicsSettings.cpp" />
@@ -36,6 +37,7 @@
   <ItemGroup>
     <ClInclude Include="3DPolygonDrawer.h" />
     <ClInclude Include="BoundingBox.h" />
+    <ClInclude Include="BoundingBoxDrawer.h" />
     <ClInclude Include="DDALine.h" />
     <ClInclude Include="DecompPolygon2D.h" />
     <ClInclude Include="GPLine.h" />
