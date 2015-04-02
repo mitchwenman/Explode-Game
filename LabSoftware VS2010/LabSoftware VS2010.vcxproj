@@ -25,6 +25,7 @@
     <ClCompile Include="Polygon3DScaler.cpp" />
     <ClCompile Include="Polygon3DTranslator.cpp" />
     <ClCompile Include="PolygonDrawer.cpp" />
+    <ClCompile Include="Reference3DPolygon.cpp" />
     <ClCompile Include="ScanlineTriangle.cpp" />
     <ClCompile Include="ScanLineTriangleDrawer.cpp" />
     <ClCompile Include="TrigLookup.cpp" />

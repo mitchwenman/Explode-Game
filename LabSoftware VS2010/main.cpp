@@ -21,6 +21,7 @@
 #include "Polygon3DScaler.h"
 #include "Polygon3DRotator.h"
 #include "UserInput.h"
+#include "Reference3DPolygon.h"
 
 #ifdef _WIN32
 	#include "libs/glut.h"
@@ -112,6 +113,7 @@ int main(int argc, char** argv)
 	settings->setNumberOfChannels(NUM_CHANNELS);
 	World* world = World::getSingleton();
 	Polygon3D* p = VJSReader::read("TestCube.txt");
+	Reference3DPolygon* refP = new Reference3DPolygon(p);
 	world->insert3DPolyAtPosition(p, 500, 0, 200);
 	Polygon3D* pyr = VJSReader::read("TestPyramid.txt");
 	world->insert3DPolyAtPosition(pyr, 0, 0, 100);
@@ -289,7 +291,7 @@ void BuildFrame(BYTE *pFrame, int view)
 	World *world = World::getSingleton();
 	for (unsigned int i = 0; i < world->polygon3ds.size(); i++)
 	{
-		Polygon3DTranslator::translate(world->polygon3ds[i], -5, 0, 0);
+		//Polygon3DTranslator::translate(world->polygon3ds[i], -5, 0, 0);
 		Polygon3DRotator::Rotate(world->polygon3ds[i], 1, 1, 1);
 	}
 
