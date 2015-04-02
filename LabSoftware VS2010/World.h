@@ -4,6 +4,7 @@
 #include "Polygon3D.h"
 #include "Polygon2D.h"
 #include "3DPolygonDrawer.h"
+#include "Reference3DPolygon.h"
 
 #include <vector>
 
@@ -16,7 +17,7 @@ private:
 
 	//A vector of polygons pre-all transformations 
 	//Used to combat loss of precision in rotate operations
-	std::vector<Polygon3D *> originalPolygons;
+	std::vector<Reference3DPolygon *> originalPolygons;
 
 public:
 
