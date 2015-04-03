@@ -118,11 +118,8 @@ int main(int argc, char** argv)
 
 	Polygon3D* pyr = VJSReader::read("TestPyramid.txt");
 	world->insert3DPolyAtPosition(pyr, 0, 0, 100);
-	RGBColour c = { 255, 255, 255 };
-	const int OFFSET = 0;
-	VERTEX verts[] = { { 100 + OFFSET, 100, &c }, { 200 + OFFSET, 200, &c }, { 100 + OFFSET, 400, &c }, { 400 + OFFSET, 400, &c }, { 300 + OFFSET, 300, &c}, { 600 + OFFSET, 100, &c } };
-	Polygon2D *p2d = new Polygon2D(6, verts);
- 	world->insert2DPoly(p2d);
+
+
 	//-- run the program
 	glutMainLoop();
 	return 0;
