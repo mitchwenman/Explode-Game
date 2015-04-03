@@ -12,14 +12,18 @@ static UserInput* _instance;
 void UserInput::handleKeyInput(char key)
 {
 	Polygon3D *p;
+	
 	if (world->polygon3ds.size() > selectedPolygon3D)
 	{
 		p = world->polygon3ds[selectedPolygon3D];
-		switch (key)
+	} else if (selectedPolygon3D == -1 && key != '\t')
+		return;
+
+	switch (key)
 	{
 	case '\t':
 		{
-			selectedPolygon3D = (selectedPolygon3D + 1) % world->polygon3ds.size();
+			selectedPolygon3D = (selectedPolygon3D + 2) % (world->polygon3ds.size() + 1) - 1;
 			break;
 		}
 	case 'w': 
@@ -97,7 +101,7 @@ void UserInput::handleKeyInput(char key)
 			Polygon3DRotator::Rotate(p, 0, 1, 0);
 			break;
 		}
-	}
+	
 	}
 		
 	

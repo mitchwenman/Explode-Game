@@ -22,6 +22,8 @@
 #include "Polygon3DRotator.h"
 #include "UserInput.h"
 #include "Reference3DPolygon.h"
+#include "BoundingBox.h"
+#include "BoundingBoxDrawer.h"
 
 #ifdef _WIN32
 	#include "libs/glut.h"
@@ -113,8 +115,8 @@ int main(int argc, char** argv)
 	settings->setNumberOfChannels(NUM_CHANNELS);
 	World* world = World::getSingleton();
 
-	//Polygon3D* p = VJSReader::read("TestCube.txt");	
-	//world->insert3DPolyAtPosition(p, 400, 0, 200);
+	Polygon3D* p = VJSReader::read("TestCube.txt");	
+	world->insert3DPolyAtPosition(p, 400, 0, 200);
 
 	Polygon3D* pyr = VJSReader::read("TestPyramid.txt");
 	world->insert3DPolyAtPosition(pyr, 0, 0, 100);
@@ -168,50 +170,13 @@ void OnMouse(int button, int state, int x, int y)
 
 void OnKeypress(unsigned char key, int x, int y)
 {
-	World *w = World::getSingleton();
-	Polygon3D* p = w->polygon3ds[0];
-	Polygon2D* p2d = w->polygon2ds[0];
+
+
 	switch (key) 
 	{ 	
 		case '3': stereo ^= 1, eyes = 10;break;
 		case ']': eyes++;	break;
 		case '[': eyes--;	break;
-		case 'i': 
-			{			
-				for (int i = 0; i < p2d->numSides; i++)
-				{
-					p2d->sides[i]->y1 += 10;
-					p2d->sides[i]->y2 += 10;
-				}
-				break;
-			}
-		case 'k':
-			{
-				for (int i = 0; i < p2d->numSides; i++)
-				{
-					p2d->sides[i]->y1 -= 10;
-					p2d->sides[i]->y2 -= 10;
-				}
-				break;
-			}
-		case 'j':
-			{
-				for (int i = 0; i < p2d->numSides; i++)
-				{
-					p2d->sides[i]->x1 -= 10;
-					p2d->sides[i]->x2 -= 10;
-				}
-				break;
-			}
-		case 'l':
-		{
-			for (int i = 0; i < p2d->numSides; i++)
-				{
-					p2d->sides[i]->x1 += 10;
-					p2d->sides[i]->x2 += 10;
-				}
-			break;
-		}	
 		case 27 : exit(0);
 		default:
 		{
@@ -286,16 +251,22 @@ void BuildFrame(BYTE *pFrame, int view)
 	gSettings->setView(view);
 	World *world = World::getSingleton();
 	//Testing ---------------
-
+	world->drawWorld();
 	for (unsigned int i = 0; i < world->polygon3ds.size(); i++)
 	{
-		//world->translate3DPolyAtIndex(i, -5, 0, 0);		
+		if (i == UserInput::getSingleton()->selectedPolygon3D)
+		{
+			BoundingBox *box = new BoundingBox(world->polygon3ds[i]);
+			BoundingBoxDrawer::draw(box);
+			delete(box);
+		}
+		world->translate3DPolyAtIndex(i, -2, 0, 0);		
 		world->rotate3DPolyAtIndex(i, 1, 1, 1);
 	}
 	
 	
 
-	world->drawWorld();
+	
 
 	
 

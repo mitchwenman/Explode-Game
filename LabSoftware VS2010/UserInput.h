@@ -8,6 +8,9 @@ class UserInput
 	
 
 public:
+	int selectedPolygon3D;
+	int selectedPolygon2D;
+
 	//Mega-method to handle key inputs
 	void handleKeyInput(char key);
 
@@ -19,8 +22,7 @@ private:
 	UserInput();
 	virtual ~UserInput() {}
 
-	int selectedPolygon3D;
-	int selectedPolygon2D;
+
 	
 	//A copy of the world instance
 	World* world;

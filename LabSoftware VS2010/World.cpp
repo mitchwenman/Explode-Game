@@ -56,8 +56,6 @@ void World::drawWorld()
 	}
 	for (unsigned int i = 0; i < this->polygon3ds.size(); i++)
 	{
-		BoundingBox *b = new BoundingBox(polygon3ds[i]);
-		BoundingBoxDrawer::draw(b);
 		PolygonDrawer3D::draw(this->polygon3ds[i]);
 
 	}
