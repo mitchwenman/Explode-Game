@@ -12,14 +12,14 @@ namespace Polygon3DRotator
 	void Rotate(Polygon3D* p, int tx, int ty, int tz);
 
 	//Rotates a set of vertices
-	void RotateVertices(std::vector<VERTEX_3D>, RotationConstantTable* cTable);
+	void RotateVertices(std::vector<VERTEX_3D>* vertices, RotationConstantTable* cTable);
 
-	void RotateVertices(std::vector<VERTEX_3D_f>, RotationConstantTable* cTable);
+	void RotateVertices(std::vector<VERTEX_3D_f>* vertices, int rx, int ry, int rz);
 
 	//Rotates a single vertex using a given constant table
 	void RotateVertex(VERTEX_3D* vertex, RotationConstantTable* cTable);
 
-	void RotateVertex(VERTEX_3D_f vertex, RotationConstantTable* cTable);
+	void RotateVertex(VERTEX_3D_f* vertex, RotationConstantTable* cTable);
 }
 
 #endif

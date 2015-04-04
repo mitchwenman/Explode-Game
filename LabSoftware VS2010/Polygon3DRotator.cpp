@@ -16,10 +16,7 @@ namespace Polygon3DRotator
 		RotationConstantTable* cTable = new RotationConstantTable(tx, ty, tz);
 
 		//Perform the operations
-		for (unsigned int i = 0; i < p->vertices.size(); i++)
-		{
-			RotateVertex(&p->vertices[i], cTable);
-		}
+		RotateVertices(&p->vertices, cTable);
 		BoundingBox* newB = new BoundingBox(p);
 		VERTEX_3D* newCenter = newB->calculateCenterPoint();
 		Polygon3DTranslator::translate(p, origCenter->x - newCenter->x, origCenter->y - newCenter->y, origCenter->z - newCenter->z);
@@ -27,6 +24,23 @@ namespace Polygon3DRotator
 		delete(newB);
 		delete(newCenter);
 		delete(origCenter);
+	}
+
+	void RotateVertices(std::vector<VERTEX_3D>* vertices, RotationConstantTable* cTable)
+	{
+		for (unsigned int i = 0; i < vertices->size(); i++)
+		{
+			RotateVertex(&vertices->at(i), cTable);
+		}
+	}
+
+	void RotateVertices(std::vector<VERTEX_3D_f>* vertices, int rx, int ry, int rz)
+	{
+		RotationConstantTable* cTable = new RotationConstantTable(rx, ry, rz);
+		for (unsigned int i = 0; i < vertices->size(); i++)
+		{
+			RotateVertex(&vertices->at(i), cTable);
+		}
 	}
 
 	void RotateVertex(VERTEX_3D* vertex, RotationConstantTable* cTable)
@@ -37,5 +51,15 @@ namespace Polygon3DRotator
 		vertex->x = ceil((cTable->xx + y) * (cTable->xy + x) + z * cTable->xz - (cTable->xx_xy + x * y));
 		vertex->y = ceil((cTable->yx + y) * (cTable->yy + x) + z * cTable->yz - (cTable->yx_yy + x * y));
 		vertex->z = ceil((cTable->zx + y) * (cTable->zy + x) + z * cTable->zz - (cTable->zx_zy + x * y));  
+	}
+
+	void RotateVertex(VERTEX_3D_f* vertex, RotationConstantTable* cTable)
+	{
+		double x = vertex->x;
+		double y = vertex->y;
+		double z = vertex->z;			
+		vertex->x = (cTable->xx + y) * (cTable->xy + x) + z * cTable->xz - (cTable->xx_xy + x * y);
+		vertex->y = (cTable->yx + y) * (cTable->yy + x) + z * cTable->yz - (cTable->yx_yy + x * y);
+		vertex->z = (cTable->zx + y) * (cTable->zy + x) + z * cTable->zz - (cTable->zx_zy + x * y);  
 	}
 }
