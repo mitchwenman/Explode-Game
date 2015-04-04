@@ -115,11 +115,11 @@ int main(int argc, char** argv)
 	settings->setNumberOfChannels(NUM_CHANNELS);
 	World* world = World::getSingleton();
 
-	//Polygon3D* p = VJSReader::read("TestCube.txt");	
-	//world->insert3DPolyAtPosition(p, 400, -200, 200);
+	Polygon3D* p = VJSReader::read("TestCube.txt");	
+	world->insert3DPolyAtPosition(p, 400, -200, 200);
 
-	Polygon3D* pyr = VJSReader::read("TestPyramid.txt");
-	world->insert3DPolyAtPosition(pyr, -200, 0, 100);
+	//Polygon3D* pyr = VJSReader::read("TestPyramid.txt");
+	//world->insert3DPolyAtPosition(pyr, -200, 0, 100);
 
 
 	//-- run the program
