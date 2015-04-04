@@ -27,6 +27,7 @@
     <ClCompile Include="Polygon3DTranslator.cpp" />
     <ClCompile Include="PolygonDrawer.cpp" />
     <ClCompile Include="Reference3DPolygon.cpp" />
+    <ClCompile Include="RotationConstantTable.cpp" />
     <ClCompile Include="ScanlineTriangle.cpp" />
     <ClCompile Include="ScanLineTriangleDrawer.cpp" />
     <ClCompile Include="SurfaceNormal.cpp" />
@@ -53,6 +54,7 @@
     <ClInclude Include="PolygonDrawer.h" />
     <ClInclude Include="Reference3DPolygon.h" />
     <ClInclude Include="RGBColor.h" />
+    <ClInclude Include="RotationConstantTable.h" />
     <ClInclude Include="ScanLineTriangle.h" />
     <ClInclude Include="ScanLineTriangleDrawer.h" />
     <ClInclude Include="SurfaceNormal.h" />
