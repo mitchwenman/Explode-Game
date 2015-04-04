@@ -101,9 +101,10 @@ void World::rotate3DPolyAtIndex(int i, int dx, int dy, int dz)
 			delete(polygon3ds[i]);
 			p = new Polygon3D(*refP->originalPoly);
 			polygon3ds[i] = p;
-			Polygon3DTranslator::translate(p, refP->tx, refP->ty, refP->tz);
+			
 			Polygon3DScaler::scale(p, refP->sx, refP->sy, refP->sz);
 			Polygon3DRotator::Rotate(p, refP->rx % 360, refP->ry % 360, refP->rz % 360);
+			Polygon3DTranslator::translate(p, refP->tx, refP->ty, refP->tz);
 		} else
 		{
 			Polygon3DRotator::Rotate(p, dx, dy, dz);

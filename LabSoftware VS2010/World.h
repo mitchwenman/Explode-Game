@@ -11,7 +11,7 @@
 class World
 {
 
-	static const int N_ROTATES_BEFORE_REDRAW = 1;
+	static const int N_ROTATES_BEFORE_REDRAW = 50;
 
 private:
 	//Constructor
