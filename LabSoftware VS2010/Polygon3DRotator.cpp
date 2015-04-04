@@ -53,4 +53,14 @@ namespace Polygon3DRotator
 		delete(newCenter);
 		delete(origCenter);
 	}
+
+	void RotateVertex(VERTEX_3D* vertex, RotationConstantTable* cTable)
+	{
+		int x = vertex->x;
+		int y = vertex->y;
+		int z = vertex->z;			
+		vertex->x = ceil((cTable->xx + y) * (cTable->xy + x) + z * cTable->xz - (cTable->xx_xy + x * y));
+		vertex->y = ceil((cTable->yx + y) * (cTable->yy + x) + z * cTable->yz - (cTable->yx_yy + x * y));
+		vertex->z = ceil((cTable->zx + y) * (cTable->zy + x) + z * cTable->zz - (cTable->zx_zy + x * y));  
+	}
 }
