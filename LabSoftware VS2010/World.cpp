@@ -9,6 +9,7 @@
 #include "Polygon3DScaler.h"
 #include "Polygon3DRotator.h"
 #include "BoundingBoxDrawer.h"
+#include "SurfaceNormal.h"
 
 static World* _instance;
 
@@ -37,8 +38,17 @@ void World::insert3DPolyAtPosition(Polygon3D* p, int x, int y, int z)
 	//Translate
 	Polygon3DTranslator::translate(p, dx, dy, dz);
 	this->polygon3ds.push_back(p);
-	//Create a reference polygon
+	//Create a reference polygon - calculate normals
 	Reference3DPolygon* refP = new Reference3DPolygon(p);
+	std::vector<VERTEX_3D> verts = p->vertices;
+	for (unsigned int i = 0; i < p->polygons.size(); i++)
+	{
+		std::vector<int> face = p->polygons[i];
+		VERTEX_3D* normal = SurfaceNormal::calculateSurfaceNormal(verts[face[0]],
+																  verts[face[1]],
+																  verts[face[2]]);
+		refP->normals.push_back(*normal);
+	}
 	this->originalPolygons.push_back(refP);
 
 }

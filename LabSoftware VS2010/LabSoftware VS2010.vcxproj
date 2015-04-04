@@ -29,6 +29,7 @@
     <ClCompile Include="Reference3DPolygon.cpp" />
     <ClCompile Include="ScanlineTriangle.cpp" />
     <ClCompile Include="ScanLineTriangleDrawer.cpp" />
+    <ClCompile Include="SurfaceNormal.cpp" />
     <ClCompile Include="TrigLookup.cpp" />
     <ClCompile Include="UserInput.cpp" />
     <ClCompile Include="VJSReader.cpp" />
@@ -54,6 +55,7 @@
     <ClInclude Include="RGBColor.h" />
     <ClInclude Include="ScanLineTriangle.h" />
     <ClInclude Include="ScanLineTriangleDrawer.h" />
+    <ClInclude Include="SurfaceNormal.h" />
     <ClInclude Include="TrigLookup.h" />
     <ClInclude Include="UserInput.h" />
     <ClInclude Include="VJSReader.h" />
