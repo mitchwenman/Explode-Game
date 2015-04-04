@@ -5,9 +5,9 @@
 VERTEX_3D_f* SurfaceNormal::calculateSurfaceNormal(VERTEX_3D v1, VERTEX_3D v2, VERTEX_3D v3)
 {
 	//Translate each point to origin
-	VERTEX_3D p1 = { v1.x - v2.x, v1.y - v2.y, v1.z - v2.z };
-	VERTEX_3D p2 = { 0, 0, 0 };
-	VERTEX_3D p3 = { v3.x - v2.x, v3.y - v2.y, v3.z - v2.z };
+	//VERTEX_3D p1 = { v1.x - v2.x, v1.y - v2.y, v1.z - v2.z };
+	//VERTEX_3D p2 = { 0, 0, 0 };
+	//VERTEX_3D p3 = { v3.x - v2.x, v3.y - v2.y, v3.z - v2.z };
 	
 	//Create vectorsv
 	VERTEX_3D_f vectorA = { v2.x - v1.x, v2.y - v1.y, v2.z - v1.z };

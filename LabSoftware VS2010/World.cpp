@@ -107,16 +107,9 @@ void World::rotate3DPolyAtIndex(int i, int dx, int dy, int dz)
 			Polygon3DTranslator::translate(p, refP->tx, refP->ty, refP->tz);
 		} else
 		{
-			std::vector<VERTEX_3D> verts = p->vertices;
-			for (unsigned int i = 0; i < p->polygons.size(); i++)
-			{
-				std::vector<int> face = p->polygons[i];
-				VERTEX_3D_f* normal = SurfaceNormal::calculateSurfaceNormal(verts[face[0]],
-																		  verts[face[1]],
-																		  verts[face[2]]);
-				refP->normals[i] = *normal;
-			}
 			Polygon3DRotator::Rotate(p, dx, dy, dz);
+			Polygon3DRotator::RotateVertices(&refP->normals, dx, dy, dz);
+			
 		}
 			
 		
