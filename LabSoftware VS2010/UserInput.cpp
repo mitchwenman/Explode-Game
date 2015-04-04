@@ -11,14 +11,9 @@ static UserInput* _instance;
 
 void UserInput::handleKeyInput(char key)
 {
-	Polygon3D *p;
-	
-	if (world->polygon3ds.size() > selectedPolygon3D)
-	{
-		p = world->polygon3ds[selectedPolygon3D];
-	} else if (selectedPolygon3D == -1 && key != '\t')
+	if (selectedPolygon3D == -1 && key != '\t')
 		return;
-
+	World* world = World::getSingleton();
 	switch (key)
 	{
 	case '\t':
@@ -28,77 +23,77 @@ void UserInput::handleKeyInput(char key)
 		}
 	case 'w': 
 		{			
-			Polygon3DTranslator::translate(p, 0, 0, 10);
+			world->translate3DPolyAtIndex(selectedPolygon3D, 0, 0, 10);
 			break;
 		}
 	case 's':
 		{
-			Polygon3DTranslator::translate(p, 0, 0, -10);
+			world->translate3DPolyAtIndex(selectedPolygon3D, 0, 0, -10);
 			break;
 		}
 	case 'a':
 		{
-			Polygon3DTranslator::translate(p, -10, 0, 0);
+			world->translate3DPolyAtIndex(selectedPolygon3D, -10, 0, 0);
 			break;
 		}
 	case 'd':
 		{
-			Polygon3DTranslator::translate(p, 10, 0, 0);
+			world->translate3DPolyAtIndex(selectedPolygon3D, 10, 0, 0);
 			break;
 		}
 	case 'r':
 		{
-			Polygon3DTranslator::translate(p, 0, 10, 0);
+			world->translate3DPolyAtIndex(selectedPolygon3D, 0, 10, 0);
 			break;
 		}
 	case 'f':
 		{
-			Polygon3DTranslator::translate(p, 0, -10, 0);
+			world->translate3DPolyAtIndex(selectedPolygon3D, 0, -10, 0);
 			break;
 		}
 	case '7':
 		{
-			Polygon3DScaler::scale(p, 1.1, 1, 1);
+			world->scale3DPolyAtIndex(selectedPolygon3D, 1.1, 1, 1);
 			break;
 		}
 	case '4':
 		{
-			Polygon3DScaler::scale(p, 0.9, 1, 1);
+			world->scale3DPolyAtIndex(selectedPolygon3D, 0.9, 1, 1);
 			break;
 		}
 	case '8':
 		{
-			Polygon3DScaler::scale(p, 1, 1.1, 1);
+			world->scale3DPolyAtIndex(selectedPolygon3D, 1, 1.1, 1);
 			break;
 		}
 	case '5':
 		{
-			Polygon3DScaler::scale(p, 1, 0.9, 1);
+			world->scale3DPolyAtIndex(selectedPolygon3D, 1, 0.9, 1);
 			break;
 		}
 	case '9':
 		{
-			Polygon3DScaler::scale(p, 1, 1, 1.1);
+			world->scale3DPolyAtIndex(selectedPolygon3D, 1, 1, 1.1);
 			break;
 		}
 	case '6':
 		{
-			Polygon3DScaler::scale(p, 1, 1, 0.9);
+			world->scale3DPolyAtIndex(selectedPolygon3D, 1, 1, 0.9);
 			break;
 		}
 	case 'z':
 		{
-			Polygon3DRotator::Rotate(p, 0, 0, 1);
+			world->rotate3DPolyAtIndex(selectedPolygon3D, 0, 0, 1);
 			break;
 		}
 	case 'x':
 		{
-			Polygon3DRotator::Rotate(p, 1, 0, 0);
+			world->rotate3DPolyAtIndex(selectedPolygon3D, 1, 0, 0);
 			break;
 		}
 	case 'y':
 		{
-			Polygon3DRotator::Rotate(p, 0, 1, 0);
+			world->rotate3DPolyAtIndex(selectedPolygon3D, 0, 1, 0);
 			break;
 		}
 	
