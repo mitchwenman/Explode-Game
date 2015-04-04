@@ -17,7 +17,7 @@ namespace Polygon3DRotator
 	void RotateVertices(std::vector<VERTEX_3D_f>, RotationConstantTable* cTable);
 
 	//Rotates a single vertex using a given constant table
-	void RotateVertex(VERTEX_3D vertex, RotationConstantTable* cTable);
+	void RotateVertex(VERTEX_3D* vertex, RotationConstantTable* cTable);
 
 	void RotateVertex(VERTEX_3D_f vertex, RotationConstantTable* cTable);
 }
