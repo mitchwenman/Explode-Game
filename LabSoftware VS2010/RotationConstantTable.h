@@ -13,8 +13,13 @@ public:
 	~RotationConstantTable(void) {};
 
 	//Constant values for public access
-	double			xx, xy, xz,
-					yx, yy, yz,
-					zx, zy, zz;
+	double	xx, xy, xz,
+			yx, yy, yz,
+			zx, zy, zz;
+
+	//Constant values - because object kept intact
+	double	xx_xy,
+			yx_yy,
+			zx_zy;
 };
 

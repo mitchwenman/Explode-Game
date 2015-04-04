@@ -18,5 +18,9 @@ RotationConstantTable::RotationConstantTable(int rx, int ry, int rz)
 	zx = -trigLookup->sinLookup(ry);
 	zy = trigLookup->sinLookup(rx) * trigLookup->cosLookup(ry);
 	zz = trigLookup->cosLookup(rx) * trigLookup->cosLookup(ry);
+
+	xx_xy = xx * xy;
+	yx_yy = yx * yy;
+	zx_zy = zx * zy;
 }
 

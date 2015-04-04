@@ -2,6 +2,7 @@
 #include "Polygon3DTranslator.h"
 #include "TrigLookup.h"
 #include "BoundingBox.h"
+#include "RotationConstantTable.h"
 
 namespace Polygon3DRotator
 {
