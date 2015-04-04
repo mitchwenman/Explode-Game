@@ -13,4 +13,6 @@ typedef struct { int x; int y; RGBColour* c; } VERTEX;
 
 typedef struct { int x; int y; int z; RGBColour* c; } VERTEX_3D;
 
+typedef struct { double x; double y; double z; } VERTEX_3D_f;
+
 #endif

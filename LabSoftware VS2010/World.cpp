@@ -44,7 +44,7 @@ void World::insert3DPolyAtPosition(Polygon3D* p, int x, int y, int z)
 	for (unsigned int i = 0; i < p->polygons.size(); i++)
 	{
 		std::vector<int> face = p->polygons[i];
-		VERTEX_3D* normal = SurfaceNormal::calculateSurfaceNormal(verts[face[0]],
+		VERTEX_3D_f* normal = SurfaceNormal::calculateSurfaceNormal(verts[face[0]],
 																  verts[face[1]],
 																  verts[face[2]]);
 		refP->normals.push_back(*normal);
