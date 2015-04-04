@@ -44,5 +44,21 @@ namespace PolygonDrawer3D
 			
 		}
 	}
+
+	void draw(Polygon3D* p, Reference3DPolygon* refP)
+	{
+		Polygon3D* culledPolygon = new Polygon3D();
+		culledPolygon->vertices = p->vertices;
+		for (unsigned int i = 0; i < p->polygons.size(); i++)
+		{
+			//if z value of normal is <= 0 add to polygon (else it's a backface)
+			if (refP->normals[i].z <= 0)
+			{
+				culledPolygon->polygons.push_back(p->polygons[i]);
+			}
+		}
+		draw(culledPolygon);
+		delete(culledPolygon);
+	}
 }
 	

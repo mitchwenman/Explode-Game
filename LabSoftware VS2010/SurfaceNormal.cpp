@@ -9,9 +9,9 @@ VERTEX_3D_f* SurfaceNormal::calculateSurfaceNormal(VERTEX_3D v1, VERTEX_3D v2, V
 	VERTEX_3D p2 = { 0, 0, 0 };
 	VERTEX_3D p3 = { v3.x - v2.x, v3.y - v2.y, v3.z - v2.z };
 	
-	//Create vectors
-	VERTEX_3D_f vectorA = { p1.x - p2.x, p1.y - p2.y, p1.z - p2.z };
-	VERTEX_3D_f vectorB = { p3.x - p2.x, p3.y - p2.y, p3.z - p2.z };
+	//Create vectorsv
+	VERTEX_3D_f vectorA = { v2.x - v1.x, v2.y - v1.y, v2.z - v1.z };
+	VERTEX_3D_f vectorB = { v3.x - v1.x, v3.y - v1.y, v3.z - v1.z };
 
 	//Normalise to unit length
 	double lengthA = sqrt( (double)(vectorA.x * vectorA.x + vectorA.y * vectorA.y + vectorA.z * vectorA.z) );

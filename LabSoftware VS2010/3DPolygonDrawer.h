@@ -10,7 +10,7 @@ namespace PolygonDrawer3D
 	void draw(Polygon3D* p);
 
 	//Draws a 3d polygon and performs backface culling
-	void draw(Polygon3D* p, ReferencePolygon* refP);
+	void draw(Polygon3D* p, Reference3DPolygon* refP);
 }
 
 #endif
