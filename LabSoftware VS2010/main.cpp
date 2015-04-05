@@ -24,6 +24,7 @@
 #include "Reference3DPolygon.h"
 #include "BoundingBox.h"
 #include "BoundingBoxDrawer.h"
+#include "ZBuffer.h"
 
 #ifdef _WIN32
 	#include "libs/glut.h"
@@ -116,12 +117,13 @@ int main(int argc, char** argv)
 	World* world = World::getSingleton();
 
 	Polygon3D* p = VJSReader::read("TestCube.txt");	
-	world->insert3DPolyAtPosition(p, 0, -0, 200);
+	//world->insert3DPolyAtPosition(p, 0, -0, 200);
 
 	Polygon3D* pyr = VJSReader::read("TestPyramid.txt");
 	//world->insert3DPolyAtPosition(pyr, -200, 0, 100);
 	//world->rotate3DPolyAtIndex(0, 0, 180, 0);
 
+	
 
 	//-- run the program
 	glutMainLoop();
@@ -272,8 +274,10 @@ void BuildFrame(BYTE *pFrame, int view)
 	
 
 	//-------------------------
-	
-	
+	//PixelDrawer::setPixel(500, 300, 255, 255, 255);
+	PixelDrawer::set3DProjectedPixel(500, 300, 0, 255, 255, 255);
+	PixelDrawer::set3DProjectedPixel(500, 300, 6, 0, 0, 255);
+	ZBuffer::getSingleton()->flush();
 	
 }
 

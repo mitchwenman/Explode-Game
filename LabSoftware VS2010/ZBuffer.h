@@ -16,6 +16,8 @@ public:
 
 	bool shouldDrawPixel(int x, int y, int z);
 
+	void flush();
+
 	~ZBuffer(void) { };
 };
 

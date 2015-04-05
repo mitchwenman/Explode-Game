@@ -1,5 +1,6 @@
 #include "PixelDrawer.h"
 #include "GraphicsSettings.h"
+#include "ZBuffer.h"
 
 int PixelDrawer::frameWidth;
 int PixelDrawer::numColourChannels = 3;
@@ -10,6 +11,13 @@ void PixelDrawer::setPixel(int x, int y, BYTE r, BYTE g, BYTE b)
 	GraphicsSettings* settings = GraphicsSettings::getGraphicsSettings();
 	PixelDrawer::setPixel(x, y, r, g, b, settings->getFrameBuffer(), 
 		settings->getNumberOfChannels(), settings->getFrameWidth());
+}
+
+void PixelDrawer::set3DProjectedPixel(int projectedX, int projectedY, int z, BYTE r, BYTE g, BYTE b)
+{
+	ZBuffer* zbuffer = ZBuffer::getSingleton();
+	if (zbuffer->shouldDrawPixel(projectedX, projectedY, z))
+		setPixel(projectedX, projectedY, r, g, b);
 }
 
 void PixelDrawer::setPixel(int x, int y, BYTE r, BYTE g, BYTE b, BYTE* frameBuffer, int numColourChannels, int frameWidth)

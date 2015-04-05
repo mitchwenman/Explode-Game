@@ -19,11 +19,15 @@ bool ZBuffer::shouldDrawPixel(int x, int y, int z)
 			zBuffer[verts] = z;
 		else
 			return false;
-	}
+	} else
+		zBuffer[verts] = z;
 	return true;
 }
 
-
+void ZBuffer::flush()
+{
+	zBuffer.clear();
+}
 
 
 
