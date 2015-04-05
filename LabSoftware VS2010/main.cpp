@@ -274,7 +274,16 @@ void BuildFrame(BYTE *pFrame, int view)
 	
 
 	//-------------------------
-	//PixelDrawer::setPixel(500, 300, 255, 255, 255);
+	RGBColour c = { 255, 255, 255 };
+	RGBColour c2 = { 255, 0, 0 };
+	VERTEX_3D pa = { 200, 200, 0, &c };
+	VERTEX_3D pb = { 500, 400, 0, &c };
+	VERTEX_3D pc = { 200, -50, -10, &c2 };
+	VERTEX_3D pd = { 200, 650, 50, &c };
+	GPLine *testLine = new GPLine(pa, pb);
+	GPLine *testLine2 = new GPLine(pc, pd);
+	LineDrawer::drawLine(testLine);
+	LineDrawer::drawLine(testLine2);
 	PixelDrawer::set3DProjectedPixel(500, 300, 0, 255, 255, 255);
 	PixelDrawer::set3DProjectedPixel(500, 300, 6, 0, 0, 255);
 	ZBuffer::getSingleton()->flush();

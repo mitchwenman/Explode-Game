@@ -126,12 +126,12 @@ void DecompPolygon2D::decompose()
 		if (paPVLine != -1)
 			decompSides.erase(decompSides.begin() + paPVLine);
 		else 
-			decompSides.push_back(new GPLine(pa, pvar));
+		{}//decompSides.push_back(new GPLine(pa, pvar));
 		int pbPVLine = findLineWithCoords(pb, pvar);
 		if (pbPVLine != -1)
 			decompSides.erase(decompSides.begin() + pbPVLine);
 		else
-			decompSides.push_back(new GPLine(pb, pvar));
+		{}//decompSides.push_back(new GPLine(pb, pvar));
 		
 		triangles.push_back(new ScanLineTriangle(pa.x , pa.y, pb.x, pb.y, pvar.x, pvar.y, pa.c, pb.c, pvar.c));		
 	}
@@ -267,7 +267,7 @@ int DecompPolygon2D::findAdjacentLineIndex(int lineAInd)
 
 GPLine* DecompPolygon2D::createConnectingLine(GPLine* a, GPLine* b)
 {
-	VERTEX common, aPoint, bPoint;
+	VERTEX_3D common, aPoint, bPoint;
 	//Find 2 points that are not in both lines
 	if ( (a->x1 == b->x1 && a->y1 == b->y1) ||
 		 (a->x1 == b->x2 && a->y1 == b->y2))

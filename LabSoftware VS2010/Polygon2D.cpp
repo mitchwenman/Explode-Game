@@ -9,8 +9,8 @@ Polygon2D::Polygon2D(int numVerts, VERTEX verts[])
 {
 	for (int i = 0; i < numVerts - 1; i++)
 	{
-		this->sides.push_back(new GPLine(verts[i], verts[i + 1]));
+		//this->sides.push_back(new GPLine(verts[i], verts[i + 1]));
 	}
-	this->sides.push_back(new GPLine(verts[numVerts - 1], verts[0]));
+	//this->sides.push_back(new GPLine(verts[numVerts - 1], verts[0]));
 	this->numSides = numVerts;
 }

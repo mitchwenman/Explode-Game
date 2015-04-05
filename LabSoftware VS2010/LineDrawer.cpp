@@ -20,6 +20,7 @@ namespace LineDrawer
 			//Create x,y double vars for better rounding
 			double x = line->x1;
 			double y = line->y1;
+			double z = line->z1;
 			//Calculate colour diffs
 			double r, g, b, rdiff, gdiff, bdiff;
 			r = (double)colour1->red; g = (double)colour1->green; b = (double)colour1->blue;
@@ -29,9 +30,10 @@ namespace LineDrawer
 			//Draw the line
 			for (int i = 0; i < line->steps; i++)
 			{
-				PixelDrawer::setPixel(ceil(x), ceil(y - 1), (int)r, (int)g, (int)b);
+				PixelDrawer::set3DProjectedPixel(ceil(x), ceil(y - 1), z, (int)r, (int)g, (int)b);
 				x += line->xInc;
 				y += line->yInc;
+				z += line->zInc;
 				r += rdiff; 
 				g += gdiff;
 				b += bdiff;
@@ -92,24 +94,29 @@ namespace LineDrawer
 		int bottomEdge = 0;
 
 		//Vars for calculation
-		int x0, y0, x1, y1;
+		int x0, y0, z0, x1, y1, z1;
 		x0 = min(line->x1, line->x2);
 		if (x0 == line->x1)
 		{
 			y0 = line->y1;
+			z0 = line->z1;
 			x1 = line->x2;
 			y1 = line->y2;
+			z1 = line->z2;
 		} else
 		{
 			y0 = line->y2;
+			z0 = line->z2;
 			x1 = line->x1;
 			y1 = line->y1;
+			z1 = line->z1;
 		}
 
 		double t0 = 0;
 		double t1 = 1;
 		int deltaX = x1 - x0;
 		int deltaY = y1 - y0;
+		int deltaZ = z1 - z0;
 		double p, q, r;
 		enum Edges { LEFT, TOP, RIGHT, BOTTOM }; //For readability in loop
 		for (int edge = LEFT; edge <= BOTTOM; edge++)
@@ -132,13 +139,34 @@ namespace LineDrawer
 				return NULL;
 			
 		}
-		VERTEX p1 = { (int)(x0 + t0 * deltaX), (int)(y0 + t0 * deltaY), line->c1 };
-		VERTEX p2 = { (int)(x0 + t1 * deltaX), (int)(y0 + t1 * deltaY), line->c2 };
+		//VERTEX p1 = { (int)(x0 + t0 * deltaX), (int)(y0 + t0 * deltaY), line->c1 };
+		//VERTEX p2 = { (int)(x0 + t1 * deltaX), (int)(y0 + t1 * deltaY), line->c2 };
+		int newx1 = (x0 + t0 * deltaX);
+		int newy1 = (y0 + t0 * deltaY);		 
+		int newx2 = x0 + t1 * deltaX;
+		int newy2 = y0 + t1 * deltaY;
 
- 		if (x0 == line->x1 && y0 == line->y1)
-			return new GPLine(p1, p2);
+		int newz1, newz2;
+		if (int(t0) == 1) ///XXX: not sure if this works
+			newz1 = z0;
 		else
-			return new GPLine(p2, p1);
+			newz1 = z0 + t0 * deltaZ;
+		if (int(t1) == 1)
+			newz2 = z1;
+		else 
+			newz2 = z0 + t1 * deltaZ;
+
+		
+		VERTEX_3D p1_3d = { newx1, newy1, newz1, line->c1 };
+		VERTEX_3D p2_3d = { newx2, newy2, newz2, line->c2 };
+ 		if (x0 == line->x1 && y0 == line->y1)
+		{			
+			return new GPLine(p1_3d, p2_3d);
+		}
+		else
+		{			
+			return new GPLine(p2_3d, p1_3d);
+		}
 	}
 
 	bool lineNeedsClipping(GPLine* line)

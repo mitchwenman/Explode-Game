@@ -7,7 +7,7 @@ class DDALine : public GPLine
 {
 
 public:
-	double steps, xInc, yInc;
+	double steps, xInc, yInc, zInc;
 
 	//Creates a DDA line given 2 points
 	DDALine(int x1, int y1, int x2, int y2);
