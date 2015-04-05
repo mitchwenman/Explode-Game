@@ -116,10 +116,10 @@ int main(int argc, char** argv)
 	World* world = World::getSingleton();
 
 	Polygon3D* p = VJSReader::read("TestCube.txt");	
-	//world->insert3DPolyAtPosition(p, 0, -0, 200);
+	world->insert3DPolyAtPosition(p, 0, -0, 200);
 
 	Polygon3D* pyr = VJSReader::read("TestPyramid.txt");
-	world->insert3DPolyAtPosition(pyr, -200, 0, 100);
+	//world->insert3DPolyAtPosition(pyr, -200, 0, 100);
 	//world->rotate3DPolyAtIndex(0, 0, 180, 0);
 
 
@@ -262,7 +262,7 @@ void BuildFrame(BYTE *pFrame, int view)
 			delete(box);
 		}
 		//world->translate3DPolyAtIndex(i, -2, 0, 0);		
-		world->rotate3DPolyAtIndex(i, 0, 1, 0);
+		//world->rotate3DPolyAtIndex(i, 0, 1, 0);
 	}
 	
 	

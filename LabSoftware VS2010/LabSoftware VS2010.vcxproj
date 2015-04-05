@@ -35,6 +35,7 @@
     <ClCompile Include="UserInput.cpp" />
     <ClCompile Include="VJSReader.cpp" />
     <ClCompile Include="World.cpp" />
+    <ClCompile Include="ZBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="3DPolygonDrawer.h" />
@@ -62,6 +63,7 @@
     <ClInclude Include="UserInput.h" />
     <ClInclude Include="VJSReader.h" />
     <ClInclude Include="World.h" />
+    <ClInclude Include="ZBuffer.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="TestCube.txt" />
