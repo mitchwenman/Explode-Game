@@ -21,10 +21,10 @@ namespace PolygonDrawer
 	Polygon2D* clipPolygon(Polygon2D* p, int leftEdge, int topEdge, int rightEdge, int bottomEdge);
 
 	//Clips a polygon against a horizontal boundary (top and bottom of the screen)
-	std::vector<VERTEX> clipHorizontal(std::vector<VERTEX> input, int boundary, ClipType c);
+	std::vector<VERTEX_3D> clipHorizontal(std::vector<VERTEX_3D> input, int boundary, ClipType c);
 
 	//Clips a polygon against a vertical boundary (left and right of the screen)
-	std::vector<VERTEX> clipVertical(std::vector<VERTEX> input, int boundary, ClipType c);
+	std::vector<VERTEX_3D> clipVertical(std::vector<VERTEX_3D> input, int boundary, ClipType c);
 
 }
 

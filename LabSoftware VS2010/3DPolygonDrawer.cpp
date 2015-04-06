@@ -18,7 +18,7 @@ namespace PolygonDrawer3D
 		int fov = 1000;
 		for (int i = 0; i < p->polygons.size(); i++)
 		{
-			std::vector<VERTEX> vList2d;
+			std::vector<VERTEX_3D> vList2d;
 			std::vector<VERTEX_3D> vList3d = p->vertices;
 			std::vector<int> polyVerts = p->polygons[i];
 			for (int j = 0; j < polyVerts.size(); j++)
@@ -30,7 +30,7 @@ namespace PolygonDrawer3D
 					z = -fov + 1;
 				int newx = x * fov / (z + fov) + centrex;
 				int newy = y * fov / (z + fov) + centrey;
-				VERTEX vert = { newx, newy, vList3d[polyVerts[j]].c };
+				VERTEX_3D vert = { newx, newy, z, vList3d[polyVerts[j]].c };
 				vList2d.push_back(vert);
 
 				

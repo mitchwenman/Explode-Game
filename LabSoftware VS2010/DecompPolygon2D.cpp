@@ -16,35 +16,35 @@ DecompPolygon2D::DecompPolygon2D(Polygon2D* p)
 	decompose();
 }
 
-bool findCommonPoint(GPLine* a, GPLine* b, VERTEX* common)
+bool findCommonPoint(GPLine* a, GPLine* b, VERTEX_3D* common)
 {
 	if ( (a->x1 == b->x1 && a->y1 == b->y1) ||
 		 (a->x1 == b->x2 && a->y1 == b->y2))
 	{
-		common->x = a->x1; common->y = a->y1; common->c = a->c1;
+		common->x = a->x1; common->y = a->y1; common->z = a->z1; common->c = a->c1;
 	} else
 	{
-		common->x = a->x2; common->y = a->y2; common->c = a->c2;
+		common->x = a->x2; common->y = a->y2; common->z = a->z2; common->c = a->c2;
 	}
 	return true;
 }
 
 //Returns b's non intersecting point with line A
-bool findUncommonPoint(GPLine* a, GPLine*b, VERTEX* ucB)
+bool findUncommonPoint(GPLine* a, GPLine*b, VERTEX_3D* ucB)
 {
-	VERTEX common, aPoint, bPoint;
+	VERTEX_3D common;
 	findCommonPoint(a, b, &common);	
 	if (b->x1 == common.x && b->y1 == common.y)
 	{
-		ucB->x = b->x2; ucB->y = b->y2; ucB->c = b->c2;
+		ucB->x = b->x2; ucB->y = b->y2; ucB->z = b->z2; ucB->c = b->c2;
 	} else
 	{
-		ucB->x = b->x1; ucB->y = b->y1; ucB->c = b->c1;
+		ucB->x = b->x1; ucB->y = b->y1; ucB->z = b->z1; ucB->c = b->c1;
 	}
 	return true;
 }
 
-int DecompPolygon2D::findLineWithCoords(VERTEX p1, VERTEX p2)
+int DecompPolygon2D::findLineWithCoords(VERTEX_3D p1, VERTEX_3D p2)
 {
 	for (int i = 0; i < decompSides.size(); i++)
 	{
@@ -63,16 +63,14 @@ int DecompPolygon2D::findLineWithCoords(VERTEX p1, VERTEX p2)
 
 void DecompPolygon2D::decompose()
 {
-
-	GPLine* connectingLine;
 	int limit = numSides - 2;
 	for (int i = 0; i < limit; i++)
 	{
 		int leftLineInd = findLeftMostLineIndex();
 		
-		VERTEX pa = { decompSides[leftLineInd]->x1, decompSides[leftLineInd]->y1, decompSides[leftLineInd]->c1 };
-		VERTEX pb = { decompSides[leftLineInd]->x2, decompSides[leftLineInd]->y2, decompSides[leftLineInd]->c2 };
-		VERTEX pvar;
+		VERTEX_3D pa = { decompSides[leftLineInd]->x1, decompSides[leftLineInd]->y1, decompSides[leftLineInd]->z1, decompSides[leftLineInd]->c1 };
+		VERTEX_3D pb = { decompSides[leftLineInd]->x2, decompSides[leftLineInd]->y2, decompSides[leftLineInd]->z2, decompSides[leftLineInd]->c2 };
+		VERTEX_3D pvar;
 
 			int adjLine = findAdjacentLineIndex(leftLineInd);
 			if (adjLine == -1) return;
@@ -81,7 +79,7 @@ void DecompPolygon2D::decompose()
 		
 		if (decompSides.size() == 1)
 		{
-			pvar.x = pa.x; pvar.y = pa.y; pvar.c = pa.c;
+			pvar.x = pa.x; pvar.y = pa.y; pvar.z = pa.z; pvar.c = pa.c;
 		}
 		//Check every point for intersections
 		for (int j = 0; j < decompSides.size(); j++)
@@ -89,7 +87,7 @@ void DecompPolygon2D::decompose()
 			if (j != leftLineInd && j != adjLine)
 			{
 				GPLine* test = decompSides[j];
-				VERTEX pInside = { test->x1, test->y1, test->c1 }; //Testing if ptest is inside
+				VERTEX_3D pInside = { test->x1, test->y1, test->z1, test->c1 }; //Testing if ptest is inside
 				if (pvar.x > min(pa.x, pb.x) &&
 					!((pInside.x == pa.x && pInside.y == pa.y) ||
 						(pInside.x == pb.x && pInside.y == pb.y) ||
@@ -97,13 +95,13 @@ void DecompPolygon2D::decompose()
 				{
 					if (insideTest(pa, pb, pvar, pInside)) //If inside then set inside as pvar and run whole test again
 					{					
-						pvar.x = pInside.x; pvar.y = pInside.y; pvar.c = pInside.c;
+						pvar.x = pInside.x; pvar.y = pInside.y; pvar.z = pInside.z; pvar.c = pInside.c;
 						j = -1;
 						continue;
 					} 
 				}
 				
-				pInside.x = test->x2; pInside.y = test->y2; pInside.c = test->c2;
+				pInside.x = test->x2; pInside.y = test->y2; pInside.z = test->z2; pInside.c = test->c2;
 				if (pvar.x > min(pa.x, pb.x) &&
 					!((pInside.x == pa.x && pInside.y == pa.y) ||
 						(pInside.x == pb.x && pInside.y == pb.y) ||
@@ -111,7 +109,7 @@ void DecompPolygon2D::decompose()
 				{
 					if (insideTest(pa, pb, pvar, pInside))
 					{
-						pvar.x = pInside.x; pvar.y = pInside.y; pvar.c = pInside.c;
+						pvar.x = pInside.x; pvar.y = pInside.y; pvar.z = pInside.z; pvar.c = pInside.c;
 						j = -1;
 						continue;
 					} 
@@ -126,21 +124,21 @@ void DecompPolygon2D::decompose()
 		if (paPVLine != -1)
 			decompSides.erase(decompSides.begin() + paPVLine);
 		else 
-		{}//decompSides.push_back(new GPLine(pa, pvar));
+			decompSides.push_back(new GPLine(pa, pvar));
 		int pbPVLine = findLineWithCoords(pb, pvar);
 		if (pbPVLine != -1)
 			decompSides.erase(decompSides.begin() + pbPVLine);
 		else
-		{}//decompSides.push_back(new GPLine(pb, pvar));
+			decompSides.push_back(new GPLine(pb, pvar));
 		
-		//triangles.push_back(new ScanLineTriangle(pa.x , pa.y, pb.x, pb.y, pvar.x, pvar.y, pa.c, pb.c, pvar.c));		
+		triangles.push_back(new ScanLineTriangle(pa.x , pa.y, pa.z, pb.x, pb.y, pb.z, pvar.x, pvar.y, pvar.z, pa.c, pb.c, pvar.c));		
 	}
 	
 
 }
 
 //Returns true if point intersects
-bool DecompPolygon2D::boxTest(VERTEX pA, VERTEX pB, VERTEX pC, VERTEX pTest)
+bool DecompPolygon2D::boxTest(VERTEX_3D pA, VERTEX_3D pB, VERTEX_3D pC, VERTEX_3D pTest)
 {
 	int leftEdge, rightEdge, topEdge, bottomEdge;
 	leftEdge = min(min(pA.x, pB.x), pC.x);
@@ -157,28 +155,28 @@ bool DecompPolygon2D::boxTest(VERTEX pA, VERTEX pB, VERTEX pC, VERTEX pTest)
 
 int DecompPolygon2D::insideTest(GPLine* a, GPLine* b, GPLine* c, GPLine* test)
 {
-	VERTEX pa = { a->x1, a->y1 };
-	VERTEX pb = { a->x2, a->y2 };
-	VERTEX pc, ptest;
+	VERTEX_3D pa = { a->x1, a->y1, a->z1 };
+	VERTEX_3D pb = { a->x2, a->y2, a->z2 };
+	VERTEX_3D pc, ptest;
 	if ((b->x1 == pa.x && b->y1 == pa.y) ||
 		(b->x1 == pb.x && b->y1 == pb.y))
 	{
-		pc.x = b->x2; pc.y = b->y2;
+		pc.x = b->x2; pc.y = b->y2; pc.z = b->z2;
 	} else
 	{	
-		pc.x = b->x1; pc.y = b->y1;
+		pc.x = b->x1; pc.y = b->y1; pc.z = b->z1;
 	}
 	//Test X1Y1 then X2Y2
-	ptest.x = test->x1; ptest.y = test->y1;
+	ptest.x = test->x1; ptest.y = test->y1; ptest.z = test->z1;
 	if (insideTest(pa, pb, pc, ptest))
 		return 1; 
-	ptest.x = test->x2; ptest.y = test->y2;
+	ptest.x = test->x2; ptest.y = test->y2; ptest.z = test->z2;
 	if (insideTest(pa, pb, pc, ptest))
 		return 2; 
 	else return 0;
 }
 
-bool DecompPolygon2D::insideTest(VERTEX pA, VERTEX pB, VERTEX pC, VERTEX pTest)
+bool DecompPolygon2D::insideTest(VERTEX_3D pA, VERTEX_3D pB, VERTEX_3D pC, VERTEX_3D pTest)
 {
 	if (!boxTest(pA, pB, pC, pTest)) 
 		return false;
@@ -188,7 +186,7 @@ bool DecompPolygon2D::insideTest(VERTEX pA, VERTEX pB, VERTEX pC, VERTEX pTest)
 				sameSide(pB, pC, pA, pTest);
 }
 
-bool DecompPolygon2D::sameSide(VERTEX l1, VERTEX l2, VERTEX pA, VERTEX pB)
+bool DecompPolygon2D::sameSide(VERTEX_3D l1, VERTEX_3D l2, VERTEX_3D pA, VERTEX_3D pB)
 {
 	double apt = (l2.x - l1.x) * (pA.y - l1.y) - (l2.y - l1.y) * (pA.x - l1.x);
 	double bpt = (l2.x - l1.x) * (pB.y - l1.y) - (l2.y - l1.y) * (pB.x - l1.x);
@@ -272,19 +270,19 @@ GPLine* DecompPolygon2D::createConnectingLine(GPLine* a, GPLine* b)
 	if ( (a->x1 == b->x1 && a->y1 == b->y1) ||
 		 (a->x1 == b->x2 && a->y1 == b->y2))
 	{
-		common.x = a->x1; common.y = a->y1;
-		aPoint.x = a->x2; aPoint.y = a->y2; aPoint.c = a->c2;
+		common.x = a->x1; common.y = a->y1; 
+		aPoint.x = a->x2; aPoint.y = a->y2; aPoint.z = a->z2; aPoint.c = a->c2;
 	} else
 	{
 		common.x = a->x2; common.y = a->y2;
-		aPoint.x = a->x1; aPoint.y = a->y1; aPoint.c = a->c1;
+		aPoint.x = a->x1; aPoint.y = a->y1; aPoint.z = a->z1; aPoint.c = a->c1;
 	}
 	if ( !(b->x1 == common.x && b->y1 == common.y) )
 	{
-		bPoint.x = b->x1; bPoint.y = b->y1; bPoint.c = b->c1;
+		bPoint.x = b->x1; bPoint.y = b->y1; bPoint.z = b->z1; bPoint.c = b->c1;
 	} else
 	{
-		bPoint.x = b->x2; bPoint.y = b->y2; bPoint.c = b->c2;
+		bPoint.x = b->x2; bPoint.y = b->y2; bPoint.z = b->z2; bPoint.c = b->c2;
 	}
 	return new GPLine(aPoint, bPoint);
 }

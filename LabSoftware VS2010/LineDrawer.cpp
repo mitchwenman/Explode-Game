@@ -139,15 +139,14 @@ namespace LineDrawer
 				return NULL;
 			
 		}
-		//VERTEX p1 = { (int)(x0 + t0 * deltaX), (int)(y0 + t0 * deltaY), line->c1 };
-		//VERTEX p2 = { (int)(x0 + t1 * deltaX), (int)(y0 + t1 * deltaY), line->c2 };
+
 		int newx1 = (x0 + t0 * deltaX);
 		int newy1 = (y0 + t0 * deltaY);		 
 		int newx2 = x0 + t1 * deltaX;
 		int newy2 = y0 + t1 * deltaY;
 
 		int newz1, newz2;
-		if (int(t0) == 1) ///XXX: not sure if this works
+		if (int(t0) == 1) 
 			newz1 = z0;
 		else
 			newz1 = z0 + t0 * deltaZ;

@@ -19,7 +19,7 @@ public:
 	Polygon2D(int numSides, GPLine* sides[]);
 
 	//Creates a polygon from a list of vertices
-	Polygon2D(int numVerts, VERTEX verts[]);
+	Polygon2D(int numVerts, VERTEX_3D verts[]);
 };
 
 

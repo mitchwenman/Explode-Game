@@ -95,8 +95,8 @@ namespace ScanLineTriangleDrawer
 				greenMR = ((double)tri->colourLeft->green - tri->colourRight->green)/rightDenom;
 			}
 			//y is the y-Offset from the starting point Y1
-			RGBColour cL = { clRed, clGreen, clBlue };
-			RGBColour cR = { crRed, crGreen, crBlue };
+			RGBColour cL = { (int)clRed, (int)clGreen, (int)clBlue };
+			RGBColour cR = { (int)crRed, (int)crGreen, (int)crBlue };
 			VERTEX_3D pL = { ceil(xL), tri->YTopVert - y, zL, &cL };
 			VERTEX_3D pR = { ceil(xR - 1),  tri->YTopVert - y, zR, &cR };
 			GPLine* line = new GPLine(pL, pR);

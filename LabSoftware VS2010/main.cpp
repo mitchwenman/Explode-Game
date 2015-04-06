@@ -117,10 +117,10 @@ int main(int argc, char** argv)
 	World* world = World::getSingleton();
 
 	Polygon3D* p = VJSReader::read("TestCube.txt");	
-	//world->insert3DPolyAtPosition(p, 0, -0, 200);
+	world->insert3DPolyAtPosition(p, 0, -0, 200);
 
 	Polygon3D* pyr = VJSReader::read("TestPyramid.txt");
-	//world->insert3DPolyAtPosition(pyr, -200, 0, 100);
+	world->insert3DPolyAtPosition(pyr, -200, 0, 100);
 	//world->rotate3DPolyAtIndex(0, 0, 180, 0);
 
 	
@@ -274,17 +274,18 @@ void BuildFrame(BYTE *pFrame, int view)
 	
 
 	//-------------------------
+	int xoff = -200;
 	RGBColour c = { 255, 255, 255 };
 	RGBColour c2 = { 255, 0, 0 };
-	VERTEX_3D pa = { 100, 200, 10, &c };
-	VERTEX_3D pb = { 500, 300, 10, &c };
-	VERTEX_3D pc = { 200, 500, 50, &c2 };
-	VERTEX_3D pd = { 200, 650, 50, &c };
-	PixelDrawer::set3DProjectedPixel(250, 450, 0, 0, 0, 255);
-	ScanLineTriangle *triangle = new ScanLineTriangle(pa.x, pa.y, pa.z, pb.x, pb.y, pb.z, pc.x, pc.y, pc.z, &c, &c, &c2);
-	ScanLineTriangleDrawer::draw(triangle);
-	
-	delete(triangle);
+	VERTEX_3D pa = { 100 + xoff, 200 + xoff, 10, &c };
+	VERTEX_3D pb = { 200 + xoff, 500 + xoff, 10, &c };
+	VERTEX_3D pc = { 400 + xoff, 500 + xoff, 50, &c2 };
+	VERTEX_3D pd = { 600 + xoff, 100 + xoff, 50, &c };
+	PixelDrawer::set3DProjectedPixel(110, 210, 0, 0, 0, 255);
+	VERTEX_3D verts[] = { pa, pb, pc, pd }; 
+	Polygon2D *poly = new Polygon2D(4, verts);
+	//PolygonDrawer::draw(poly);
+	delete(poly);
 	ZBuffer::getSingleton()->flush();
 	
 }

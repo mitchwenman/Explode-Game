@@ -57,6 +57,7 @@ void BoundingBoxDrawer::draw(BoundingBox *box)
 							minX * fov / (maxZ + fov) + centrex, maxY * fov / (maxZ + fov) + centrey);
 	for (unsigned int i = 0; i < num_edges; i++)
 	{
+		edges[i]->z1 = edges[i]->z2 = 0;
 		edges[i]->c1 = edges[i]->c2 = &c;
 		LineDrawer::drawLine(edges[i]);
 	} 
