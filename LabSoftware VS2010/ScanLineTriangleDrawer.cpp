@@ -8,9 +8,14 @@ namespace ScanLineTriangleDrawer
 	{
 		//Assign left/right edges 
 		double mL, mR;
+		double mzL, mzR;
 		mL = (tri->XLeftVert - tri->XTopVert)/
 			((double)tri->YTopVert - tri->YLeftVert);
+		mzL = (tri->ZLeftVert - tri->ZTopVert)/
+			((double)tri->YTopVert - tri->YLeftVert);
 		mR = (tri->XRightVert - tri->XTopVert)/
+			((double)tri->YTopVert - tri->YRightVert);
+		mzR = (tri->ZRightVert - tri->ZTopVert)/
 			((double)tri->YTopVert - tri->YRightVert);
 
 		//Calculate colour deltas - left first
@@ -28,32 +33,37 @@ namespace ScanLineTriangleDrawer
 		greenMR = ((double)tri->colourRight->green - tri->colourTop->green)/rightDenom;
 	
 		//Assign starting point and check for flat top
-		double xL, xR;
+		double xL, xR, zL, zR;
 		double clRed, clBlue, clGreen, crRed, crGreen, crBlue;
 		if (tri->YTopVert == tri->YLeftVert)
 		{
 			xL = tri->XLeftVert;
+			zL = tri->ZLeftVert;
 			clRed = tri->colourLeft->red;
 			clGreen = tri->colourLeft->green;
 			clBlue = tri->colourLeft->blue;
 			xR = tri->XTopVert;
+			zR = tri->ZTopVert;
 			crRed = tri->colourTop->red;
 			crGreen = tri->colourTop->green;
 			crBlue = tri->colourTop->blue;
 		} else if (tri->YTopVert == tri->YRightVert)
 		{
 			xL = tri->XTopVert;
+			zL = tri->ZTopVert;
 			clRed = tri->colourTop->red;
 			clGreen = tri->colourTop->green;
 			clBlue = tri->colourTop->blue;
 		
-			xR = tri->XRightVert;		
+			xR = tri->XRightVert;	
+			zR = tri->ZRightVert;
 			crRed = tri->colourRight->red;
 			crGreen = tri->colourRight->green;
 			crBlue = tri->colourRight->blue;
 		} else 
 		{
-			xL = xR = tri->XTopVert; 
+			xL = xR = tri->XTopVert;
+			zL = zR = tri->ZTopVert;
 			clRed = crRed = tri->colourTop->red;
 			clGreen = crGreen = tri->colourTop->green;
 			clBlue = crBlue = tri->colourTop->blue;
@@ -66,10 +76,11 @@ namespace ScanLineTriangleDrawer
 			//If we've reached a new edge - modify gradient so we can draw it
  			if (y == tri->hLeft && tri->hRight - tri->hLeft == 0) break; //Only happens when flat bottom triangle
 												//In which case - we're done anyway
-			if (y == tri->hLeft) //XXX: Divide by 0 possible if hR = hL
+			if (y == tri->hLeft) 
 			{
 				leftDenom = (double)(tri->hRight - tri->hLeft);
 				mL = (tri->XRightVert - xL)/leftDenom;
+				mzL = (tri->ZRightVert - zL)/leftDenom; 
 				redML = ((double)tri->colourRight->red - tri->colourLeft->red)/leftDenom;
 				blueML = ((double)tri->colourRight->blue - tri->colourLeft->blue)/leftDenom;
 				greenML = ((double)tri->colourRight->green - tri->colourLeft->green)/leftDenom;
@@ -78,15 +89,20 @@ namespace ScanLineTriangleDrawer
 			{
 				rightDenom = (double)(tri->hLeft - tri->hRight);
 				mR = (tri->XLeftVert - xR)/rightDenom;
+				mzR = (tri->ZLeftVert - zR)/rightDenom;
 				redMR = ((double)tri->colourLeft->red - tri->colourRight->red)/rightDenom;
 				blueMR = ((double)tri->colourLeft->blue - tri->colourRight->blue)/rightDenom;
 				greenMR = ((double)tri->colourLeft->green - tri->colourRight->green)/rightDenom;
 			}
 			//y is the y-Offset from the starting point Y1
-			LineDrawer::drawLine(ceil(xL), tri->YTopVert - y, ceil(xR - 1),  tri->YTopVert - y,
-						clRed, clGreen,clBlue,
-						crRed,crGreen, crBlue);
-			xL += mL; xR += mR;
+			RGBColour cL = { clRed, clGreen, clBlue };
+			RGBColour cR = { crRed, crGreen, crBlue };
+			VERTEX_3D pL = { ceil(xL), tri->YTopVert - y, zL, &cL };
+			VERTEX_3D pR = { ceil(xR - 1),  tri->YTopVert - y, zR, &cR };
+			GPLine* line = new GPLine(pL, pR);
+			LineDrawer::drawLine(line);
+			xL += mL; xR += mR; 
+			zL += mzL; zR += mzR;
 			clRed += redML; clBlue += blueML; clGreen += greenML;
 			crRed += redMR; crBlue += blueMR; crGreen += greenMR;
 		}

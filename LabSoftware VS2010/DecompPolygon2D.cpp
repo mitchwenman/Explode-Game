@@ -133,7 +133,7 @@ void DecompPolygon2D::decompose()
 		else
 		{}//decompSides.push_back(new GPLine(pb, pvar));
 		
-		triangles.push_back(new ScanLineTriangle(pa.x , pa.y, pb.x, pb.y, pvar.x, pvar.y, pa.c, pb.c, pvar.c));		
+		//triangles.push_back(new ScanLineTriangle(pa.x , pa.y, pb.x, pb.y, pvar.x, pvar.y, pa.c, pb.c, pvar.c));		
 	}
 	
 
