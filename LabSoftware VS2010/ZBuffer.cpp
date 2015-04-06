@@ -2,6 +2,16 @@
 
 static ZBuffer* _instance;
 
+ZBuffer::ZBuffer(void)
+{
+	graphicsSettings = GraphicsSettings::getGraphicsSettings();
+	int frameWidth = graphicsSettings->getFrameWidth();
+	int frameHeight = graphicsSettings->getFrameHeight();
+	zBuffer.resize(frameWidth);
+	for (int i = 0; i < frameWidth; i++)
+		zBuffer[i].resize(frameHeight);
+}
+
 ZBuffer* ZBuffer::getSingleton()
 {
 	if (!_instance)
@@ -11,22 +21,25 @@ ZBuffer* ZBuffer::getSingleton()
 
 bool ZBuffer::shouldDrawPixel(int x, int y, int z)
 {
-	std::pair<int, int> verts = std::make_pair(x, y);
-	if (this->zBuffer.count(verts) == 1)
+	if (zBuffer[x][y] > z)
 	{
-		int existingZ = zBuffer[verts];
-		if (z < existingZ)
-			zBuffer[verts] = z;
-		else
-			return false;
+		zBuffer[x][y] = z;
+		return true;
 	} else
-		zBuffer[verts] = z;
-	return true;
+		return false;
 }
 
 void ZBuffer::flush()
 {
-	zBuffer.clear();
+	int frameWidth = graphicsSettings->getFrameWidth();
+	int frameHeight = graphicsSettings->getFrameHeight();
+	for (int i = 0; i < frameWidth; i++)
+	{
+		for (int j = 0; j < frameHeight; j++)
+		{
+			zBuffer[i][j] = DEFAULT_DEPTH;
+		}
+	}
 }
 
 

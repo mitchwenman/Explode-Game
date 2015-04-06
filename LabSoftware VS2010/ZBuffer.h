@@ -1,14 +1,20 @@
 #pragma once
 
-#include <map>
+#include "GraphicsSettings.h"
+#include <vector>
 
 class ZBuffer
 {
 
 private:
-	ZBuffer(void) {};
 
-	std::map<std::pair<int, int>, int> zBuffer;
+	static const int DEFAULT_DEPTH = 10000;
+
+	ZBuffer(void);
+
+	GraphicsSettings* graphicsSettings;
+
+	std::vector<std::vector<int>> zBuffer;
 
 public:
 	

@@ -280,9 +280,10 @@ void BuildFrame(BYTE *pFrame, int view)
 	VERTEX_3D pb = { 500, 300, 10, &c };
 	VERTEX_3D pc = { 200, 500, 50, &c2 };
 	VERTEX_3D pd = { 200, 650, 50, &c };
+	PixelDrawer::set3DProjectedPixel(250, 450, 0, 0, 0, 255);
 	ScanLineTriangle *triangle = new ScanLineTriangle(pa.x, pa.y, pa.z, pb.x, pb.y, pb.z, pc.x, pc.y, pc.z, &c, &c, &c2);
 	ScanLineTriangleDrawer::draw(triangle);
-	PixelDrawer::set3DProjectedPixel(250, 450, 15, 0, 0, 255);
+	
 	delete(triangle);
 	ZBuffer::getSingleton()->flush();
 	
