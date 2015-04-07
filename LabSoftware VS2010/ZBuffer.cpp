@@ -1,5 +1,5 @@
 #include "ZBuffer.h"
-
+#include <iostream>
 static ZBuffer* _instance;
 
 ZBuffer::ZBuffer(void)
@@ -20,7 +20,7 @@ ZBuffer* ZBuffer::getSingleton()
 }
 
 bool ZBuffer::shouldDrawPixel(int x, int y, int z)
-{
+{	
 	if (zBuffer[x][y] > z)
 	{
 		zBuffer[x][y] = z;

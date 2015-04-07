@@ -30,7 +30,7 @@ namespace LineDrawer
 			//Draw the line
 			for (int i = 0; i < line->steps; i++)
 			{
-				PixelDrawer::set3DProjectedPixel(ceil(x), ceil(y - 1), z, (int)r, (int)g, (int)b);
+				PixelDrawer::set3DProjectedPixel(ceil(x), ceil(y - 0.5), z, (int)r, (int)g, (int)b);
 				x += line->xInc;
 				y += line->yInc;
 				z += line->zInc;
@@ -171,8 +171,8 @@ namespace LineDrawer
 	bool lineNeedsClipping(GPLine* line)
 	{
 		GraphicsSettings* settings = GraphicsSettings::getGraphicsSettings();
-		int minX = 0; int maxX = settings->getFrameWidth();
-		int minY = 0; int maxY = settings->getFrameHeight();
+		int minX = 0; int maxX = settings->getFrameWidth() - 1;
+		int minY = 0; int maxY = settings->getFrameHeight() - 1;
 		if (line->x1 < minX || line->x1 > maxX) return true;
 		if (line->x2 < minX || line->x2 > maxX) return true;
 		if (line->y1 < minY || line->y1 > maxY) return true;

@@ -117,11 +117,11 @@ int main(int argc, char** argv)
 	World* world = World::getSingleton();
 
 	Polygon3D* p = VJSReader::read("TestCube.txt");	
-	world->insert3DPolyAtPosition(p, 0, -0, 200);
+	world->insert3DPolyAtPosition(p, 0, 230, 200);
 
 	Polygon3D* pyr = VJSReader::read("TestPyramid.txt");
 	world->insert3DPolyAtPosition(pyr, -200, 0, 100);
-	//world->rotate3DPolyAtIndex(0, 0, 180, 0);
+	
 
 	
 
@@ -263,8 +263,8 @@ void BuildFrame(BYTE *pFrame, int view)
 			BoundingBoxDrawer::draw(box);
 			delete(box);
 		}
-		//world->translate3DPolyAtIndex(i, -2, 0, 0);		
-		//world->rotate3DPolyAtIndex(i, 0, 1, 0);
+		world->translate3DPolyAtIndex(i, -2, 0, 0);		
+		world->rotate3DPolyAtIndex(i, 0, 1, 0);
 	}
 	
 	
@@ -281,7 +281,7 @@ void BuildFrame(BYTE *pFrame, int view)
 	VERTEX_3D pb = { 200 + xoff, 500 + xoff, 10, &c };
 	VERTEX_3D pc = { 400 + xoff, 500 + xoff, 50, &c2 };
 	VERTEX_3D pd = { 600 + xoff, 100 + xoff, 50, &c };
-	PixelDrawer::set3DProjectedPixel(110, 210, 0, 0, 0, 255);
+	PixelDrawer::set3DProjectedPixel(410, 550, 0, 0, 0, 255);
 	VERTEX_3D verts[] = { pa, pb, pc, pd }; 
 	Polygon2D *poly = new Polygon2D(4, verts);
 	//PolygonDrawer::draw(poly);
