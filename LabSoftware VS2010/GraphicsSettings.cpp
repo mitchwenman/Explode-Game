@@ -13,23 +13,3 @@ GraphicsSettings* GraphicsSettings::getGraphicsSettings()
 
 GraphicsSettings::GraphicsSettings() { }
 
-void GraphicsSettings::setFrameDimensions(int width, int height)
-{
-	frameWidth = width;
-	frameHeight = height;
-}
-
-void GraphicsSettings::setNumberOfChannels(int n)
-{
-	numberOfChannels = n;
-}
-
-void GraphicsSettings::setFrameBuffer(BYTE* buffer)
-{
-	frameBuffer = buffer;
-}
-
-void GraphicsSettings::setView(int view)
-{
-	this->view = view;
-}

@@ -1,4 +1,4 @@
-#include "3DPolygonDrawer.h"
+ #include "3DPolygonDrawer.h"
 #include "GraphicsSettings.h"
 #include "PolygonDrawer.h"
 #include "Polygon3D.h"
