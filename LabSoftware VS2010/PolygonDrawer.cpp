@@ -70,8 +70,9 @@ namespace PolygonDrawer
 					{
 						int newx = p1.x;
 						int newy = boundary;
-						int newz = p1.z + (p2.z - p1.z) * (1.0 - sqrt((newx - p2.x) * (newx - p2.x) + (newy - p2.y) * (newy - p2.y)) /
-									sqrt((p2.x - p1.x) * (p2.x - p1.x) + (p2.y - p1.y) * (p2.y - p1.y)));
+						double scaler = 1.0 - sqrt((newx - p2.x) * (newx - p2.x) + (newy - p2.y) * (newy - p2.y)) /
+									sqrt((p2.x - p1.x) * (p2.x - p1.x) + (p2.y - p1.y) * (p2.y - p1.y));
+						int newz = p1.z + (p2.z - p1.z) * scaler;
 						VERTEX_3D intersect = { p1.x, boundary, newz , p1.c };
 						output.push_back(intersect);
 						output.push_back(p2);
@@ -81,8 +82,9 @@ namespace PolygonDrawer
 						double b = p1.y - gradient * p1.x;
 						int newx = (boundary - b) / gradient; 
 						int newy = boundary;
-						int newz = p1.z + (p2.z - p1.z) * (1.0 - sqrt((newx - p2.x) * (newx - p2.x) + (newy - p2.y) * (newy - p2.y)) /
-									sqrt((p2.x - p1.x) * (p2.x - p1.x) + (p2.y - p1.y) * (p2.y - p1.y)));
+						double scaler = 1.0 - sqrt((newx - p2.x) * (newx - p2.x) + (newy - p2.y) * (newy - p2.y)) /
+									sqrt((p2.x - p1.x) * (p2.x - p1.x) + (p2.y - p1.y) * (p2.y - p1.y));
+						int newz = p1.z + (p2.z - p1.z) * scaler;
      					VERTEX_3D intersect = { newx, newy, newz, p1.c };
 						output.push_back(intersect);
 						output.push_back(p2);
@@ -94,8 +96,9 @@ namespace PolygonDrawer
 					{
 						int newx = p1.x;
 						int newy = boundary;
-						int newz = p2.z + (p1.z - p2.z) * (1.0 - sqrt((newx - p1.x) * (newx - p1.x) + (newy - p1.y) * (newy - p1.y)) /
-									sqrt((p2.x - p1.x) * (p2.x - p1.x) + (p2.y - p1.y) * (p2.y - p1.y)));
+						double scaler = 1.0 - sqrt((newx - p1.x) * (newx - p1.x) + (newy - p1.y) * (newy - p1.y)) /
+									sqrt((p2.x - p1.x) * (p2.x - p1.x) + (p2.y - p1.y) * (p2.y - p1.y));
+						int newz = p2.z + (p1.z - p2.z) * scaler;
 						VERTEX_3D intersect = { newx, newy, newz, p2.c };
 						output.push_back(intersect);
 					} else
@@ -104,8 +107,9 @@ namespace PolygonDrawer
 						double b = p2.y - gradient * p2.x;
 						int newx = (boundary - b) / gradient;
 						int newy = boundary;
-						int newz = p2.z + (p1.z - p2.z) * (1.0 - sqrt((newx - p1.x) * (newx - p1.x) + (newy - p1.y) * (newy - p1.y)) /
-									sqrt((p2.x - p1.x) * (p2.x - p1.x) + (p2.y - p1.y) * (p2.y - p1.y)));
+						double scaler = 1.0 - sqrt((newx - p1.x) * (newx - p1.x) + (newy - p1.y) * (newy - p1.y)) /
+									sqrt((p2.x - p1.x) * (p2.x - p1.x) + (p2.y - p1.y) * (p2.y - p1.y));
+						int newz = p2.z + (p1.z - p2.z) * scaler;
 						VERTEX_3D intersect = { newx, newy, newz, p2.c };
 						output.push_back(intersect);
 					}					
@@ -122,8 +126,9 @@ namespace PolygonDrawer
 					{
 						int newx = p1.x;
 						int newy = boundary - 1;
-						int newz = p1.z + (p2.z - p1.z) * (1.0 - sqrt((newx - p2.x) * (newx - p2.x) + (newy - p2.y) * (newy - p2.y)) /
-									sqrt((p2.x - p1.x) * (p2.x - p1.x) + (p2.y - p1.y) * (p2.y - p1.y)));
+						double scaler = 1.0 - sqrt((newx - p2.x) * (newx - p2.x) + (newy - p2.y) * (newy - p2.y)) /
+									sqrt((p2.x - p1.x) * (p2.x - p1.x) + (p2.y - p1.y) * (p2.y - p1.y));
+						int newz = p1.z + (p2.z - p1.z) * scaler;
 						VERTEX_3D intersect = { newx, newy , newz, p1.c };
 						output.push_back(intersect);
 						output.push_back(p2);
@@ -133,8 +138,9 @@ namespace PolygonDrawer
 						double b = p1.y - gradient * p1.x;
 						int newx = (boundary - b) / gradient;
 						int newy = boundary - 1;
-						int newz = p1.z + (p2.z - p1.z) * (1.0 - sqrt((newx - p2.x) * (newx - p2.x) + (newy - p2.y) * (newy - p2.y)) /
-									sqrt((p2.x - p1.x) * (p2.x - p1.x) + (p2.y - p1.y) * (p2.y - p1.y)));
+						double scaler = 1.0 - sqrt((newx - p2.x) * (newx - p2.x) + (newy - p2.y) * (newy - p2.y)) /
+									sqrt((p2.x - p1.x) * (p2.x - p1.x) + (p2.y - p1.y) * (p2.y - p1.y));
+						int newz = p1.z + (p2.z - p1.z) * scaler;
 						VERTEX_3D intersect = { newx, newy , newz, p1.c };						
 						output.push_back(intersect);
 						output.push_back(p2);
@@ -154,8 +160,9 @@ namespace PolygonDrawer
 						double b = p2.y - gradient * p2.x;
 						int newx = (boundary - b) / gradient;
 						int newy = boundary - 1;
-						int newz = p2.z + (p1.z - p2.z) * (1.0 - sqrt((newx - p1.x) * (newx - p1.x) + (newy - p1.y) * (newy - p1.y)) /
-									sqrt((p2.x - p1.x) * (p2.x - p1.x) + (p2.y - p1.y) * (p2.y - p1.y)));
+						double scaler = 1.0 - sqrt((newx - p1.x) * (newx - p1.x) + (newy - p1.y) * (newy - p1.y)) /
+									sqrt((p2.x - p1.x) * (p2.x - p1.x) + (p2.y - p1.y) * (p2.y - p1.y));
+						int newz = p2.z + (p1.z - p2.z) * scaler;
 						VERTEX_3D intersect = { newx, newy , newz, p2.c };
 						output.push_back(intersect);
 					}					
@@ -185,8 +192,9 @@ namespace PolygonDrawer
 					double b = p1.y - gradient * p1.x;
 					int newx = boundary;
 					int newy = gradient * boundary + b;
-					int newz = p1.z + (p2.z - p1.z) * (1.0 - sqrt((newx - p2.x) * (newx - p2.x) + (newy - p2.y) * (newy - p2.y)) /
-									sqrt((p2.x - p1.x) * (p2.x - p1.x) + (p2.y - p1.y) * (p2.y - p1.y)));
+					double scaler = 1.0 - sqrt((newx - p2.x) * (newx - p2.x) + (newy - p2.y) * (newy - p2.y)) /
+									sqrt((p2.x - p1.x) * (p2.x - p1.x) + (p2.y - p1.y) * (p2.y - p1.y));
+					int newz = p1.z + (p2.z - p1.z) * scaler;
 					VERTEX_3D intersect = { newx, newy, newz, p1.c };
 					output.push_back(intersect);
 					output.push_back(p2);
@@ -196,8 +204,9 @@ namespace PolygonDrawer
 					double b = p2.y - gradient * p2.x;
 					int newx = boundary;
 					int newy = gradient * boundary + b;
-					int newz = p2.z + (p1.z - p2.z) * (1.0 - sqrt((newx - p1.x) * (newx - p1.x) + (newy - p1.y) * (newy - p1.y)) /
-									sqrt((p2.x - p1.x) * (p2.x - p1.x) + (p2.y - p1.y) * (p2.y - p1.y)));
+					double scaler = 1.0 - sqrt((newx - p1.x) * (newx - p1.x) + (newy - p1.y) * (newy - p1.y)) /
+									sqrt((p2.x - p1.x) * (p2.x - p1.x) + (p2.y - p1.y) * (p2.y - p1.y));
+					int newz = p2.z + (p1.z - p2.z) * scaler;
 					VERTEX_3D intersect = { newx, newy, newz, p2.c };
 					output.push_back(intersect);
 				} else if (p1.x >= boundary && p2.x >= boundary)
@@ -212,8 +221,9 @@ namespace PolygonDrawer
 					double b = p1.y - gradient * p1.x;
 					int newx = boundary - 1;
 					int newy = gradient * (boundary - 1) + b;
-					int newz = p1.z + (p2.z - p1.z) * (1.0 - sqrt((newx - p2.x) * (newx - p2.x) + (newy - p2.y) * (newy - p2.y)) /
-									sqrt((p2.x - p1.x) * (p2.x - p1.x) + (p2.y - p1.y) * (p2.y - p1.y)));
+					double scaler = 1.0 - sqrt((newx - p2.x) * (newx - p2.x) + (newy - p2.y) * (newy - p2.y)) /
+									sqrt((p2.x - p1.x) * (p2.x - p1.x) + (p2.y - p1.y) * (p2.y - p1.y));
+					int newz = p1.z + (p2.z - p1.z) * scaler;
 					VERTEX_3D intersect = { newx, newy, newz, p1.c };
 					output.push_back(intersect);
 					output.push_back(p2);
@@ -223,8 +233,9 @@ namespace PolygonDrawer
 					double b = p2.y - gradient * p2.x;
 					int newx = boundary - 1;
 					int newy = gradient * (boundary - 1) + b;
-					int newz = p2.z + (p1.z - p2.z) * (1.0 - sqrt((newx - p1.x) * (newx - p1.x) + (newy - p1.y) * (newy - p1.y)) /
-									sqrt((p2.x - p1.x) * (p2.x - p1.x) + (p2.y - p1.y) * (p2.y - p1.y)));
+					double scaler = 1.0 - sqrt((newx - p1.x) * (newx - p1.x) + (newy - p1.y) * (newy - p1.y)) /
+									sqrt((p2.x - p1.x) * (p2.x - p1.x) + (p2.y - p1.y) * (p2.y - p1.y));
+					int newz = p2.z + (p1.z - p2.z) * scaler;
 					VERTEX_3D intersect = { boundary - 1, gradient * (boundary - 1) + b, newz, p2.c };
 					output.push_back(intersect);
 				} else if (p1.x < boundary && p2.x < boundary)
