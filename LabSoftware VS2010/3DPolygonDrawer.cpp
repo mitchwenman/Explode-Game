@@ -23,16 +23,7 @@ namespace PolygonDrawer3D
 			std::vector<int> polyVerts = p->polygons[i];
 			for (int j = 0; j < polyVerts.size(); j++)
 			{
-				int x = vList3d[polyVerts[j]].x;
-				int y = vList3d[polyVerts[j]].y;
-				int z = vList3d[polyVerts[j]].z;
-				if (z <= -fov)
-					z = -fov + 1;
-				int newx = x * fov / (z + fov) + centrex;
-				int newy = y * fov / (z + fov) + centrey;
-				VERTEX_3D vert = { newx, newy, z, vList3d[polyVerts[j]].c };
-				vList2d.push_back(vert);
-
+				vList2d.push_back(convert3DVertexTo2DProjected(vList3d[polyVerts[j]]));
 				
 			}
 			if (vList2d.size() != 0)
@@ -67,6 +58,15 @@ namespace PolygonDrawer3D
 		int centrex = gset->getFrameWidth() / 2;
 		int centrey = gset->getFrameHeight() / 2;
 		int fov = gset->getFOV(); 
+		int x = vertex3d.x;
+		int y = vertex3d.y;
+		int z = vertex3d.z;
+		if (z <= -fov)
+			z = -fov + 1;
+		int newx = x * fov / (z + fov) + centrex;
+		int newy = y * fov / (z + fov) + centrey;
+		VERTEX_3D vert = { newx, newy, z, vertex3d.c };
+		return vert;
 	}
 }
 	
