@@ -16,6 +16,7 @@
     <ClCompile Include="BoundingBoxDrawer.cpp" />
     <ClCompile Include="DDALine.cpp" />
     <ClCompile Include="DecompPolygon2D.cpp" />
+    <ClCompile Include="ExplodedPolygon.cpp" />
     <ClCompile Include="GraphicsSettings.cpp" />
     <ClCompile Include="GraphicsUtil.h" />
     <ClCompile Include="LineDrawer.cpp" />
@@ -43,6 +44,7 @@
     <ClInclude Include="BoundingBoxDrawer.h" />
     <ClInclude Include="DDALine.h" />
     <ClInclude Include="DecompPolygon2D.h" />
+    <ClInclude Include="ExplodedPolygon.h" />
     <ClInclude Include="GPLine.h" />
     <ClInclude Include="GraphicsSettings.h" />
     <ClInclude Include="LineDrawer.h" />
