@@ -83,17 +83,17 @@ void UserInput::handleKeyInput(char key)
 		}
 	case 'z':
 		{
-			world->rotate3DPolyAtIndex(selectedPolygon3D, 0, 0, 1);
+			world->rotate3DPolyAtIndex(selectedPolygon3D, 0, 0, 5);
 			break;
 		}
 	case 'x':
 		{
-			world->rotate3DPolyAtIndex(selectedPolygon3D, 1, 0, 0);
+			world->rotate3DPolyAtIndex(selectedPolygon3D, 5, 0, 0);
 			break;
 		}
 	case 'y':
 		{
-			world->rotate3DPolyAtIndex(selectedPolygon3D, 0, 1, 0);
+			world->rotate3DPolyAtIndex(selectedPolygon3D, 0, 5, 0);
 			break;
 		}
 	
