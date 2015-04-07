@@ -10,6 +10,7 @@
 #include "Polygon3DRotator.h"
 #include "BoundingBoxDrawer.h"
 #include "SurfaceNormal.h"
+#include "ExplodedPolygonCreator.h"
 
 static World* _instance;
 
@@ -66,8 +67,7 @@ void World::drawWorld()
 	}
 	for (unsigned int i = 0; i < this->polygon3ds.size(); i++)
 	{
-		PolygonDrawer3D::draw(this->polygon3ds[i], this->originalPolygons[i]);
-
+		PolygonDrawer3D::draw(this->polygon3ds[i], this->originalPolygons[i]);		
 	}
 }
 
