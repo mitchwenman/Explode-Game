@@ -180,19 +180,25 @@ namespace PolygonDrawer
 			{
 
 				if (p1.x < boundary && p2.x >= boundary) //1st out, 2nd in
-				{
-					int newZ = p1.z + (p2.z - p1.z) * (p1.x /((double)(p2.x - p1.x)));
+				{					
 					double gradient = (p2.y - p1.y)/(double)(p2.x - p1.x);
 					double b = p1.y - gradient * p1.x;
-					VERTEX_3D intersect = { boundary, gradient * boundary + b, newZ, p1.c };
+					int newx = boundary;
+					int newy = gradient * boundary + b;
+					int newz = p1.z + (p2.z - p1.z) * (1.0 - sqrt((newx - p2.x) * (newx - p2.x) + (newy - p2.y) * (newy - p2.y)) /
+									sqrt((p2.x - p1.x) * (p2.x - p1.x) + (p2.y - p1.y) * (p2.y - p1.y)));
+					VERTEX_3D intersect = { newx, newy, newz, p1.c };
 					output.push_back(intersect);
 					output.push_back(p2);
 				} else if (p2.x < boundary && p1.x >= boundary) //1st in, 2nd out
 				{
-					int newZ = p2.z + (p2.z - p1.z) * (p2.x /((double)(p1.x - p2.x)));
 					double gradient = (p2.y - p1.y)/(double)(p2.x - p1.x);
 					double b = p2.y - gradient * p2.x;
-					VERTEX_3D intersect = { boundary, gradient * boundary + b, newZ, p2.c };
+					int newx = boundary;
+					int newy = gradient * boundary + b;
+					int newz = p2.z + (p1.z - p2.z) * (1.0 - sqrt((newx - p1.x) * (newx - p1.x) + (newy - p1.y) * (newy - p1.y)) /
+									sqrt((p2.x - p1.x) * (p2.x - p1.x) + (p2.y - p1.y) * (p2.y - p1.y)));
+					VERTEX_3D intersect = { newx, newy, newz, p2.c };
 					output.push_back(intersect);
 				} else if (p1.x >= boundary && p2.x >= boundary)
 				{
@@ -201,19 +207,25 @@ namespace PolygonDrawer
 			} else //Outside points are greater than the boundary
 			{
 				if (p1.x >= boundary && p2.x < boundary) //1st out, 2nd in
-				{
-					int newZ = p1.z + (p2.z - p1.z) * ((p1.x - boundary) /((double)(p1.x - p2.x)));
+				{					
 					double gradient = (p2.y - p1.y)/(double)(p2.x - p1.x);
 					double b = p1.y - gradient * p1.x;
-					VERTEX_3D intersect = { boundary - 1, gradient * (boundary - 1) + b, newZ, p1.c };
+					int newx = boundary - 1;
+					int newy = gradient * (boundary - 1) + b;
+					int newz = p1.z + (p2.z - p1.z) * (1.0 - sqrt((newx - p2.x) * (newx - p2.x) + (newy - p2.y) * (newy - p2.y)) /
+									sqrt((p2.x - p1.x) * (p2.x - p1.x) + (p2.y - p1.y) * (p2.y - p1.y)));
+					VERTEX_3D intersect = { newx, newy, newz, p1.c };
 					output.push_back(intersect);
 					output.push_back(p2);
 				} else if (p2.x >= boundary && p1.x < boundary) //1st in, 2nd out
-				{
-					int newZ = p2.z + (p2.z - p1.z) * ((p2.x - boundary) /((double)(p2.x - p1.x)));
+				{					
 					double gradient = (p2.y - p1.y)/(double)(p2.x - p1.x);
 					double b = p2.y - gradient * p2.x;
-					VERTEX_3D intersect = { boundary - 1, gradient * (boundary - 1) + b, newZ, p2.c };
+					int newx = boundary - 1;
+					int newy = gradient * (boundary - 1) + b;
+					int newz = p2.z + (p1.z - p2.z) * (1.0 - sqrt((newx - p1.x) * (newx - p1.x) + (newy - p1.y) * (newy - p1.y)) /
+									sqrt((p2.x - p1.x) * (p2.x - p1.x) + (p2.y - p1.y) * (p2.y - p1.y)));
+					VERTEX_3D intersect = { boundary - 1, gradient * (boundary - 1) + b, newz, p2.c };
 					output.push_back(intersect);
 				} else if (p1.x < boundary && p2.x < boundary)
 				{
