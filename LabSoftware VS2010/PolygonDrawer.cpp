@@ -66,7 +66,7 @@ namespace PolygonDrawer
 			{
 				if (p1.y < boundary && p2.y >= boundary) //1st out, 2nd in
 				{
-					int newZ = p1.z + (p2.z - p1.z) * (p1.y /((double)(p2.y - p1.y)));
+					int newZ = p1.z + (p1.z - p2.z) * (abs(p1.y) /((double)(p2.y - p1.y)));
 					if (p2.x == p1.x)
 					{
 						VERTEX_3D intersect = { p1.x, boundary, newZ , p1.c };
@@ -83,7 +83,7 @@ namespace PolygonDrawer
 					
 				} else if (p2.y < boundary && p1.y >= boundary) //1st in, 2nd out
 				{
-					int newZ = p2.z + (p2.z - p1.z) * (p2.y /((double)(p1.y - p2.y)));
+					int newZ = p2.z + (p1.z - p2.z) * (abs(p2.y) /((double)(p1.y - p2.y)));
 					if (p2.x == p1.x)
 					{
 						VERTEX_3D intersect = { p1.x, boundary, newZ, p1.c };
@@ -103,7 +103,7 @@ namespace PolygonDrawer
 			{
 				if (p1.y > boundary && p2.y <= boundary) //1st out, 2nd in
 				{
-					int newZ = p1.z + (p2.z - p1.z) * ((p1.y - boundary) /((double)(p1.y - p2.y)));
+					int newZ = p1.z + (p1.z - p2.z) * ((p1.y - boundary) /((double)(p1.y - p2.y)));
 					if (p2.x == p1.x)
 					{
 						VERTEX_3D intersect = { p1.x, boundary - 1, newZ, p1.c };
@@ -120,9 +120,9 @@ namespace PolygonDrawer
 					
 				} else if (p2.y > boundary && p1.y <= boundary) //1st in, 2nd out
 				{
-					int newZ = p2.z + (p2.z - p1.z) * ((p2.y - boundary) /((double)(p2.y - p1.y)));
+					int newZ = p2.z + (p1.z - p2.z) * ((p2.y - boundary) /((double)(p2.y - p1.y)));
 					if (p2.x == p1.x)
-					{
+					{						
 						VERTEX_3D intersect = { p1.x, boundary - 1, newZ, p1.c };
 						output.push_back(intersect);
 					} else

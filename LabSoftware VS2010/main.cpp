@@ -118,9 +118,9 @@ int main(int argc, char** argv)
 
 	Polygon3D* p = VJSReader::read("TestCube.txt");	
 	world->insert3DPolyAtPosition(p, 0, 230, 200);
-
+	world->rotate3DPolyAtIndex(0, 0, 45, 0);
 	Polygon3D* pyr = VJSReader::read("TestPyramid.txt");
-	world->insert3DPolyAtPosition(pyr, -200, 0, 100);
+	//world->insert3DPolyAtPosition(pyr, -200, 0, 100);
 	
 
 	
@@ -263,8 +263,8 @@ void BuildFrame(BYTE *pFrame, int view)
 			BoundingBoxDrawer::draw(box);
 			delete(box);
 		}
-		world->translate3DPolyAtIndex(i, -2, 0, 0);		
-		world->rotate3DPolyAtIndex(i, 0, 1, 0);
+		//world->translate3DPolyAtIndex(i, -2, 0, 0);		
+		//world->rotate3DPolyAtIndex(i, 0, 1, 0);
 	}
 	
 	
