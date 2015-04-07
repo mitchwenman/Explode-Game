@@ -15,7 +15,7 @@ private:
 	BYTE* frameBuffer;
 
 
-	GraphicsSettings();
+	GraphicsSettings() { };
 
 public:
 	
@@ -23,7 +23,7 @@ public:
 	void setFrameDimensions(int width, int height) { this->frameWidth = width; this->frameHeight = height; }
 	
 	//Sets the number of colour channels
-	void setNumberOfChannels(int n) { this->numberOfChannels = numberOfChannels; }
+	void setNumberOfChannels(int n) { numberOfChannels = n; }
 
 	//Sets the frame buffer that Set pixel uses to draw into
 	void setFrameBuffer(BYTE* buffer) { this->frameBuffer = buffer; }

@@ -114,6 +114,7 @@ int main(int argc, char** argv)
 	GraphicsSettings* settings = GraphicsSettings::getGraphicsSettings();
 	settings->setFrameDimensions(FRAME_WIDE, FRAME_HIGH);
 	settings->setNumberOfChannels(NUM_CHANNELS);
+	settings->setFOV(1000);
 	World* world = World::getSingleton();
 
 	Polygon3D* p = VJSReader::read("TestCube.txt");	

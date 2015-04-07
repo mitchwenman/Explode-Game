@@ -11,6 +11,8 @@ namespace PolygonDrawer3D
 
 	//Draws a 3d polygon and performs backface culling
 	void draw(Polygon3D* p, Reference3DPolygon* refP);
+
+	VERTEX_3D convert3DVertexTo2DProjected(VERTEX_3D vertex3d);
 }
 
 #endif

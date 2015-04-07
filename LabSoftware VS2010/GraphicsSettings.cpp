@@ -11,5 +11,5 @@ GraphicsSettings* GraphicsSettings::getGraphicsSettings()
 	return _instance;
 }
 
-GraphicsSettings::GraphicsSettings() { }
+
 
