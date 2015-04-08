@@ -21,7 +21,7 @@ ZBuffer* ZBuffer::getSingleton()
 
 bool ZBuffer::shouldDrawPixel(int x, int y, int z)
 {	
-	if (z < -500) return false;
+	if (z < MIN_Z_RENDER) return false;
 	if (zBuffer[x][y] > z)
 	{
 		zBuffer[x][y] = z;

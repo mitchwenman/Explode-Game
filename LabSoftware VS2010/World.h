@@ -17,14 +17,16 @@ private:
 	//Constructor
 	World() { };
 
-	//A vector of polygons pre-all transformations 
-	//Used to combat loss of precision in rotate operations
-	std::vector<Reference3DPolygon *> originalPolygons;
+	
 
 public:
 
 	std::vector<Polygon3D *> polygon3ds;
 	std::vector<Polygon2D *> polygon2ds;
+
+	//A vector of polygons pre-all transformations 
+	//Used to combat loss of precision in rotate operations
+	std::vector<Reference3DPolygon *> originalPolygons;
 
 	//Creates if needed and returns the World singleton object
 	static World* getSingleton();

@@ -3,6 +3,9 @@
 
 #include "RGBColor.h"
 
+#define MIN_Z_RENDER -500 
+
+
 class GraphicsSettings
 {
 

@@ -10,6 +10,9 @@ private:
 	//Private constructor for the ExplodedPolygonManager
 	ExplodedPolygonManager() {};
 
+	//Maximum Z value before the poly is cleaned up
+	static const int MAX_Z_BEFORE_CLEANUP = 600;
+
 public:
 	//The vector of active polygons
 	std::vector<ExplodedPolygon *> explodedPolygons;

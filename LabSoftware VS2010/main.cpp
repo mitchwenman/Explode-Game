@@ -124,8 +124,8 @@ int main(int argc, char** argv)
 	Polygon3D* p = VJSReader::read("TestCube.txt");	
 	world->insert3DPoly(p, -200, 0, 500);
 	world->rotate3DPolyAtIndex(0, 45, 45, 45);	
-	//Polygon3D* pyr = VJSReader::read("TestPyramid.txt");
-	//world->insert3DPolyAtPosition(pyr, -200, 0, 100);
+	Polygon3D* pyr = VJSReader::read("TestPyramid.txt");
+	world->insert3DPoly(pyr, -200, 0, 100);
 	
 
 	
