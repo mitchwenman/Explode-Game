@@ -122,7 +122,7 @@ int main(int argc, char** argv)
 	World* world = World::getSingleton();
 
 	Polygon3D* p = VJSReader::read("TestCube.txt");	
-	world->insert3DPolyAtPosition(p, 0, 0, 1000);
+	world->insert3DPolyAtPosition(p, -200, 0, 500);
 	world->rotate3DPolyAtIndex(0, 45, 45, 45);
 	Reference3DPolygon* refP = new Reference3DPolygon(p);
 	refP->calculateNormals();
@@ -262,7 +262,7 @@ void BuildFrame(BYTE *pFrame, int view)
 	gSettings->setView(view);
 	World *world = World::getSingleton();
 	//Testing ---------------
-	//world->drawWorld();
+	world->drawWorld();
 	for (unsigned int i = 0; i < world->polygon3ds.size(); i++)
 	{
 		if (i == UserInput::getSingleton()->selectedPolygon3D)
@@ -271,8 +271,8 @@ void BuildFrame(BYTE *pFrame, int view)
 			BoundingBoxDrawer::draw(box);
 			delete(box);
 		}
-		world->translate3DPolyAtIndex(i, -2, 0, -40);		
-		world->rotate3DPolyAtIndex(i, 1, 1, 1);
+		world->translate3DPolyAtIndex(i, 50, 0, 50);		
+		world->rotate3DPolyAtIndex(i, 20, 20, 20);
 	}
 	for (unsigned int i = 0; i < expPoly.size(); i++)
 	{
