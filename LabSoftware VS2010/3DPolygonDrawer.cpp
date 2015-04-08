@@ -63,10 +63,20 @@ namespace PolygonDrawer3D
 		int z = vertex3d.z;
 		if (z <= -fov)
 			z = -fov + 1;
-		int newx = x * fov / (z + fov) + centrex;
-		int newy = y * fov / (z + fov) + centrey;
+		int newx = (int)projectXPoint(x, z, fov, centrex);
+		int newy = (int)projectYPoint(y, z, fov, centrey);
 		VERTEX_3D vert = { newx, newy, z, vertex3d.c };
 		return vert;
+	}
+
+	double projectXPoint(double x, double z, int fov, int centerx)
+	{
+		return x * fov / (z + fov) + centerx;
+	}
+
+	double projectYPoint(double y, double z, int fov, int centery)
+	{
+		return y * fov / (z + fov) + centery;
 	}
 }
 	

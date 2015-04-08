@@ -13,6 +13,10 @@ namespace PolygonDrawer3D
 	void draw(Polygon3D* p, Reference3DPolygon* refP);
 
 	VERTEX_3D convert3DVertexTo2DProjected(VERTEX_3D vertex3d);
+
+	double projectXPoint(double x, double z, int fov, int centerx);
+
+	double projectYPoint(double y, double z, int fov, int centery);
 }
 
 #endif

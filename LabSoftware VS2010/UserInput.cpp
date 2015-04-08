@@ -6,6 +6,7 @@
 #include "Polygon3DScaler.h"
 #include "Polygon3DTranslator.h"
 #include "Polygon3D.h"
+#include "ExplodedPolygonManager.h"
 
 #ifdef _WIN32
 	#include "libs/glut.h"
@@ -117,7 +118,10 @@ void UserInput::handleKeyInput(char key)
 
 void UserInput::handleMouseInput(int button, int state, int x, int y)
 {
-	
+	if (button == GLUT_LEFT_BUTTON && state == GLUT_UP)
+	{
+		ExplodedPolygonManager::getSingleton()->explodePolygonAtCoords(x, y);
+	}
 }
 
 UserInput* UserInput::getSingleton()

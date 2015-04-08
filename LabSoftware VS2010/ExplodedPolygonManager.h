@@ -15,7 +15,7 @@ public:
 	std::vector<ExplodedPolygon *> explodedPolygons;
 
 	//Returns the singleton instance of ExplodedPolygonManager
-	ExplodedPolygonManager* getSingleton();
+	static ExplodedPolygonManager* getSingleton();
 
 	//Animates and draws the current exploded polygons to the framebuffer
 	void draw();

@@ -77,7 +77,7 @@ void World::drawWorld()
 	}
 	for (unsigned int i = 0; i < this->polygon3ds.size(); i++)
 	{
-		//PolygonDrawer3D::draw(this->polygon3ds[i], this->originalPolygons[i]);		
+		PolygonDrawer3D::draw(this->polygon3ds[i], this->originalPolygons[i]);		
 	}
 }
 

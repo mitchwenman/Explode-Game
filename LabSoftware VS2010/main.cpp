@@ -123,12 +123,8 @@ int main(int argc, char** argv)
 
 	Polygon3D* p = VJSReader::read("TestCube.txt");	
 	world->insert3DPoly(p, -200, 0, 500);
-	world->rotate3DPolyAtIndex(0, 45, 45, 45);
-	Reference3DPolygon* refP = new Reference3DPolygon(p);
-	refP->calculateNormals();
-	expPoly = ExplodedPolygonCreator::explodePolygon(p, refP);
-	world->remove3DPolyAtPosition(0);
-	Polygon3D* pyr = VJSReader::read("TestPyramid.txt");
+	world->rotate3DPolyAtIndex(0, 45, 45, 45);	
+	//Polygon3D* pyr = VJSReader::read("TestPyramid.txt");
 	//world->insert3DPolyAtPosition(pyr, -200, 0, 100);
 	
 
@@ -260,30 +256,6 @@ void BuildFrame(BYTE *pFrame, int view)
 	World *world = World::getSingleton();
 	//Testing ---------------
 	world->drawWorld();
-
-	for (unsigned int i = 0; i < expPoly.size(); i++)
-	{
-		ExplodedPolygonAnimator::animateExplodedPolygon(expPoly[i]);
-	}
-	
-
-	
-
-	
-
-	//-------------------------
-	int xoff = -200;
-	RGBColour c = { 255, 255, 255 };
-	RGBColour c2 = { 255, 0, 0 };
-	VERTEX_3D pa = { 100 + xoff, 200 + xoff, 10, &c };
-	VERTEX_3D pb = { 200 + xoff, 500 + xoff, 10, &c };
-	VERTEX_3D pc = { 400 + xoff, 500 + xoff, 50, &c2 };
-	VERTEX_3D pd = { 600 + xoff, 100 + xoff, 50, &c };
-	PixelDrawer::set3DProjectedPixel(410, 550, 0, 0, 0, 255);
-	VERTEX_3D verts[] = { pa, pb, pc, pd }; 
-	Polygon2D *poly = new Polygon2D(4, verts);
-	//PolygonDrawer::draw(poly);
-	delete(poly);
 	ZBuffer::getSingleton()->flush();
 	
 }
