@@ -7,6 +7,17 @@
 #include "Polygon3DTranslator.h"
 #include "Polygon3D.h"
 
+#ifdef _WIN32
+	#include "libs/glut.h"
+	#include <windows.h>
+	#pragma comment(lib, "winmm.lib")			//- not required but have it in anyway
+	#pragma comment(lib, "libs/glut32.lib")
+#elif __APPLE__
+	#include <GLUT/glut.h>
+#elif __unix__		// all unices including  __linux__
+	#include <GL/glut.h>
+#endif
+
 static UserInput* _instance;
 
 void UserInput::handleKeyInput(char key)
@@ -101,6 +112,11 @@ void UserInput::handleKeyInput(char key)
 		
 	
 	
+	
+}
+
+void UserInput::handleMouseInput(int button, int state, int x, int y)
+{
 	
 }
 

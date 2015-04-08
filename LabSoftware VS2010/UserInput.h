@@ -15,7 +15,7 @@ public:
 	void handleKeyInput(char key);
 
 	//Mouse input method
-	void handleMouseInput(int button, int state, int x, int y) {};
+	void handleMouseInput(int button, int state, int x, int y);
 	
 	//Returns the user input singleton
 	static UserInput* getSingleton();
