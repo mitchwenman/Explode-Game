@@ -14,6 +14,9 @@ public:
 	//Mega-method to handle key inputs
 	void handleKeyInput(char key);
 
+	//Mouse input method
+	void handleMouseInput(int button, int state, int x, int y) {};
+	
 	//Returns the user input singleton
 	static UserInput* getSingleton();
 

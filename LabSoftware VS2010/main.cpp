@@ -122,11 +122,12 @@ int main(int argc, char** argv)
 	World* world = World::getSingleton();
 
 	Polygon3D* p = VJSReader::read("TestCube.txt");	
-	world->insert3DPolyAtPosition(p, -200, 0, 500);
+	world->insert3DPoly(p, -200, 0, 500);
 	world->rotate3DPolyAtIndex(0, 45, 45, 45);
 	Reference3DPolygon* refP = new Reference3DPolygon(p);
 	refP->calculateNormals();
 	expPoly = ExplodedPolygonCreator::explodePolygon(p, refP);
+	world->remove3DPolyAtPosition(0);
 	Polygon3D* pyr = VJSReader::read("TestPyramid.txt");
 	//world->insert3DPolyAtPosition(pyr, -200, 0, 100);
 	
@@ -172,11 +173,7 @@ void reshape(int w, int h)
 
 void OnMouse(int button, int state, int x, int y)
 {
-	if (button == GLUT_LEFT_BUTTON && state == GLUT_UP)
-	{
-		PlaySoundEffect("Laser.wav"); 
-		if (++shade > 16) shade = 0;	
-	}
+	UserInput::getSingleton()->handleMouseInput(button, state, x, y);
 }
 
 void OnKeypress(unsigned char key, int x, int y)
@@ -263,17 +260,7 @@ void BuildFrame(BYTE *pFrame, int view)
 	World *world = World::getSingleton();
 	//Testing ---------------
 	world->drawWorld();
-	for (unsigned int i = 0; i < world->polygon3ds.size(); i++)
-	{
-		if (i == UserInput::getSingleton()->selectedPolygon3D)
-		{
-			BoundingBox *box = new BoundingBox(world->polygon3ds[i]);
-			BoundingBoxDrawer::draw(box);
-			delete(box);
-		}
-		world->translate3DPolyAtIndex(i, 50, 0, 50);		
-		world->rotate3DPolyAtIndex(i, 20, 20, 20);
-	}
+
 	for (unsigned int i = 0; i < expPoly.size(); i++)
 	{
 		ExplodedPolygonAnimator::animateExplodedPolygon(expPoly[i]);

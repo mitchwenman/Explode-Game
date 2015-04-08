@@ -23,7 +23,7 @@ World* World::getSingleton()
 	return _instance;
 }
 
-void World::insert3DPolyAtPosition(Polygon3D* p, int x, int y, int z)
+int World::insert3DPoly(Polygon3D* p, int x, int y, int z)
 {
 	//Get frame height/width
 	GraphicsSettings* gset = GraphicsSettings::getGraphicsSettings();
@@ -51,7 +51,17 @@ void World::insert3DPolyAtPosition(Polygon3D* p, int x, int y, int z)
 		refP->normals.push_back(*normal);
 	}
 	this->originalPolygons.push_back(refP);
+	return polygon3ds.size() - 1;
 
+}
+
+void World::remove3DPolyAtPosition(int i)
+{
+	if (i >= 0 && i < polygon3ds.size() && polygon3ds[i] != NULL)
+	{
+		delete(polygon3ds[i]);
+		polygon3ds[i] = NULL;
+	}
 }
 
 void World::insert2DPoly(Polygon2D* p)
@@ -67,7 +77,7 @@ void World::drawWorld()
 	}
 	for (unsigned int i = 0; i < this->polygon3ds.size(); i++)
 	{
-		PolygonDrawer3D::draw(this->polygon3ds[i], this->originalPolygons[i]);		
+		//PolygonDrawer3D::draw(this->polygon3ds[i], this->originalPolygons[i]);		
 	}
 }
 
@@ -76,11 +86,15 @@ void World::translate3DPolyAtIndex(int i, int dx, int dy, int dz)
 	if (i >= 0 && i < polygon3ds.size())
 	{
 		Polygon3D *p = polygon3ds[i];
-		Reference3DPolygon *refP = originalPolygons[i];
-		Polygon3DTranslator::translate(p, dx, dy, dz);
-		refP->tx += dx;
-		refP->ty += dy;
-		refP->tz += dz;
+		if (p != NULL)
+		{
+			Reference3DPolygon *refP = originalPolygons[i];
+			Polygon3DTranslator::translate(p, dx, dy, dz);
+			refP->tx += dx;
+			refP->ty += dy;
+			refP->tz += dz;
+		}
+		
 	}
 	
 }
@@ -90,27 +104,31 @@ void World::rotate3DPolyAtIndex(int i, int dx, int dy, int dz)
 	if (i >= 0 && i < polygon3ds.size())
 	{
 		Polygon3D *p = polygon3ds[i];
-		Reference3DPolygon *refP = originalPolygons[i];
-		refP->numRotates++;
-		refP->rx += dx;
-		refP->ry += dy;
-		refP->rz += dz;
-		if (false)//refP->numRotates > N_ROTATES_BEFORE_REDRAW)
+		if (p != NULL)
 		{
-			refP->numRotates = 0;
-			delete(polygon3ds[i]);
-			p = new Polygon3D(*refP->originalPoly);
-			polygon3ds[i] = p;
+			Reference3DPolygon *refP = originalPolygons[i];
+			refP->numRotates++;
+			refP->rx += dx;
+			refP->ry += dy;
+			refP->rz += dz;
+			if (false)//refP->numRotates > N_ROTATES_BEFORE_REDRAW)
+			{
+				refP->numRotates = 0;
+				delete(polygon3ds[i]);
+				p = new Polygon3D(*refP->originalPoly);
+				polygon3ds[i] = p;
 			
-			Polygon3DScaler::scale(p, refP->sx, refP->sy, refP->sz);
-			Polygon3DRotator::Rotate(p, refP->rx % 360, refP->ry % 360, refP->rz % 360);
-			Polygon3DTranslator::translate(p, refP->tx, refP->ty, refP->tz);
-		} else
-		{
-			Polygon3DRotator::Rotate(p, dx, dy, dz);
-			Polygon3DRotator::RotateVertices(&refP->normals, dx, dy, dz);
+				Polygon3DScaler::scale(p, refP->sx, refP->sy, refP->sz);
+				Polygon3DRotator::Rotate(p, refP->rx % 360, refP->ry % 360, refP->rz % 360);
+				Polygon3DTranslator::translate(p, refP->tx, refP->ty, refP->tz);
+			} else
+			{
+				Polygon3DRotator::Rotate(p, dx, dy, dz);
+				Polygon3DRotator::RotateVertices(&refP->normals, dx, dy, dz);
 			
+			}
 		}
+		
 			
 		
 		

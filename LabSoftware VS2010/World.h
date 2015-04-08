@@ -31,7 +31,10 @@ public:
 
 	//Translates the polygon such that the centre of the polygon is
 	//at the given coordinates and adds it to the 3D poly vector
-	void insert3DPolyAtPosition(Polygon3D* p, int x, int y, int z);
+	int insert3DPoly(Polygon3D* p, int x, int y, int z);
+
+	//Sets the 
+	void remove3DPolyAtPosition(int i);
 
 	//Adds the polygon to the 2D poly vector
 	void insert2DPoly(Polygon2D* p);
