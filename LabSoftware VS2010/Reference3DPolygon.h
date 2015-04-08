@@ -10,6 +10,8 @@ class Reference3DPolygon
 public:
 	Reference3DPolygon(Polygon3D* p);
 
+	void calculateNormals();
+
 	//The original polygon
 	Polygon3D* originalPoly;
 

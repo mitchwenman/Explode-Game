@@ -17,6 +17,7 @@
     <ClCompile Include="DDALine.cpp" />
     <ClCompile Include="DecompPolygon2D.cpp" />
     <ClCompile Include="ExplodedPolygon.cpp" />
+    <ClCompile Include="ExplodedPolygonAnimator.cpp" />
     <ClCompile Include="ExplodedPolygonCreator.cpp" />
     <ClCompile Include="GraphicsSettings.cpp" />
     <ClCompile Include="GraphicsUtil.h" />
@@ -47,6 +48,7 @@
     <ClInclude Include="DecompPolygon2D.h" />
     <ClInclude Include="ExplodedPolygon.h" />
     <ClInclude Include="ExplodedPolygonCreator.h" />
+    <ClInclude Include="ExplodedPolygonAnimator.h" />
     <ClInclude Include="GPLine.h" />
     <ClInclude Include="GraphicsSettings.h" />
     <ClInclude Include="LineDrawer.h" />

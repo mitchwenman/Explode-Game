@@ -25,6 +25,9 @@
 #include "BoundingBox.h"
 #include "BoundingBoxDrawer.h"
 #include "ZBuffer.h"
+#include "ExplodedPolygon.h"
+#include "ExplodedPolygonAnimator.h"
+#include "ExplodedPolygonCreator.h"
 
 #ifdef _WIN32
 	#include "libs/glut.h"
@@ -62,6 +65,7 @@ int		shade = 0;
 POINT2D	xypos = {0,0};
 int		stereo = 0;
 int		eyes = 10;
+std::vector<ExplodedPolygon*> expPoly;
 
 //===== Forward Declarations ========
 void ClearScreen();
@@ -118,8 +122,11 @@ int main(int argc, char** argv)
 	World* world = World::getSingleton();
 
 	Polygon3D* p = VJSReader::read("TestCube.txt");	
-	world->insert3DPolyAtPosition(p, 0, 0, 200);
-	world->rotate3DPolyAtIndex(0, 0, 45, 0);
+	world->insert3DPolyAtPosition(p, 0, 0, 1000);
+	world->rotate3DPolyAtIndex(0, 45, 45, 45);
+	Reference3DPolygon* refP = new Reference3DPolygon(p);
+	refP->calculateNormals();
+	expPoly = ExplodedPolygonCreator::explodePolygon(p, refP);
 	Polygon3D* pyr = VJSReader::read("TestPyramid.txt");
 	//world->insert3DPolyAtPosition(pyr, -200, 0, 100);
 	
@@ -255,7 +262,7 @@ void BuildFrame(BYTE *pFrame, int view)
 	gSettings->setView(view);
 	World *world = World::getSingleton();
 	//Testing ---------------
-	world->drawWorld();
+	//world->drawWorld();
 	for (unsigned int i = 0; i < world->polygon3ds.size(); i++)
 	{
 		if (i == UserInput::getSingleton()->selectedPolygon3D)
@@ -264,10 +271,13 @@ void BuildFrame(BYTE *pFrame, int view)
 			BoundingBoxDrawer::draw(box);
 			delete(box);
 		}
-		//world->translate3DPolyAtIndex(i, -2, 0, 0);		
-		//world->rotate3DPolyAtIndex(i, 0, 1, 0);
+		world->translate3DPolyAtIndex(i, -2, 0, -40);		
+		world->rotate3DPolyAtIndex(i, 1, 1, 1);
 	}
-	
+	for (unsigned int i = 0; i < expPoly.size(); i++)
+	{
+		ExplodedPolygonAnimator::animateExplodedPolygon(expPoly[i]);
+	}
 	
 
 	
