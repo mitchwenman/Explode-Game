@@ -28,6 +28,7 @@
 #include "ExplodedPolygon.h"
 #include "ExplodedPolygonAnimator.h"
 #include "ExplodedPolygonCreator.h"
+#include "PolygonDatabase.h"
 
 #ifdef _WIN32
 	#include "libs/glut.h"
@@ -115,21 +116,25 @@ int main(int argc, char** argv)
 	glutKeyboardFunc(OnKeypress);
 	glutMouseFunc(OnMouse);
 
-	GraphicsSettings* settings = GraphicsSettings::getGraphicsSettings();
+	// -- load VJS polygons from command line --
+	PolygonDatabase *d = PolygonDatabase::getSingleton();
+	int numPolysLoaded = 0;
+	int numFiles = argc - 1;
+	for (int i = 1; i <= numFiles; i++)
+	{		
+		char* filename = argv[i];
+		if (d->loadPolygonAtPath(std::string(filename)))
+			numPolysLoaded++;
+	}
+	if (numPolysLoaded == 0) return EXIT_FAILURE; //End program if no polygons
+
+	// -- setup world -- 
+ 	GraphicsSettings* settings = GraphicsSettings::getGraphicsSettings();
 	settings->setFrameDimensions(FRAME_WIDE, FRAME_HIGH);
 	settings->setNumberOfChannels(NUM_CHANNELS);
 	settings->setFOV(1000);
 	World* world = World::getSingleton();
-
-	Polygon3D* p = VJSReader::read("TestCube.txt");	
-	world->insert3DPoly(p, -200, 0, 500);
-	world->rotate3DPolyAtIndex(0, 45, 45, 45);	
-	Polygon3D* pyr = VJSReader::read("TestPyramid.txt");
-	world->insert3DPoly(pyr, -200, 0, 100);
 	
-
-	
-
 	//-- run the program
 	glutMainLoop();
 	return 0;
