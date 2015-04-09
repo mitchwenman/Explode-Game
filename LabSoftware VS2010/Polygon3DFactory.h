@@ -11,6 +11,18 @@
 
 namespace Polygon3DFactory
 {
+	const int DIST_LEFT_OFFSCREEN_START = -400; //The distance away from the left of the screen (-X)
+													//that the poly should start from
+
+	const int MIN_DIST_TOP_START = 200; //The minimum distance from the top of the screen
+										//that the polygon should start from.
+
+	const int MIN_DIST_BOTTOM_START = 200; //The minimum distance from the bottom of the screen
+
+	const int MIN_Z_START = 200; //Minimum z value for polygon to start
+
+	const int MAX_Z_START = 800; //Max z value
+
 	//Returns a new copy of a random polygon from the database
 	Polygon3D* createRandomPolygonFromDatabase();
 

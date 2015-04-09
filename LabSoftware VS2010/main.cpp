@@ -29,6 +29,7 @@
 #include "ExplodedPolygonAnimator.h"
 #include "ExplodedPolygonCreator.h"
 #include "PolygonDatabase.h"
+#include "Polygon3DFactory.h"
 
 #ifdef _WIN32
 	#include "libs/glut.h"
@@ -136,6 +137,7 @@ int main(int argc, char** argv)
 	World* world = World::getSingleton();
 	
 	//-- run the program
+
 	glutMainLoop();
 	return 0;
 }
