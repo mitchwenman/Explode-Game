@@ -34,8 +34,11 @@ Polygon3D* Polygon3DFactory::createRandomPolygonFromDatabase()
 	for (unsigned int i = 0; i < blueprint->vertices.size(); i++)
 	{
 		VERTEX_3D original = blueprint->vertices[i];
-		RGBColour colcopy = { original.c->red, original.c->green, original.c->blue };
-		VERTEX_3D vcopy = { original.x, original.y, original.z, &colcopy };
+		RGBColour *colcopy = new RGBColour();
+		colcopy->red = original.c->red;
+		colcopy->green = original.c->green;
+		colcopy->blue = original.c->blue;
+		VERTEX_3D vcopy = { original.x, original.y, original.z, colcopy };
 		newPoly->vertices.push_back(vcopy);
 	}
 
@@ -49,7 +52,7 @@ VERTEX_3D_f Polygon3DFactory::getRandomStartingPoint()
 {
 	GraphicsSettings* gsettings = GraphicsSettings::getGraphicsSettings();
 	int frameHeight = gsettings->getFrameHeight();
-	double y = std::rand() % (frameHeight - MIN_DIST_TOP_START - MIN_DIST_BOTTOM_START) + MIN_DIST_BOTTOM_START;
+	double y = 0; //std::rand() % (frameHeight - MIN_DIST_TOP_START - MIN_DIST_BOTTOM_START) + MIN_DIST_BOTTOM_START;
 	double z = std::rand() % (MAX_Z_START - MIN_Z_START) + MIN_Z_START;
 	VERTEX_3D_f startingPoint = { DIST_LEFT_OFFSCREEN_START, y, z };
 	return startingPoint;
@@ -80,7 +83,7 @@ PolygonTransformation getRandomScaleTransformation()
 PolygonTransformation getRandomRotateTransformation()
 {
 	PolygonTransformation rotate;
-	VERTEX_3D_f rotateFactors = { 0, 0, 0 };
+	VERTEX_3D_f rotateFactors = { 0, 10, 0 };
 	rotate.transformationType = ROTATE;
 	rotate.values = rotateFactors;
 	return rotate;

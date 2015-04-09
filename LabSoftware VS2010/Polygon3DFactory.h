@@ -25,10 +25,10 @@ private:
 	double speedFactor;
 
 public:
-	static const int DIST_LEFT_OFFSCREEN_START = -400; //The distance away from the left of the screen (-X)
+	static const int DIST_LEFT_OFFSCREEN_START = 0; //The distance away from the left of the screen (-X)
 													//that the poly should start from
 
-	static const int MIN_DIST_TOP_START = 200; //The minimum distance from the top of the screen
+	static const int MIN_DIST_TOP_START = 500; //The minimum distance from the top of the screen
 										//that the polygon should start from.
 
 	static const int MIN_DIST_BOTTOM_START = 200; //The minimum distance from the bottom of the screen

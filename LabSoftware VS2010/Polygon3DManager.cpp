@@ -1,4 +1,8 @@
 #include "Polygon3DManager.h"
+#include "Polygon3DFactory.h"
+#include "3DPolygonDrawer.h"
+#include "BoundingBox.h"
+#include "Polygon3DTranslator.h"
 
 static Polygon3DManager* _instance;
 
@@ -12,7 +16,11 @@ Polygon3DManager* Polygon3DManager::getSingleton()
 //Draws the current 3d polygons to the frame buffer
 void Polygon3DManager::animate()
 {
-
+	for (unsigned int i = 0; i < polygon3ds.size(); i++)
+	{
+		applyTransformations(polygon3ds[i], referencePolygons[i], transformations[i]);
+		PolygonDrawer3D::draw(polygon3ds[i], referencePolygons[i]);
+	}
 }
 
 //Removes any polygons not on the screen anymore
@@ -28,11 +36,35 @@ int Polygon3DManager::cleanup()
 //Returns the newly created polygon or NULL if one wasn't created
 Polygon3D* Polygon3DManager::addNewPolygonIfReady()
 {
-	return NULL;
+	Polygon3D* newPoly = NULL;
+	if ((polygonCreationCounter++ % POLYGON_CREATION_INTERVAL) == 0)
+	{
+		Polygon3DFactory* factory = Polygon3DFactory::getSingleton();
+		newPoly = factory->createRandomPolygonFromDatabase();
+		VERTEX_3D_f startingPoint = factory->getRandomStartingPoint();
+		//Translate to starting point
+		//Create bounding box
+		BoundingBox* bbox = new BoundingBox(newPoly);
+		VERTEX_3D* v = bbox->calculateCenterPoint();
+		//Add difference
+		int dx = startingPoint.x - v->x;
+		int dy = startingPoint.y - v->y;
+		int dz = startingPoint.z - v->z;
+		//Translate
+		Polygon3DTranslator::translate(newPoly, dx, dy, dz);
+
+		Reference3DPolygon *refP = new Reference3DPolygon(newPoly);
+		refP->calculateNormals();
+		polygon3ds.push_back(newPoly);
+		transformations.push_back(factory->getRandomTransformationSet());
+		referencePolygons.push_back(refP);
+	}
+	return newPoly;
 }
 
 //Applys a set of transformations to the polygon
-void Polygon3DManager::applyTransformations(Polygon3D* polygon, std::vector<PolygonTransformation> transformations)
+void Polygon3DManager::applyTransformations(Polygon3D* polygon, Reference3DPolygon* refP, std::vector<PolygonTransformation> transformations)
 {
-
+	for (unsigned int i = 0; i < transformations.size(); i++)
+		transformations[i].apply(polygon, refP);
 }

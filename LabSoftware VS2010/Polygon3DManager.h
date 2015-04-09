@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Polygon3D.h"
-#include "Polygon3DFactory.h"
 #include "PolygonTransformation.h"
 #include "Reference3DPolygon.h"
 
@@ -21,12 +20,17 @@ private:
 	//to be applied prior to drawing the polygon
 	std::vector<std::vector<PolygonTransformation>> transformations;
 
+	//Counter used to determine when to create a new polygon
+	int polygonCreationCounter;
+
+	static const int POLYGON_CREATION_INTERVAL = 100;
+
 	//Private constructor for singleton pattern
-	Polygon3DManager() {};
+	Polygon3DManager() : polygonCreationCounter(0) {};
 
 public:
 	//Gets the singleton instance of Polygon3DManager
-	Polygon3DManager* getSingleton();
+	static Polygon3DManager* getSingleton();
 
 	//Returns the polygon3ds vector
 	std::vector<Polygon3D*> getPolygon3Ds() { return polygon3ds; }
@@ -47,5 +51,5 @@ public:
 	Polygon3D* addNewPolygonIfReady();
 
 	//Applys a set of transformations to the polygon
-	void applyTransformations(Polygon3D* polygon, std::vector<PolygonTransformation> transformations);
+	void applyTransformations(Polygon3D* polygon, Reference3DPolygon* refP, std::vector<PolygonTransformation> transformations);
 };

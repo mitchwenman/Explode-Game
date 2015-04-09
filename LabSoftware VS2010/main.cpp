@@ -30,6 +30,7 @@
 #include "ExplodedPolygonCreator.h"
 #include "PolygonDatabase.h"
 #include "Polygon3DFactory.h"
+#include "Polygon3DManager.h"
 
 #ifdef _WIN32
 	#include "libs/glut.h"
@@ -264,7 +265,11 @@ void BuildFrame(BYTE *pFrame, int view)
 	gSettings->setView(view);
 	World *world = World::getSingleton();
 	//Testing ---------------
-	world->drawWorld();
+	Polygon3DManager *manager = Polygon3DManager::getSingleton();
+	manager->addNewPolygonIfReady();
+	manager->animate();
+
+
 	ZBuffer::getSingleton()->flush();
 	
 }
