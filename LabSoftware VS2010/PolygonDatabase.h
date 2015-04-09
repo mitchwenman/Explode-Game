@@ -15,8 +15,8 @@ private:
 	//Default constructor
 	PolygonDatabase() {};
 
-	//The polygon database
-	std::vector<Polygon3D *> polygons;
+	
+
 
 public:
 
@@ -27,6 +27,7 @@ public:
 	//Returns whether it was loaded successfully
 	bool loadPolygonAtPath(std::string path);
 
-
+	//The polygon database
+	std::vector<Polygon3D *> polygons;
 
 };
