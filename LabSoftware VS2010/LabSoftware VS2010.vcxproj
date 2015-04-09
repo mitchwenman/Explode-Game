@@ -26,6 +26,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PixelDrawer.cpp" />
     <ClCompile Include="Polygon2D.cpp" />
+    <ClCompile Include="Polygon3DFactory.cpp" />
     <ClCompile Include="Polygon3DRotator.cpp" />
     <ClCompile Include="Polygon3DScaler.cpp" />
     <ClCompile Include="Polygon3DTranslator.cpp" />
@@ -58,11 +59,13 @@
     <ClInclude Include="PixelDrawer.h" />
     <ClInclude Include="Polygon2D.h" />
     <ClInclude Include="Polygon3D.h" />
+    <ClInclude Include="Polygon3DFactory.h" />
     <ClInclude Include="Polygon3DRotator.h" />
     <ClInclude Include="Polygon3DScaler.h" />
     <ClInclude Include="Polygon3DTranslator.h" />
     <ClInclude Include="PolygonDatabase.h" />
     <ClInclude Include="PolygonDrawer.h" />
+    <ClInclude Include="PolygonTransformation.h" />
     <ClInclude Include="Reference3DPolygon.h" />
     <ClInclude Include="RGBColor.h" />
     <ClInclude Include="RotationConstantTable.h" />

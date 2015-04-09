@@ -101,6 +101,9 @@
     <ClCompile Include="PolygonDatabase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Polygon3DFactory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RGBColor.h">
@@ -194,6 +197,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="PolygonDatabase.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Polygon3DFactory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PolygonTransformation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
