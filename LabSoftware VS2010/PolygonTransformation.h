@@ -2,10 +2,13 @@
 
 #include "GraphicsUtil.h"
 
+typedef enum  { TRANSLATE, SCALE, ROTATE } TransformationType;
+
 class PolygonTransformation
-{
+{	
+
 public:
-	enum TransformationType { TRANSLATE, SCALE, ROTATE };
+	TransformationType transformationType;
 
 	VERTEX_3D_f values;
 
