@@ -33,6 +33,7 @@
     <ClCompile Include="Polygon3DTranslator.cpp" />
     <ClCompile Include="PolygonDatabase.cpp" />
     <ClCompile Include="PolygonDrawer.cpp" />
+    <ClCompile Include="PolygonTransformation.cpp" />
     <ClCompile Include="Reference3DPolygon.cpp" />
     <ClCompile Include="RotationConstantTable.cpp" />
     <ClCompile Include="ScanlineTriangle.cpp" />

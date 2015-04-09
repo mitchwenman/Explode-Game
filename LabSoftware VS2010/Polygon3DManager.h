@@ -3,14 +3,19 @@
 #include "Polygon3D.h"
 #include "Polygon3DFactory.h"
 #include "PolygonTransformation.h"
+#include "Reference3DPolygon.h"
 
 #include <vector>
+
 
 class Polygon3DManager
 {
 private:
 	//The vector of currently active polygons
 	std::vector<Polygon3D *> polygon3ds;
+
+	//The parallel vector of reference polygons
+	std::vector<Reference3DPolygon *> referencePolygons;
 
 	//The vector (parallel to polygon vector) that contains the transformations
 	//to be applied prior to drawing the polygon
@@ -25,6 +30,9 @@ public:
 
 	//Returns the polygon3ds vector
 	std::vector<Polygon3D*> getPolygon3Ds() { return polygon3ds; }
+
+	//Returns the reference polygon vector
+	std::vector<Reference3DPolygon *> getReferencePolygons() { return referencePolygons; }
 
 	//Draws the current 3d polygons to the frame buffer
 	void animate();
