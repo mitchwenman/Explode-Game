@@ -63,9 +63,11 @@ int ExplodedPolygonManager::explodePolygonAtCoords(int x, int y)
 
 int ExplodedPolygonManager::polygonAtCoords(int x, int y)
 {
+
 	GraphicsSettings *gsettings = GraphicsSettings::getGraphicsSettings();
 	int centerx = gsettings->getFrameWidth() / 2;
 	int centery = gsettings->getFrameHeight() / 2;
+	y = gsettings->getFrameHeight() - y;
 	int fov = gsettings->getFOV();
 	int pminx, pminy, pmaxx, pmaxy;
 	unsigned int index = 0;
