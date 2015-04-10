@@ -29,45 +29,19 @@ void ExplodedPolygonManager::draw()
 
 int ExplodedPolygonManager::cleanup() ///XXX: change to use 3Dpolygondrawer method
 {
-	GraphicsSettings *gsettings = GraphicsSettings::getGraphicsSettings();
-	int frameWidth = gsettings->getFrameWidth();
-	int frameHeight = gsettings->getFrameHeight();
-	int centerx = frameWidth / 2;
-	int centery = frameHeight / 2;
-	int fov = gsettings->getFOV();
-	//For every polygon
-	for (unsigned int j = 0; j < explodedPolygons.size(); j++)
+	int numDeleted = 0;
+	for (unsigned int i = 0; i < explodedPolygons.size(); i++)
 	{
-		int pminx, pminy, pmaxx, pmaxy, pminz, pmaxz;
-		ExplodedPolygon *poly = explodedPolygons[j];
-		std::vector<VERTEX_3D> verts = poly->vertices;
-		pminx = pmaxx = verts[0].x;
-		pminy = pmaxy = verts[0].y;
-		pminz = pmaxz = verts[0].z;
-		for (unsigned int i = 1; i < verts.size(); i++)
+		if (PolygonDrawer3D::isPolygonOffScreen(explodedPolygons[i],
+												MIN_Z_RENDER,
+												MAX_Z_BEFORE_CLEANUP))
 		{
-			int px = PolygonDrawer3D::projectXPoint(verts[i].x, verts[i].z, fov, centerx);
-			int py = PolygonDrawer3D::projectYPoint(verts[i].y, verts[i].z, fov, centery);
-			int z = verts[i].z;
-			if (px < pminx) pminx = px;
-			else if (px > pmaxx) pmaxx = px;
-			if (py < pminy) pminy = py;
-			else if (py > pmaxy) pmaxy = py;
-			if (z < pminz) pminz = z;
-			else if (z > pmaxz) pmaxz = z;
+			explodedPolygons.erase(explodedPolygons.begin() + i);
+			i--; //So we don't skip any when we erase
 		}
-		//If not on screen then delete
-		if (pmaxx < 0 || pminx > frameWidth ||
-			pmaxy < 0 || pminy > frameHeight ||
-			pmaxz > MAX_Z_BEFORE_CLEANUP ||
-			pminz < MIN_Z_RENDER)
-		{
-			delete(poly);
-			explodedPolygons.erase(explodedPolygons.begin() + j);
-		}
-	}	
+	}
 
-	return 0;
+	return numDeleted;
 }
 
 int ExplodedPolygonManager::explodePolygonAtCoords(int x, int y)
@@ -75,12 +49,13 @@ int ExplodedPolygonManager::explodePolygonAtCoords(int x, int y)
 	int index = ExplodedPolygonManager::polygonAtCoords(x, y);
 	if (index != -1)
 	{
-		World *world = World::getSingleton();
-		Polygon3D *poly = world->polygon3ds[index];
-		Reference3DPolygon *refPoly = world->originalPolygons[index];
+		Polygon3DManager *polymanager = Polygon3DManager::getSingleton();
+	
+		Polygon3D *poly = polymanager->getPolygon3Ds()[index];
+		Reference3DPolygon *refPoly = polymanager->getReferencePolygons()[index];
 		std::vector<ExplodedPolygon *> expPolys = ExplodedPolygonCreator::explodePolygon(poly, refPoly);
 		explodedPolygons.insert(explodedPolygons.end(), expPolys.begin(), expPolys.end()); //append to end of vector
-		world->remove3DPolyAtPosition(index);
+		polymanager->removePolygonAtIndex(index);
 	}
 	
 	return index;
@@ -95,8 +70,8 @@ int ExplodedPolygonManager::polygonAtCoords(int x, int y)
 	int pminx, pminy, pmaxx, pmaxy;
 	unsigned int index = 0;
 	
-	World *world = World::getSingleton();
-	std::vector<Polygon3D *> polys = world->polygon3ds;
+	Polygon3DManager *polymanager = Polygon3DManager::getSingleton();
+	std::vector<Polygon3D *> polys = polymanager->getPolygon3Ds();
 	//For each polygon in the world
 	for ( ; index < polys.size(); index++)
 	{

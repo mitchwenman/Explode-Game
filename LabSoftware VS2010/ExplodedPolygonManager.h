@@ -11,7 +11,7 @@ private:
 	ExplodedPolygonManager() {};
 
 	//Maximum Z value before the poly is cleaned up
-	static const int MAX_Z_BEFORE_CLEANUP = 600;
+	static const int MAX_Z_BEFORE_CLEANUP = 2000;
 
 public:
 	//The vector of active polygons

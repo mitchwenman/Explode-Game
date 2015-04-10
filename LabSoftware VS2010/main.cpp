@@ -28,6 +28,7 @@
 #include "ExplodedPolygon.h"
 #include "ExplodedPolygonAnimator.h"
 #include "ExplodedPolygonCreator.h"
+#include "ExplodedPolygonManager.h"
 #include "PolygonDatabase.h"
 #include "Polygon3DFactory.h"
 #include "Polygon3DManager.h"
@@ -269,7 +270,9 @@ void BuildFrame(BYTE *pFrame, int view)
 	manager->addNewPolygonIfReady();
 	manager->animate();
 	manager->cleanup();
-
+	ExplodedPolygonManager *expmanager = ExplodedPolygonManager::getSingleton();
+	expmanager->draw();
+	expmanager->cleanup();
 	ZBuffer::getSingleton()->flush();
 	
 }
