@@ -118,9 +118,11 @@ void UserInput::handleKeyInput(char key)
 
 void UserInput::handleMouseInput(int button, int state, int x, int y)
 {
-	if (button == GLUT_LEFT_BUTTON && state == GLUT_UP)
+	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)
 	{
-		ExplodedPolygonManager::getSingleton()->explodePolygonAtCoords(x, y);
+		int index = ExplodedPolygonManager::getSingleton()->explodePolygonAtCoords(x, y);
+		index++;
+		index--;
 	}
 }
 

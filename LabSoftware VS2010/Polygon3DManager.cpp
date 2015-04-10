@@ -57,9 +57,9 @@ void Polygon3DManager::removePolygonAtIndex(int i)
 Polygon3D* Polygon3DManager::addNewPolygonIfReady()
 {
 	Polygon3D* newPoly = NULL;
-	if ((polygonCreationCounter++ % polyCreationInterval) == 0)
+	if (std::rand() < polyCreationInterval)
 	{
-		polyCreationInterval--;
+		polyCreationInterval += RAND_MAX / 500;
 		Polygon3DFactory* factory = Polygon3DFactory::getSingleton();
 		newPoly = factory->createRandomPolygonFromDatabase();
 		VERTEX_3D_f startingPoint = factory->getRandomStartingPoint();

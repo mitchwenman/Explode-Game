@@ -26,7 +26,7 @@ private:
 	int polyCreationInterval;
 
 	//Private constructor for singleton pattern
-	Polygon3DManager() : polygonCreationCounter(0), polyCreationInterval(100) {};
+	Polygon3DManager() : polygonCreationCounter(0), polyCreationInterval(RAND_MAX / 500) {};
 
 public:
 	//Gets the singleton instance of Polygon3DManager
