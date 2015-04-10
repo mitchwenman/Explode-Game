@@ -9,8 +9,6 @@ class Polygon3D
 
 public:
 
-	Polygon3D() { };
-
 	//The list of vertices that make up the polygon
 	std::vector<VERTEX_3D> vertices;
 

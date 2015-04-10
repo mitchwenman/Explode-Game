@@ -23,10 +23,10 @@ private:
 	//Counter used to determine when to create a new polygon
 	int polygonCreationCounter;
 
-	static const int POLYGON_CREATION_INTERVAL = 100;
+	int polyCreationInterval;
 
 	//Private constructor for singleton pattern
-	Polygon3DManager() : polygonCreationCounter(0) {};
+	Polygon3DManager() : polygonCreationCounter(0), polyCreationInterval(100) {};
 
 public:
 	//Gets the singleton instance of Polygon3DManager
