@@ -69,7 +69,7 @@ std::vector<PolygonTransformation> Polygon3DFactory::getRandomTransformationSet(
 	return transformations;
 }
 
-PolygonTransformation getRandomScaleTransformation()
+PolygonTransformation Polygon3DFactory::getRandomScaleTransformation()
 {
 	PolygonTransformation scale;
 	scale.transformationType = SCALE;
@@ -78,7 +78,7 @@ PolygonTransformation getRandomScaleTransformation()
 	return scale;
 }
 
-PolygonTransformation getRandomRotateTransformation()
+PolygonTransformation Polygon3DFactory::getRandomRotateTransformation()
 {
 	PolygonTransformation rotate;
 	VERTEX_3D_f rotateFactors = { std::rand() % 15, std::rand() % 15, std::rand() % 15 };
@@ -87,10 +87,12 @@ PolygonTransformation getRandomRotateTransformation()
 	return rotate;
 }
 
-PolygonTransformation getRandomTranslateTransformation()
+PolygonTransformation Polygon3DFactory::getRandomTranslateTransformation()
 {
 	PolygonTransformation translate;
-	VERTEX_3D_f translateFactors = { 10, 0, 0 };
+	
+	VERTEX_3D_f translateFactors = { Polygon3DFactory::DEFAULT_X_SPEED * speedFactor , 0, 0 };
+	speedFactor += 0.75;
 	translate.transformationType = TRANSLATE;
 	translate.values = translateFactors;
 	return translate;

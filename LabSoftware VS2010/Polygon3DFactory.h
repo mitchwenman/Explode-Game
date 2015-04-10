@@ -14,7 +14,7 @@
 class Polygon3DFactory
 {
 private:
-	Polygon3DFactory() : scaleCounter(0), speedFactor(0.0) {};
+	Polygon3DFactory() : scaleCounter(0), speedFactor(1.0) {};
 
 	//Counter incremented each time a scale transformation is created
 	//Used in scale factor calculation -- used to decrease scale factor over time
@@ -37,6 +37,8 @@ public:
 
 	static const int MAX_Z_START = 800; //Max z value
 
+	static const int DEFAULT_X_SPEED = 10;
+
 
 	static Polygon3DFactory* getSingleton();
 
@@ -49,4 +51,12 @@ public:
 	//Returns a vector of randomly generated PolygonTransformations - scale, translate or rotate
 	std::vector<PolygonTransformation> getRandomTransformationSet();
 
+	//Returns a randomised Scale transformation
+	PolygonTransformation Polygon3DFactory::getRandomScaleTransformation();
+
+	//Returns a randomised Rotate transformation
+	PolygonTransformation Polygon3DFactory::getRandomRotateTransformation();
+
+	//Returns a random translate transformation
+	PolygonTransformation Polygon3DFactory::getRandomTranslateTransformation();
 };
