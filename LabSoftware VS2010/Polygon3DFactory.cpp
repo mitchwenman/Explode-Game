@@ -4,10 +4,6 @@
 
 static Polygon3DFactory* _instance;
 
-PolygonTransformation getRandomScaleTransformation();		//Creates a randomised scale operation
-PolygonTransformation getRandomRotateTransformation();		//Creates a randomised rotate operation
-PolygonTransformation getRandomTranslateTransformation();	//Creates a random translate operation
-
 Polygon3DFactory* Polygon3DFactory::getSingleton()
 {
 	if (!_instance)
@@ -44,7 +40,6 @@ Polygon3D* Polygon3DFactory::createRandomPolygonFromDatabase()
 
 	//Simply copy the polygon face definitions
 	newPoly->polygons = blueprint->polygons;
-
 	return newPoly;
 }
 
@@ -62,9 +57,6 @@ std::vector<PolygonTransformation> Polygon3DFactory::getRandomTransformationSet(
 {
 	std::vector<PolygonTransformation> transformations;
 	transformations.push_back(getRandomTranslateTransformation());
-	int shouldscale = std::rand() % 1;
-	if (shouldscale)
-		transformations.push_back(getRandomScaleTransformation());
 	transformations.push_back(getRandomRotateTransformation());
 	return transformations;
 }
@@ -73,7 +65,10 @@ PolygonTransformation Polygon3DFactory::getRandomScaleTransformation()
 {
 	PolygonTransformation scale;
 	scale.transformationType = SCALE;
-	VERTEX_3D_f scalefactors = { 1.0, 1.0, 1.0 };
+	double x = 1.0 - ((double) std::rand() / RAND_MAX) / 2;
+	double y = 1.0 - ((double)std::rand() / RAND_MAX) / 2;
+	double z = 1.0 - ((double)std::rand() / RAND_MAX) / 2;
+	VERTEX_3D_f scalefactors = { x, y, z };
 	scale.values = scalefactors;
 	return scale;
 }

@@ -74,6 +74,7 @@ Polygon3D* Polygon3DManager::addNewPolygonIfReady()
 		//Translate
 		Polygon3DTranslator::translate(newPoly, dx, dy, dz);
 		Reference3DPolygon *refP = new Reference3DPolygon(newPoly);
+		factory->getRandomScaleTransformation().apply(newPoly, refP);
 		refP->calculateNormals();
 		polygon3ds.push_back(newPoly);
 		transformations.push_back(factory->getRandomTransformationSet());
