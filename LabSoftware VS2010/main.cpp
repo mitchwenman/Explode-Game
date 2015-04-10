@@ -265,15 +265,7 @@ void BuildFrame(BYTE *pFrame, int view)
 	gSettings->setFrameBuffer(screen);
 	gSettings->setView(view);
 	World *world = World::getSingleton();
-	//Testing ---------------
-	Polygon3DManager *manager = Polygon3DManager::getSingleton();
-	manager->addNewPolygonIfReady();
-	manager->animate();
-	manager->cleanup();
-	ExplodedPolygonManager *expmanager = ExplodedPolygonManager::getSingleton();
-	expmanager->draw();
-	expmanager->cleanup();
-	ZBuffer::getSingleton()->flush();
+	world->drawWorld();
 	
 }
 

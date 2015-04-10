@@ -11,6 +11,8 @@
 #include "BoundingBoxDrawer.h"
 #include "SurfaceNormal.h"
 #include "ExplodedPolygonManager.h"
+#include "Polygon3DManager.h"
+#include "ZBuffer.h"
 
 
 static World* _instance;
@@ -72,19 +74,14 @@ void World::insert2DPoly(Polygon2D* p)
 
 void World::drawWorld()
 {
-	for (unsigned int i = 0; i < this->polygon2ds.size(); i++)
-	{
-		//PolygonDrawer::draw(this->polygon2ds[i]);
-	}
-	for (unsigned int i = 0; i < this->polygon3ds.size(); i++)
-	{
-		Polygon3D* poly = this->polygon3ds[i];
-		if (poly != NULL)
-			PolygonDrawer3D::draw(poly, this->originalPolygons[i]);		
-	}
-	ExplodedPolygonManager *expManager = ExplodedPolygonManager::getSingleton();
-	expManager->draw();
-	expManager->cleanup();
+	Polygon3DManager *manager = Polygon3DManager::getSingleton();
+	manager->addNewPolygonIfReady();
+	manager->animate();
+	manager->cleanup();
+	ExplodedPolygonManager *expmanager = ExplodedPolygonManager::getSingleton();
+	expmanager->draw();
+	expmanager->cleanup();
+	ZBuffer::getSingleton()->flush();
 }
 
 void World::translate3DPolyAtIndex(int i, int dx, int dy, int dz)
