@@ -79,8 +79,8 @@ namespace PolygonDrawer3D
 		}
 		return (pmaxx < 0 || pminx > frameWidth ||
 				pmaxy < 0 || pminy > frameHeight ||
-				pmaxz > maximumZ ||
-				pminz < minimumZ);
+				pmaxz < minimumZ ||
+				pminz > maximumZ);
 	}
 
 	VERTEX_3D convert3DVertexTo2DProjected(VERTEX_3D vertex3d)

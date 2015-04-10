@@ -27,7 +27,7 @@ void ExplodedPolygonManager::draw()
 	}
 }
 
-int ExplodedPolygonManager::cleanup()
+int ExplodedPolygonManager::cleanup() ///XXX: change to use 3Dpolygondrawer method
 {
 	GraphicsSettings *gsettings = GraphicsSettings::getGraphicsSettings();
 	int frameWidth = gsettings->getFrameWidth();

@@ -52,7 +52,7 @@ VERTEX_3D_f Polygon3DFactory::getRandomStartingPoint()
 {
 	GraphicsSettings* gsettings = GraphicsSettings::getGraphicsSettings();
 	int frameHeight = gsettings->getFrameHeight();
-	double y = 0; //std::rand() % (frameHeight - MIN_DIST_TOP_START - MIN_DIST_BOTTOM_START) + MIN_DIST_BOTTOM_START;
+	double y = std::rand() % (frameHeight - MIN_DIST_TOP_START - MIN_DIST_BOTTOM_START) + MIN_DIST_BOTTOM_START;
 	double z = std::rand() % (MAX_Z_START - MIN_Z_START) + MIN_Z_START;
 	VERTEX_3D_f startingPoint = { DIST_LEFT_OFFSCREEN_START, y, z };
 	return startingPoint;
@@ -81,7 +81,7 @@ PolygonTransformation getRandomScaleTransformation()
 PolygonTransformation getRandomRotateTransformation()
 {
 	PolygonTransformation rotate;
-	VERTEX_3D_f rotateFactors = { 0, 10, 0 };
+	VERTEX_3D_f rotateFactors = { std::rand() % 15, std::rand() % 15, std::rand() % 15 };
 	rotate.transformationType = ROTATE;
 	rotate.values = rotateFactors;
 	return rotate;

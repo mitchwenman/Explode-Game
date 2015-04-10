@@ -4,7 +4,7 @@
 #include "RGBColor.h"
 
 #define MIN_Z_RENDER -500 
-#define MAX_Z_RENDER 1000
+#define MAX_Z_RENDER 5000
 
 
 class GraphicsSettings
