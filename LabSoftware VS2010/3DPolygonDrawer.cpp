@@ -54,7 +54,33 @@ namespace PolygonDrawer3D
 
 	bool isPolygonOffScreen(Polygon3D* polygon, int minimumZ, int maximumZ)
 	{
-		return false;
+		GraphicsSettings *gsettings = GraphicsSettings::getGraphicsSettings();
+		int frameWidth = gsettings->getFrameWidth();
+		int frameHeight = gsettings->getFrameHeight();
+		int centerx = frameWidth / 2;
+		int centery = frameHeight / 2;
+		int fov = gsettings->getFOV();
+		int pminx, pminy, pmaxx, pmaxy, pminz, pmaxz;
+		std::vector<VERTEX_3D> verts = polygon->vertices;
+		pminx = pmaxx = verts[0].x;
+		pminy = pmaxy = verts[0].y;
+		pminz = pmaxz = verts[0].z;
+		for (unsigned int i = 1; i < verts.size(); i++)
+		{
+			int px = PolygonDrawer3D::projectXPoint(verts[i].x, verts[i].z, fov, centerx);
+			int py = PolygonDrawer3D::projectYPoint(verts[i].y, verts[i].z, fov, centery);
+			int z = verts[i].z;
+			if (px < pminx) pminx = px;
+			else if (px > pmaxx) pmaxx = px;
+			if (py < pminy) pminy = py;
+			else if (py > pmaxy) pmaxy = py;
+			if (z < pminz) pminz = z;
+			else if (z > pmaxz) pmaxz = z;
+		}
+		return (pmaxx < 0 || pminx > frameWidth ||
+				pmaxy < 0 || pminy > frameHeight ||
+				pmaxz > maximumZ ||
+				pminz < minimumZ);
 	}
 
 	VERTEX_3D convert3DVertexTo2DProjected(VERTEX_3D vertex3d)
