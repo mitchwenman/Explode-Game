@@ -65,9 +65,9 @@ PolygonTransformation Polygon3DFactory::getRandomScaleTransformation()
 {
 	PolygonTransformation scale;
 	scale.transformationType = SCALE;
-	double x = 1.0 - ((double) std::rand() / RAND_MAX) / 2;
-	double y = 1.0 - ((double)std::rand() / RAND_MAX) / 2;
-	double z = 1.0 - ((double)std::rand() / RAND_MAX) / 2;
+	double x = 1.0 + ((double) std::rand() / RAND_MAX) - 0.5;
+	double y = 1.0 + ((double)std::rand() / RAND_MAX) - 0.5;
+	double z = 1.0 + ((double)std::rand() / RAND_MAX) - 0.5;
 	VERTEX_3D_f scalefactors = { x, y, z };
 	scale.values = scalefactors;
 	return scale;
@@ -88,7 +88,7 @@ PolygonTransformation Polygon3DFactory::getRandomTranslateTransformation()
 	int y = std::rand() % Y_TRANSLATE_LIMIT;
 	int z = std::rand() % Z_TRANSLATE_LIMIT;
 	VERTEX_3D_f translateFactors = { Polygon3DFactory::DEFAULT_X_SPEED * speedFactor , y, z };
-	speedFactor += 0.75;
+	speedFactor += 0.5;
 	translate.transformationType = TRANSLATE;
 	translate.values = translateFactors;
 	return translate;
