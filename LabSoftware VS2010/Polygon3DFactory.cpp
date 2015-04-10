@@ -63,11 +63,9 @@ std::vector<PolygonTransformation> Polygon3DFactory::getRandomTransformationSet(
 	std::vector<PolygonTransformation> transformations;
 	transformations.push_back(getRandomTranslateTransformation());
 	int shouldscale = std::rand() % 1;
-	int shouldRotate = std::rand() % 4;
 	if (shouldscale)
 		transformations.push_back(getRandomScaleTransformation());
-	if (shouldRotate > 0) //75% rotation chance
-		transformations.push_back(getRandomRotateTransformation());
+	transformations.push_back(getRandomRotateTransformation());
 	return transformations;
 }
 

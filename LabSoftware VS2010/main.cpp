@@ -268,7 +268,7 @@ void BuildFrame(BYTE *pFrame, int view)
 	Polygon3DManager *manager = Polygon3DManager::getSingleton();
 	manager->addNewPolygonIfReady();
 	manager->animate();
-
+	manager->cleanup();
 
 	ZBuffer::getSingleton()->flush();
 	

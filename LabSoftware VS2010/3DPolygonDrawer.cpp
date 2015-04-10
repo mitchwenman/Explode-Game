@@ -52,6 +52,11 @@ namespace PolygonDrawer3D
 		delete(culledPolygon);
 	}
 
+	bool isPolygonOffScreen(Polygon3D* polygon, int minimumZ, int maximumZ)
+	{
+		return false;
+	}
+
 	VERTEX_3D convert3DVertexTo2DProjected(VERTEX_3D vertex3d)
 	{
 		GraphicsSettings *gset = GraphicsSettings::getGraphicsSettings();

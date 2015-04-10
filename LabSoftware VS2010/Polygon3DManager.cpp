@@ -3,6 +3,7 @@
 #include "3DPolygonDrawer.h"
 #include "BoundingBox.h"
 #include "Polygon3DTranslator.h"
+#include "ZBuffer.h"
 
 static Polygon3DManager* _instance;
 
@@ -28,6 +29,16 @@ void Polygon3DManager::animate()
 int Polygon3DManager::cleanup()
 {
 	int numDeleted = 0;
+	for (unsigned int i = 0; i < polygon3ds.size(); i++)
+	{
+		if (PolygonDrawer3D::isPolygonOffScreen(polygon3ds[i], MIN_Z_RENDER, MAX_Z_RENDER))
+		{
+			polygon3ds.erase(polygon3ds.begin() + i);
+			transformations.erase(transformations.begin() + i);
+			referencePolygons.erase(referencePolygons.begin() + i);
+			numDeleted++;
+		}
+	}
 	return numDeleted;
 }
 
@@ -52,7 +63,6 @@ Polygon3D* Polygon3DManager::addNewPolygonIfReady()
 		int dz = startingPoint.z - v->z;
 		//Translate
 		Polygon3DTranslator::translate(newPoly, dx, dy, dz);
-
 		Reference3DPolygon *refP = new Reference3DPolygon(newPoly);
 		refP->calculateNormals();
 		polygon3ds.push_back(newPoly);
