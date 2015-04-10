@@ -1,6 +1,6 @@
 #include "ExplodedPolygonManager.h"
 #include "BoundingBox.h"
-#include "World.h"
+#include "Polygon3DManager.h"
 #include "3DPolygonDrawer.h"
 #include "GraphicsSettings.h"
 #include "ExplodedPolygonCreator.h"

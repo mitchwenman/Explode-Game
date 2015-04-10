@@ -33,13 +33,22 @@ int Polygon3DManager::cleanup()
 	{
 		if (PolygonDrawer3D::isPolygonOffScreen(polygon3ds[i], MIN_Z_RENDER, MAX_Z_RENDER))
 		{
-			polygon3ds.erase(polygon3ds.begin() + i);
-			transformations.erase(transformations.begin() + i);
-			referencePolygons.erase(referencePolygons.begin() + i);
+			removePolygonAtIndex(i);
 			numDeleted++;
 		}
 	}
 	return numDeleted;
+}
+
+void Polygon3DManager::removePolygonAtIndex(int i)
+{
+	if (i >= 0 && i < polygon3ds.size())
+	{
+		polygon3ds.erase(polygon3ds.begin() + i);
+		transformations.erase(transformations.begin() + i);
+		referencePolygons.erase(referencePolygons.begin() + i);
+	}
+	
 }
 
 //Adds a new polygon to the vector if is ready to

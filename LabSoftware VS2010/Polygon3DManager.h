@@ -41,6 +41,10 @@ public:
 	//Draws the current 3d polygons to the frame buffer
 	void animate();
 
+	//Removes the polygon, reference polygon and transformations
+	//for a given index
+	void removePolygonAtIndex(int i);
+
 	//Removes any polygons not on the screen anymore
 	//Returns the number of polygons removed
 	int cleanup();
