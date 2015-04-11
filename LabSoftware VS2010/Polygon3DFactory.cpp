@@ -49,7 +49,7 @@ VERTEX_3D_f Polygon3DFactory::getRandomStartingPoint()
 	int frameHeight = gsettings->getFrameHeight();
 	double y = std::rand() % (frameHeight - MIN_DIST_TOP_START - MIN_DIST_BOTTOM_START) + MIN_DIST_BOTTOM_START;
 	double z = std::rand() % (MAX_Z_START - MIN_Z_START) + MIN_Z_START;
-	VERTEX_3D_f startingPoint = { DIST_LEFT_OFFSCREEN_START, y, z };
+	VERTEX_3D_f startingPoint = {0, 0, 0 };//{ DIST_LEFT_OFFSCREEN_START, y, z };
 	return startingPoint;
 }
 
@@ -76,7 +76,7 @@ PolygonTransformation Polygon3DFactory::getRandomScaleTransformation()
 PolygonTransformation Polygon3DFactory::getRandomRotateTransformation()
 {
 	PolygonTransformation rotate;
-	VERTEX_3D_f rotateFactors = { std::rand() % 15, std::rand() % 15, std::rand() % 15 };
+	VERTEX_3D_f rotateFactors = { 0, 0, 5 };//{ std::rand() % 15, std::rand() % 15, std::rand() % 15 };
 	rotate.transformationType = ROTATE;
 	rotate.values = rotateFactors;
 	return rotate;
@@ -87,7 +87,7 @@ PolygonTransformation Polygon3DFactory::getRandomTranslateTransformation()
 	PolygonTransformation translate;
 	int y = std::rand() % Y_TRANSLATE_LIMIT;
 	int z = std::rand() % Z_TRANSLATE_LIMIT;
-	VERTEX_3D_f translateFactors = { Polygon3DFactory::DEFAULT_X_SPEED * speedFactor , y, z };
+	VERTEX_3D_f translateFactors = { 0, 0, 0 };//{ Polygon3DFactory::DEFAULT_X_SPEED * speedFactor , y, z };
 	speedFactor += 0.5;
 	translate.transformationType = TRANSLATE;
 	translate.values = translateFactors;

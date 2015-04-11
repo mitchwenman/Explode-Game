@@ -24,6 +24,8 @@ namespace PolygonDrawer
 			{
 				ScanLineTriangleDrawer::draw(d->triangles[i]);
 			}
+			delete(d);
+			delete(cp);
 		}
 		
 	}

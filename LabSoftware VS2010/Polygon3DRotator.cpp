@@ -22,6 +22,7 @@ namespace Polygon3DRotator
 		Polygon3DTranslator::translate(p, origCenter->x - newCenter->x, origCenter->y - newCenter->y, origCenter->z - newCenter->z);
 		delete(b);
 		delete(newB);
+		delete(cTable);
 		delete(newCenter);
 		delete(origCenter);
 	}

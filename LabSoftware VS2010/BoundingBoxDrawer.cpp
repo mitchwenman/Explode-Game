@@ -60,6 +60,7 @@ void BoundingBoxDrawer::draw(BoundingBox *box)
 		edges[i]->z1 = edges[i]->z2 = 0; //XXX: causes bounding box to go back into frame
 		edges[i]->c1 = edges[i]->c2 = &c;
 		LineDrawer::drawLine(edges[i]);
+		delete(edges[i]);
 	} 
 	
 }

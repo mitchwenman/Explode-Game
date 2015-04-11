@@ -16,6 +16,12 @@ DecompPolygon2D::DecompPolygon2D(Polygon2D* p)
 	decompose();
 }
 
+DecompPolygon2D::~DecompPolygon2D()
+{
+	decompSides.clear();
+	triangles.clear();
+}
+
 bool findCommonPoint(GPLine* a, GPLine* b, VERTEX_3D* common)
 {
 	if ( (a->x1 == b->x1 && a->y1 == b->y1) ||

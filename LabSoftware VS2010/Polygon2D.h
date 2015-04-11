@@ -15,6 +15,8 @@ public:
 	//Default constructor
 	Polygon2D() {};
 
+	~Polygon2D();
+
 	//Creates a polygon from a list of edges
 	Polygon2D(int numSides, GPLine* sides[]);
 

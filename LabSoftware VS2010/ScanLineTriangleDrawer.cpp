@@ -101,6 +101,7 @@ namespace ScanLineTriangleDrawer
 			VERTEX_3D pR = { ceil(xR + .5), tri->YTopVert - y, zR, &cR };
 			GPLine* line = new GPLine(pL, pR);
 			LineDrawer::drawLine(line);
+			delete(line);
 			xL += mL; xR += mR; 
 			zL += mzL; zR += mzR;
 			clRed += redML; clBlue += blueML; clGreen += greenML;

@@ -57,7 +57,7 @@ void Polygon3DManager::removePolygonAtIndex(int i)
 Polygon3D* Polygon3DManager::addNewPolygonIfReady()
 {
 	Polygon3D* newPoly = NULL;
-	if (std::rand() < polyCreationInterval)
+	if (polygon3ds.size() == 0)// std::rand() < polyCreationInterval)
 	{
 		polyCreationInterval += RAND_MAX / 500;
 		Polygon3DFactory* factory = Polygon3DFactory::getSingleton();
@@ -67,6 +67,7 @@ Polygon3D* Polygon3DManager::addNewPolygonIfReady()
 		//Create bounding box
 		BoundingBox* bbox = new BoundingBox(newPoly);
 		VERTEX_3D* v = bbox->calculateCenterPoint();
+		delete(bbox);
 		//Add difference
 		int dx = startingPoint.x - v->x;
 		int dy = startingPoint.y - v->y;

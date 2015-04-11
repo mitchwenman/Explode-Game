@@ -15,6 +15,8 @@ public:
 	//Transforms and decomposes normal polygon
 	DecompPolygon2D(Polygon2D* p);
 
+	~DecompPolygon2D(); 
+
 	//Quick box test
 	//Tests if left most point of testLine is within the box formed by
 	//lines a, b and c.

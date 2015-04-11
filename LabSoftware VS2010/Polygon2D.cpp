@@ -14,3 +14,8 @@ Polygon2D::Polygon2D(int numVerts, VERTEX_3D verts[])
 	this->sides.push_back(new GPLine(verts[numVerts - 1], verts[0]));
 	this->numSides = numVerts;
 }
+
+Polygon2D::~Polygon2D()
+{
+	sides.clear();
+}
