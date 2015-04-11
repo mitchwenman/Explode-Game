@@ -17,7 +17,9 @@ namespace SoundEffect
 
 	void playClickSoundEffect();
 
-	void rewardSoundEffect();
+	void playrewardSoundEffect();
 
 	void playMissSoundEffect();
+
+	void playGameOverSoundEffect();
 }

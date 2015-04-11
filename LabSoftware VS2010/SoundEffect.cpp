@@ -43,4 +43,9 @@ namespace SoundEffect
 	{
 		playSound("LEVELUP.WAV");
 	}
+
+	void playGameOverSoundEffect()
+	{
+		playSound("GAMEOVER.WAV");
+	}
 }
