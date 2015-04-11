@@ -38,4 +38,9 @@ namespace SoundEffect
 	{
 		playSound("WHOOSH.WAV");
 	}
+
+	void playRewardSoundEffect()
+	{
+		playSound("LEVELUP.WAV");
+	}
 }

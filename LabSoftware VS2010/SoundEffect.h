@@ -1,5 +1,14 @@
 #pragma once
 
+/*
+ Reward sound effect created by: Cabeeno Rossley
+ Available here: http://www.freesound.org/people/Cabeeno%20Rossley/
+
+ Creative Commons License: http://creativecommons.org/licenses/by/3.0/legalcode
+ */
+
+
+
 namespace SoundEffect
 {
 	void playSound(char* filename);
@@ -7,4 +16,8 @@ namespace SoundEffect
 	void playPolygonHitSoundEffect();
 
 	void playClickSoundEffect();
+
+	void rewardSoundEffect();
+
+	void playMissSoundEffect();
 }
