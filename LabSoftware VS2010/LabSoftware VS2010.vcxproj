@@ -38,6 +38,7 @@
     <ClCompile Include="RotationConstantTable.cpp" />
     <ClCompile Include="ScanlineTriangle.cpp" />
     <ClCompile Include="ScanLineTriangleDrawer.cpp" />
+    <ClCompile Include="SoundEffect.cpp" />
     <ClCompile Include="SurfaceNormal.cpp" />
     <ClCompile Include="TrigLookup.cpp" />
     <ClCompile Include="UserInput.cpp" />
@@ -74,6 +75,7 @@
     <ClInclude Include="RotationConstantTable.h" />
     <ClInclude Include="ScanLineTriangle.h" />
     <ClInclude Include="ScanLineTriangleDrawer.h" />
+    <ClInclude Include="SoundEffect.h" />
     <ClInclude Include="SurfaceNormal.h" />
     <ClInclude Include="TrigLookup.h" />
     <ClInclude Include="UserInput.h" />

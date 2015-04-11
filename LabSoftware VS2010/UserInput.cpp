@@ -7,6 +7,7 @@
 #include "Polygon3DTranslator.h"
 #include "Polygon3D.h"
 #include "ExplodedPolygonManager.h"
+#include "SoundEffect.h"
 
 #ifdef _WIN32
 	#include "libs/glut.h"
@@ -120,9 +121,15 @@ void UserInput::handleMouseInput(int button, int state, int x, int y)
 {
 	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)
 	{
+		
 		int index = ExplodedPolygonManager::getSingleton()->explodePolygonAtCoords(x, y);
-		index++;
-		index--;
+		if (index != -1)
+		{
+			SoundEffect::playPolygonHitSoundEffect();
+		} else
+		{
+			SoundEffect::playClickSoundEffect();
+		}
 	}
 }
 
