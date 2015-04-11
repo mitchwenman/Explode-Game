@@ -18,6 +18,7 @@ DecompPolygon2D::DecompPolygon2D(Polygon2D* p)
 
 DecompPolygon2D::~DecompPolygon2D()
 {
+	sides.clear();
 	decompSides.clear();
 	triangles.clear();
 }

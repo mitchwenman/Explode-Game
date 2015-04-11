@@ -2,7 +2,7 @@
 #include <stdio.h>			//- for sprintf()
 #include <string.h>			//- for memset()
 #include <math.h>
-
+//#include <vld.h>
 
 //Application header files
 #include "RGBColor.h"

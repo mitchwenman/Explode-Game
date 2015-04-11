@@ -60,12 +60,12 @@ Polygon3D* VJSReader::read(string fileName)
 				r = stoi(elements[3]);
 				g = stoi(elements[4]);
 				b = stoi(elements[5]);
-				VERTEX_3D* v = new VERTEX_3D();
-				v->x = x; v->y = y; v->z = z;
+				VERTEX_3D v;
+				v.x = x; v.y = y; v.z = z;
 				RGBColour* c = new RGBColour();
 				c->red = r; c->green = g; c->blue = b;
-				v->c = c;
-				p->vertices.push_back(*v);	
+				v.c = c;
+				p->vertices.push_back(v);	
 				getline(infile, line);
 			}
 			while (true) //Read until polys
