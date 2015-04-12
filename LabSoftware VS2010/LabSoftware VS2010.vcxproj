@@ -20,6 +20,7 @@
     <ClCompile Include="ExplodedPolygonAnimator.cpp" />
     <ClCompile Include="ExplodedPolygonCreator.cpp" />
     <ClCompile Include="ExplodedPolygonManager.cpp" />
+    <ClCompile Include="Game.cpp" />
     <ClCompile Include="GraphicsSettings.cpp" />
     <ClCompile Include="GraphicsUtil.h" />
     <ClCompile Include="LineDrawer.cpp" />
@@ -56,6 +57,7 @@
     <ClInclude Include="ExplodedPolygonCreator.h" />
     <ClInclude Include="ExplodedPolygonAnimator.h" />
     <ClInclude Include="ExplodedPolygonManager.h" />
+    <ClInclude Include="Game.h" />
     <ClInclude Include="GPLine.h" />
     <ClInclude Include="GraphicsSettings.h" />
     <ClInclude Include="LineDrawer.h" />
