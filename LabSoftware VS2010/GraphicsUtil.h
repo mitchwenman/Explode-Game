@@ -9,9 +9,9 @@
 
 typedef struct  {int x, y;} POINT2D;
 
-typedef struct { int x; int y; RGBColour* c; } VERTEX;
+typedef struct { int x; int y; RGBColour c; } VERTEX;
 
-typedef struct { double x; double y; double z; RGBColour* c; } VERTEX_3D;
+typedef struct { double x; double y; double z; RGBColour c; } VERTEX_3D;
 
 typedef struct { double x; double y; double z; } VERTEX_3D_f;
 

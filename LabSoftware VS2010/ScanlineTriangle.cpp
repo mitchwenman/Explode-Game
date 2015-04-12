@@ -9,10 +9,10 @@
 
 ScanLineTriangle::ScanLineTriangle(int x1, int y1, int z1, int x2, int y2, int z2,
 									int x3, int y3, int z3, 
-									RGBColour* colour1, RGBColour* colour2, RGBColour* colour3)
+									RGBColour colour1, RGBColour colour2, RGBColour colour3)
 {
 	int X0, X1, X2, Y0, Y1, Y2, Z0, Z1, Z2; //For holding vertices after (highest) is found
-	RGBColour *c0, *c2; 
+	RGBColour c0, c2; 
 	int max = max(max(y1, y2), y3);
 	//Reassign to vars for rest of alg to work
 	//Take X1, Y1 as top of triangle

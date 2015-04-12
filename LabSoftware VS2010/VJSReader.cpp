@@ -60,11 +60,8 @@ Polygon3D* VJSReader::read(string fileName)
 				r = stoi(elements[3]);
 				g = stoi(elements[4]);
 				b = stoi(elements[5]);
-				VERTEX_3D v;
-				v.x = x; v.y = y; v.z = z;
-				RGBColour* c = new RGBColour();
-				c->red = r; c->green = g; c->blue = b;
-				v.c = c;
+				RGBColour c = { r, g, b };
+				VERTEX_3D v = { x, y, z, c };
 				p->vertices.push_back(v);	
 				getline(infile, line);
 			}

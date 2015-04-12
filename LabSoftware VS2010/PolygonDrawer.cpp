@@ -75,10 +75,10 @@ namespace PolygonDrawer
 						double scaler = 1.0 - sqrt((newx - p2.x) * (newx - p2.x) + (newy - p2.y) * (newy - p2.y)) /
 									sqrt((p2.x - p1.x) * (p2.x - p1.x) + (p2.y - p1.y) * (p2.y - p1.y));
 						int newz = p1.z + (p2.z - p1.z) * scaler;
-						RGBColour *newColour = new RGBColour();
-						newColour->red = p1.c->red + (int)((p2.c->red - p1.c->red) * scaler);
-						newColour->green = p1.c->green + (int)((p2.c->green - p1.c->green) * scaler);
-						newColour->blue = p1.c->blue + (int)((p2.c->blue - p1.c->blue) * scaler);						
+						RGBColour newColour;
+						newColour.red = p1.c.red + (int)((p2.c.red - p1.c.red) * scaler);
+						newColour.green = p1.c.green + (int)((p2.c.green - p1.c.green) * scaler);
+						newColour.blue = p1.c.blue + (int)((p2.c.blue - p1.c.blue) * scaler);						
 						VERTEX_3D intersect = { p1.x, boundary, newz , newColour };
 						output.push_back(intersect);
 						output.push_back(p2);
@@ -91,10 +91,10 @@ namespace PolygonDrawer
 						double scaler = 1.0 - sqrt((newx - p2.x) * (newx - p2.x) + (newy - p2.y) * (newy - p2.y)) /
 									sqrt((p2.x - p1.x) * (p2.x - p1.x) + (p2.y - p1.y) * (p2.y - p1.y));
 						int newz = p1.z + (p2.z - p1.z) * scaler;
-						RGBColour *newColour = new RGBColour();
-						newColour->red = p1.c->red + (int)((p2.c->red - p1.c->red) * scaler);
-						newColour->green = p1.c->green + (int)((p2.c->green - p1.c->green) * scaler);
-						newColour->blue = p1.c->blue + (int)((p2.c->blue - p1.c->blue) * scaler);	
+						RGBColour newColour;
+						newColour.red = p1.c.red + (int)((p2.c.red - p1.c.red) * scaler);
+						newColour.green = p1.c.green + (int)((p2.c.green - p1.c.green) * scaler);
+						newColour.blue = p1.c.blue + (int)((p2.c.blue - p1.c.blue) * scaler);	
      					VERTEX_3D intersect = { newx, newy, newz, newColour };
 						output.push_back(intersect);
 						output.push_back(p2);
@@ -109,10 +109,10 @@ namespace PolygonDrawer
 						double scaler = 1.0 - sqrt((newx - p1.x) * (newx - p1.x) + (newy - p1.y) * (newy - p1.y)) /
 									sqrt((p2.x - p1.x) * (p2.x - p1.x) + (p2.y - p1.y) * (p2.y - p1.y));
 						int newz = p2.z + (p1.z - p2.z) * scaler;
-						RGBColour *newColour = new RGBColour();
-						newColour->red = p2.c->red + (int)((p1.c->red - p2.c->red) * scaler);
-						newColour->green = p2.c->green + (int)((p1.c->green - p2.c->green) * scaler);
-						newColour->blue = p2.c->blue + (int)((p1.c->blue - p2.c->blue) * scaler);
+						RGBColour newColour;
+						newColour.red = p2.c.red + (int)((p1.c.red - p2.c.red) * scaler);
+						newColour.green = p2.c.green + (int)((p1.c.green - p2.c.green) * scaler);
+						newColour.blue = p2.c.blue + (int)((p1.c.blue - p2.c.blue) * scaler);
 						VERTEX_3D intersect = { newx, newy, newz, newColour };
 						output.push_back(intersect);
 					} else
@@ -124,10 +124,10 @@ namespace PolygonDrawer
 						double scaler = 1.0 - sqrt((newx - p1.x) * (newx - p1.x) + (newy - p1.y) * (newy - p1.y)) /
 									sqrt((p2.x - p1.x) * (p2.x - p1.x) + (p2.y - p1.y) * (p2.y - p1.y));
 						int newz = p2.z + (p1.z - p2.z) * scaler;
-						RGBColour *newColour = new RGBColour();
-						newColour->red = p2.c->red + (int)((p1.c->red - p2.c->red) * scaler);
-						newColour->green = p2.c->green + (int)((p1.c->green - p2.c->green) * scaler);
-						newColour->blue = p2.c->blue + (int)((p1.c->blue - p2.c->blue) * scaler);
+						RGBColour newColour;
+						newColour.red = p2.c.red + (int)((p1.c.red - p2.c.red) * scaler);
+						newColour.green = p2.c.green + (int)((p1.c.green - p2.c.green) * scaler);
+						newColour.blue = p2.c.blue + (int)((p1.c.blue - p2.c.blue) * scaler);
 						VERTEX_3D intersect = { newx, newy, newz, newColour };
 						output.push_back(intersect);
 					}					
@@ -146,10 +146,10 @@ namespace PolygonDrawer
 						double scaler = 1.0 - sqrt((newx - p2.x) * (newx - p2.x) + (newy - p2.y) * (newy - p2.y)) /
 									sqrt((p2.x - p1.x) * (p2.x - p1.x) + (p2.y - p1.y) * (p2.y - p1.y));
 						int newz = p1.z + (p2.z - p1.z) * scaler;
-						RGBColour *newColour = new RGBColour();
-						newColour->red = p1.c->red + (int)((p2.c->red - p1.c->red) * scaler);
-						newColour->green = p1.c->green + (int)((p2.c->green - p1.c->green) * scaler);
-						newColour->blue = p1.c->blue + (int)((p2.c->blue - p1.c->blue) * scaler);	
+						RGBColour newColour;
+						newColour.red = p1.c.red + (int)((p2.c.red - p1.c.red) * scaler);
+						newColour.green = p1.c.green + (int)((p2.c.green - p1.c.green) * scaler);
+						newColour.blue = p1.c.blue + (int)((p2.c.blue - p1.c.blue) * scaler);	
 						VERTEX_3D intersect = { newx, newy , newz, newColour };
 						output.push_back(intersect);
 						output.push_back(p2);
@@ -162,10 +162,10 @@ namespace PolygonDrawer
 						double scaler = 1.0 - sqrt((newx - p2.x) * (newx - p2.x) + (newy - p2.y) * (newy - p2.y)) /
 									sqrt((p2.x - p1.x) * (p2.x - p1.x) + (p2.y - p1.y) * (p2.y - p1.y));
 						int newz = p1.z + (p2.z - p1.z) * scaler;
-						RGBColour *newColour = new RGBColour();
-						newColour->red = p1.c->red + (int)((p2.c->red - p1.c->red) * scaler);
-						newColour->green = p1.c->green + (int)((p2.c->green - p1.c->green) * scaler);
-						newColour->blue = p1.c->blue + (int)((p2.c->blue - p1.c->blue) * scaler);	
+						RGBColour newColour;
+						newColour.red = p1.c.red + (int)((p2.c.red - p1.c.red) * scaler);
+						newColour.green = p1.c.green + (int)((p2.c.green - p1.c.green) * scaler);
+						newColour.blue = p1.c.blue + (int)((p2.c.blue - p1.c.blue) * scaler);	
 						VERTEX_3D intersect = { newx, newy , newz, newColour };						
 						output.push_back(intersect);
 						output.push_back(p2);
@@ -181,10 +181,10 @@ namespace PolygonDrawer
 						double scaler = 1.0 - sqrt((newx - p1.x) * (newx - p1.x) + (newy - p1.y) * (newy - p1.y)) /
 									sqrt((p2.x - p1.x) * (p2.x - p1.x) + (p2.y - p1.y) * (p2.y - p1.y));
 						int newz = p2.z + (p1.z - p2.z) * scaler;
-						RGBColour *newColour = new RGBColour();
-						newColour->red = p2.c->red + (int)((p1.c->red - p2.c->red) * scaler);
-						newColour->green = p2.c->green + (int)((p1.c->green - p2.c->green) * scaler);
-						newColour->blue = p2.c->blue + (int)((p1.c->blue - p2.c->blue) * scaler);
+						RGBColour newColour;
+						newColour.red = p2.c.red + (int)((p1.c.red - p2.c.red) * scaler);
+						newColour.green = p2.c.green + (int)((p1.c.green - p2.c.green) * scaler);
+						newColour.blue = p2.c.blue + (int)((p1.c.blue - p2.c.blue) * scaler);
 						VERTEX_3D intersect = { newx, newy, newz, newColour };
 						output.push_back(intersect);
 					} else
@@ -196,10 +196,10 @@ namespace PolygonDrawer
 						double scaler = 1.0 - sqrt((newx - p1.x) * (newx - p1.x) + (newy - p1.y) * (newy - p1.y)) /
 									sqrt((p2.x - p1.x) * (p2.x - p1.x) + (p2.y - p1.y) * (p2.y - p1.y));
 						int newz = p2.z + (p1.z - p2.z) * scaler;
-						RGBColour *newColour = new RGBColour();
-						newColour->red = p2.c->red + (int)((p1.c->red - p2.c->red) * scaler);
-						newColour->green = p2.c->green + (int)((p1.c->green - p2.c->green) * scaler);
-						newColour->blue = p2.c->blue + (int)((p1.c->blue - p2.c->blue) * scaler);
+						RGBColour newColour;
+						newColour.red = p2.c.red + (int)((p1.c.red - p2.c.red) * scaler);
+						newColour.green = p2.c.green + (int)((p1.c.green - p2.c.green) * scaler);
+						newColour.blue = p2.c.blue + (int)((p1.c.blue - p2.c.blue) * scaler);
 						VERTEX_3D intersect = { newx, newy, newz, newColour };
 						output.push_back(intersect);
 					}					
@@ -232,10 +232,10 @@ namespace PolygonDrawer
 					double scaler = 1.0 - sqrt((newx - p2.x) * (newx - p2.x) + (newy - p2.y) * (newy - p2.y)) /
 									sqrt((p2.x - p1.x) * (p2.x - p1.x) + (p2.y - p1.y) * (p2.y - p1.y));
 					int newz = p1.z + (p2.z - p1.z) * scaler;
-					RGBColour *newColour = new RGBColour();
-					newColour->red = p1.c->red + (int)((p2.c->red - p1.c->red) * scaler);
-					newColour->green = p1.c->green + (int)((p2.c->green - p1.c->green) * scaler);
-					newColour->blue = p1.c->blue + (int)((p2.c->blue - p1.c->blue) * scaler);	
+					RGBColour newColour;
+					newColour.red = p1.c.red + (int)((p2.c.red - p1.c.red) * scaler);
+					newColour.green = p1.c.green + (int)((p2.c.green - p1.c.green) * scaler);
+					newColour.blue = p1.c.blue + (int)((p2.c.blue - p1.c.blue) * scaler);	
 					VERTEX_3D intersect = { newx, newy , newz, newColour };		
 					output.push_back(intersect);
 					output.push_back(p2);
@@ -248,10 +248,10 @@ namespace PolygonDrawer
 					double scaler = 1.0 - sqrt((newx - p1.x) * (newx - p1.x) + (newy - p1.y) * (newy - p1.y)) /
 									sqrt((p2.x - p1.x) * (p2.x - p1.x) + (p2.y - p1.y) * (p2.y - p1.y));
 					int newz = p2.z + (p1.z - p2.z) * scaler;
-					RGBColour *newColour = new RGBColour();
-					newColour->red = p2.c->red + (int)((p1.c->red - p2.c->red) * scaler);
-					newColour->green = p2.c->green + (int)((p1.c->green - p2.c->green) * scaler);
-					newColour->blue = p2.c->blue + (int)((p1.c->blue - p2.c->blue) * scaler);
+					RGBColour newColour;
+					newColour.red = p2.c.red + (int)((p1.c.red - p2.c.red) * scaler);
+					newColour.green = p2.c.green + (int)((p1.c.green - p2.c.green) * scaler);
+					newColour.blue = p2.c.blue + (int)((p1.c.blue - p2.c.blue) * scaler);
 					VERTEX_3D intersect = { newx, newy, newz, newColour };
 					output.push_back(intersect);
 				} else if (p1.x >= boundary && p2.x >= boundary)
@@ -269,10 +269,10 @@ namespace PolygonDrawer
 					double scaler = 1.0 - sqrt((newx - p2.x) * (newx - p2.x) + (newy - p2.y) * (newy - p2.y)) /
 									sqrt((p2.x - p1.x) * (p2.x - p1.x) + (p2.y - p1.y) * (p2.y - p1.y));
 					int newz = p1.z + (p2.z - p1.z) * scaler;
-					RGBColour *newColour = new RGBColour();
-					newColour->red = p1.c->red + (int)((p2.c->red - p1.c->red) * scaler);
-					newColour->green = p1.c->green + (int)((p2.c->green - p1.c->green) * scaler);
-					newColour->blue = p1.c->blue + (int)((p2.c->blue - p1.c->blue) * scaler);	
+					RGBColour newColour;
+					newColour.red = p1.c.red + (int)((p2.c.red - p1.c.red) * scaler);
+					newColour.green = p1.c.green + (int)((p2.c.green - p1.c.green) * scaler);
+					newColour.blue = p1.c.blue + (int)((p2.c.blue - p1.c.blue) * scaler);	
 					VERTEX_3D intersect = { newx, newy , newz, newColour };		
 					output.push_back(intersect);
 					output.push_back(p2);
@@ -285,10 +285,10 @@ namespace PolygonDrawer
 					double scaler = 1.0 - sqrt((newx - p1.x) * (newx - p1.x) + (newy - p1.y) * (newy - p1.y)) /
 									sqrt((p2.x - p1.x) * (p2.x - p1.x) + (p2.y - p1.y) * (p2.y - p1.y));
 					int newz = p2.z + (p1.z - p2.z) * scaler;
-					RGBColour *newColour = new RGBColour();
-					newColour->red = p2.c->red + (int)((p1.c->red - p2.c->red) * scaler);
-					newColour->green = p2.c->green + (int)((p1.c->green - p2.c->green) * scaler);
-					newColour->blue = p2.c->blue + (int)((p1.c->blue - p2.c->blue) * scaler);
+					RGBColour newColour;
+					newColour.red = p2.c.red + (int)((p1.c.red - p2.c.red) * scaler);
+					newColour.green = p2.c.green + (int)((p1.c.green - p2.c.green) * scaler);
+					newColour.blue = p2.c.blue + (int)((p1.c.blue - p2.c.blue) * scaler);
 					VERTEX_3D intersect = { newx, newy, newz, newColour };
 					output.push_back(intersect);
 				} else if (p1.x < boundary && p2.x < boundary)

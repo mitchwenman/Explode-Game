@@ -15,18 +15,18 @@ namespace LineDrawer
 		DDALine* line = calculateAndClipLine(gpLine);	
 		if (line != NULL)
 		{
-			RGBColour* colour1 = line->c1;
-			RGBColour* colour2 = line->c2;
+			RGBColour colour1 = line->c1;
+			RGBColour colour2 = line->c2;
 			//Create x,y double vars for better rounding
 			double x = line->x1;
 			double y = line->y1;
 			double z = line->z1;
 			//Calculate colour diffs
 			double r, g, b, rdiff, gdiff, bdiff;
-			r = (double)colour1->red; g = (double)colour1->green; b = (double)colour1->blue;
-			rdiff = (colour2->red - colour1->red)/line->steps;
-			gdiff = (colour2->green - colour1->green)/line->steps;
-			bdiff = (colour2->blue - colour1->blue)/line->steps;
+			r = (double)colour1.red; g = (double)colour1.green; b = (double)colour1.blue;
+			rdiff = (colour2.red - colour1.red)/line->steps;
+			gdiff = (colour2.green - colour1.green)/line->steps;
+			bdiff = (colour2.blue - colour1.blue)/line->steps;
 			//Draw the line
 			for (int i = 0; i < line->steps; i++)
 			{
@@ -64,7 +64,7 @@ namespace LineDrawer
 		return line;
 	}
 
-	void drawLine(int x1, int y1, int x2, int y2, RGBColour* colour1, RGBColour* colour2)
+	void drawLine(int x1, int y1, int x2, int y2, RGBColour colour1, RGBColour colour2)
 	{
 		GPLine* line = new GPLine(x1, y1, x2, y2);
 		line->c1 = colour1; line->c2 = colour2;
@@ -74,14 +74,9 @@ namespace LineDrawer
 
 	void drawLine(int x1, int y1, int x2, int y2, BYTE r1, BYTE g1, BYTE b1, BYTE r2, BYTE g2, BYTE b2)
 	{
-		RGBColour* c1 = (RGBColour*)malloc(sizeof(RGBColour));
-		RGBColour* c2 = (RGBColour*)malloc(sizeof(RGBColour));
-		c1->red = r1; c1->green = g1; c1->blue = b1;
-		c2->red = r2; c2->green = g2; c2->blue = b2;
+		RGBColour c1 = { r1, g1, b1 };
+		RGBColour c2 = { r2, g2, b2 };
 		drawLine(x1, y1, x2, y2, c1, c2);
-		//clean up
-		free(c1);
-		free(c2);
 	}
 
 	GPLine* clipLine(GPLine* line)
