@@ -8,7 +8,7 @@ void Polygon3DScaler::scale(Polygon3D* p, double sx, double sy, double sz)
 	//Find center point
 	BoundingBox* box = new BoundingBox(p);
 	VERTEX_3D* origCenter = box->calculateCenterPoint();
-
+	delete(box);
 	//Translate polygon back to origin
 	GraphicsSettings *g = GraphicsSettings::getGraphicsSettings();
 	Polygon3DTranslator::translate(p, -origCenter->x, -origCenter->y , -origCenter->z);
@@ -17,15 +17,12 @@ void Polygon3DScaler::scale(Polygon3D* p, double sx, double sy, double sz)
 	{
 		scalePoint(&p->vertices[i], sx, sy, sz);
 	}
-	//Find new centre point
-	//VERTEX_3D* newCenter = box->calculateCenterPoint();
 	int diffX = origCenter->x;
 	int diffY = origCenter->y;
 	int diffZ = origCenter->z;
 	//translate back
 	Polygon3DTranslator::translate(p, diffX, diffY, diffZ);
 	//cleanup
-	delete(box);
 	delete(origCenter);
 }
 

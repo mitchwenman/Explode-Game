@@ -42,6 +42,7 @@ namespace Polygon3DRotator
 		{
 			RotateVertex(&vertices->at(i), cTable);
 		}
+		delete(cTable);
 	}
 
 	void RotateVertex(VERTEX_3D* vertex, RotationConstantTable* cTable)

@@ -44,8 +44,10 @@ void Polygon3DManager::removePolygonAtIndex(int i)
 {
 	if (i >= 0 && i < polygon3ds.size())
 	{
-		polygon3ds.erase(polygon3ds.begin() + i);
+		delete(polygon3ds[i]);
+		polygon3ds.erase(polygon3ds.begin() + i); 
 		transformations.erase(transformations.begin() + i);
+		delete(referencePolygons[i]);
 		referencePolygons.erase(referencePolygons.begin() + i);
 	}
 	
