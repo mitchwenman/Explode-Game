@@ -32,6 +32,7 @@
 #include "PolygonDatabase.h"
 #include "Polygon3DFactory.h"
 #include "Polygon3DManager.h"
+#include "Game.h"
 
 #ifdef _WIN32
 	#include "libs/glut.h"
@@ -132,7 +133,8 @@ int main(int argc, char** argv)
 	settings->setFrameDimensions(FRAME_WIDE, FRAME_HIGH);
 	settings->setNumberOfChannels(NUM_CHANNELS);
 	settings->setFOV(1000);
-	World* world = World::getSingleton();
+	Game *game = Game::getSingleton();
+	game->setStatus(GSTATUS_RUNNING);
 	
 	//-- run the program
 	
@@ -261,7 +263,8 @@ void BuildFrame(BYTE *pFrame, int view)
 	gSettings->setFrameBuffer(screen);
 	gSettings->setView(view);
 	World *world = World::getSingleton();
-	world->drawWorld();
+	if (Game::getSingleton()->getCurrentStatus() == GSTATUS_RUNNING)
+		world->drawWorld();
 	
 }
 

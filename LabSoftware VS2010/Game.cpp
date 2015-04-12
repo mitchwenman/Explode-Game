@@ -1,4 +1,6 @@
 #include "Game.h"
+#include "Polygon3DManager.h"
+#include "ExplodedPolygonManager.h"
 
 static Game* _instance;
 

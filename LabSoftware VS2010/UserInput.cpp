@@ -8,6 +8,7 @@
 #include "Polygon3D.h"
 #include "ExplodedPolygonManager.h"
 #include "SoundEffect.h"
+#include "Game.h"
 
 #ifdef _WIN32
 	#include "libs/glut.h"
@@ -29,6 +30,16 @@ void UserInput::handleKeyInput(char key)
 	World* world = World::getSingleton();
 	switch (key)
 	{
+	case 8:
+		{
+			Game *game = Game::getSingleton();
+			GameStatus currentStatus = game->getCurrentStatus();
+			if (currentStatus == GSTATUS_RUNNING)
+				game->setStatus(GSTATUS_OVER);
+			else
+				game->setStatus(GSTATUS_RUNNING);
+			break;
+		}
 	case '\t':
 		{
 			selectedPolygon3D = (selectedPolygon3D + 2) % (world->polygon3ds.size() + 1) - 1;
