@@ -54,11 +54,6 @@
 //====== Structs & typedefs =========
 typedef unsigned char BYTE;
 
-//struct POINT2D {int x, y;};
-
-
-
-
 
 
 //====== Global Variables ==========
@@ -69,7 +64,8 @@ int		shade = 0;
 POINT2D	xypos = {0,0};
 int		stereo = 0;
 int		eyes = 10;
-std::vector<ExplodedPolygon*> expPoly;
+int		drawonce = 0;
+
 
 //===== Forward Declarations ========
 void ClearScreen();

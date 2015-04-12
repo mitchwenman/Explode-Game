@@ -10,6 +10,7 @@ ZBuffer::ZBuffer(void)
 	zBuffer.resize(frameWidth);
 	for (int i = 0; i < frameWidth; i++)
 		zBuffer[i].resize(frameHeight);
+	flush();
 }
 
 ZBuffer* ZBuffer::getSingleton()

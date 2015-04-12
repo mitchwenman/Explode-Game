@@ -10,17 +10,25 @@
 DecompPolygon2D::DecompPolygon2D(Polygon2D* p)
 {
 	this->numSides = p->numSides;
-	this->sides = p->sides;
-	this->decompSides.assign(sides.begin(), sides.end());
+	//Create new edges so destructor doesn't try to destroy twice when deleting original p
+	for (unsigned int i = 0; i < p->sides.size(); i++)
+		this->sides.push_back(new GPLine(*p->sides[i]));
+	for (unsigned int i = 0; i < sides.size(); i++)
+		this->decompSides.push_back(new GPLine(*sides[i]));
 	this->triangles.reserve(p->numSides - 2);
 	decompose();
 }
 
 DecompPolygon2D::~DecompPolygon2D()
-{
-	sides.clear();
+{	
+	for (unsigned int i = 0; i < triangles.size(); i++)
+		delete(triangles[i]);	
+	for (unsigned int i = 0; i < decompSides.size(); i++)
+		delete(decompSides[i]);
 	decompSides.clear();
 	triangles.clear();
+
+
 }
 
 bool findCommonPoint(GPLine* a, GPLine* b, VERTEX_3D* common)
@@ -125,17 +133,23 @@ void DecompPolygon2D::decompose()
 			}
 			
 		}
+		delete(decompSides[leftLineInd]);
 		decompSides.erase(decompSides.begin() + leftLineInd);
 		//Delete line only if it already exists, otherwise add it
 		int paPVLine = findLineWithCoords(pa, pvar);
 		if (paPVLine != -1)
+		{
+			delete(decompSides[paPVLine]);
 			decompSides.erase(decompSides.begin() + paPVLine);
-		else 
+		} else 
 			decompSides.push_back(new GPLine(pa, pvar));
+			
 		int pbPVLine = findLineWithCoords(pb, pvar);
 		if (pbPVLine != -1)
+		{
+			delete(decompSides[pbPVLine]);
 			decompSides.erase(decompSides.begin() + pbPVLine);
-		else
+		} else
 			decompSides.push_back(new GPLine(pb, pvar));
 		
 		triangles.push_back(new ScanLineTriangle(pa.x , pa.y, pa.z, pb.x, pb.y, pb.z, pvar.x, pvar.y, pvar.z, pa.c, pb.c, pvar.c));		
@@ -270,26 +284,3 @@ int DecompPolygon2D::findAdjacentLineIndex(int lineAInd)
 	return -1;
 }
 
-GPLine* DecompPolygon2D::createConnectingLine(GPLine* a, GPLine* b)
-{
-	VERTEX_3D common, aPoint, bPoint;
-	//Find 2 points that are not in both lines
-	if ( (a->x1 == b->x1 && a->y1 == b->y1) ||
-		 (a->x1 == b->x2 && a->y1 == b->y2))
-	{
-		common.x = a->x1; common.y = a->y1; 
-		aPoint.x = a->x2; aPoint.y = a->y2; aPoint.z = a->z2; aPoint.c = a->c2;
-	} else
-	{
-		common.x = a->x2; common.y = a->y2;
-		aPoint.x = a->x1; aPoint.y = a->y1; aPoint.z = a->z1; aPoint.c = a->c1;
-	}
-	if ( !(b->x1 == common.x && b->y1 == common.y) )
-	{
-		bPoint.x = b->x1; bPoint.y = b->y1; bPoint.z = b->z1; bPoint.c = b->c1;
-	} else
-	{
-		bPoint.x = b->x2; bPoint.y = b->y2; bPoint.z = b->z2; bPoint.c = b->c2;
-	}
-	return new GPLine(aPoint, bPoint);
-}

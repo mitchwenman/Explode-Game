@@ -17,5 +17,9 @@ Polygon2D::Polygon2D(int numVerts, VERTEX_3D verts[])
 
 Polygon2D::~Polygon2D()
 {
+	for (unsigned int i = 0; i < sides.size(); i++)
+	{
+		delete(sides[i]);		
+	}
 	sides.clear();
 }

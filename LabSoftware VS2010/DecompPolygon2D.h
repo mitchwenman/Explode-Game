@@ -43,9 +43,6 @@ public:
 	//Finds an adjacent line to the line at lineAInd
 	int findAdjacentLineIndex(int lineAInd);
 
-	//Creates a connecting edge from two lines
-	GPLine* createConnectingLine(GPLine* a, GPLine* b);
-
 	//Returns a the index of the line with the given coordinates
 	//If not found returns -1
 	int DecompPolygon2D::findLineWithCoords(VERTEX_3D p1, VERTEX_3D p2);
