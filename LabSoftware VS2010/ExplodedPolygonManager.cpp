@@ -36,6 +36,7 @@ int ExplodedPolygonManager::cleanup() ///XXX: change to use 3Dpolygondrawer meth
 												MIN_Z_RENDER,
 												MAX_Z_BEFORE_CLEANUP))
 		{
+			delete(explodedPolygons[i]);
 			explodedPolygons.erase(explodedPolygons.begin() + i);
 			i--; //So we don't skip any when we erase
 		}
@@ -43,6 +44,16 @@ int ExplodedPolygonManager::cleanup() ///XXX: change to use 3Dpolygondrawer meth
 
 	return numDeleted;
 }
+
+void ExplodedPolygonManager::reset()
+{
+	while (!explodedPolygons.empty())
+	{
+		delete(explodedPolygons[0]);
+		explodedPolygons.erase(explodedPolygons.begin());
+	}
+}
+
 
 int ExplodedPolygonManager::explodePolygonAtCoords(int x, int y)
 {

@@ -53,15 +53,21 @@ void Polygon3DManager::removePolygonAtIndex(int i)
 	
 }
 
-//Adds a new polygon to the vector if is ready to
-//Polygons will be added to the vector more regularly as time progresses
-//Returns the newly created polygon or NULL if one wasn't created
+void Polygon3DManager::reset()
+{
+	polyCreationInterval = DEF_CREATION_INTERVAL;
+	while (!polygon3ds.empty())
+	{
+		removePolygonAtIndex(0);
+	}
+}
+
 Polygon3D* Polygon3DManager::addNewPolygonIfReady()
 {
 	Polygon3D* newPoly = NULL;
 	if (std::rand() < polyCreationInterval)
 	{
-		polyCreationInterval += RAND_MAX / 500;
+		polyCreationInterval += DEF_CREATION_INTERVAL;
 		Polygon3DFactory* factory = Polygon3DFactory::getSingleton();
 		newPoly = factory->createRandomPolygonFromDatabase();
 		VERTEX_3D_f startingPoint = factory->getRandomStartingPoint();

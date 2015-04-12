@@ -13,6 +13,13 @@ Game* Game::getSingleton()
 
 void Game::setStatus(GameStatus newStatus)
 {
+	if (currentStatus == GSTATUS_RUNNING &&
+		newStatus == GSTATUS_OVER)
+	{
+		Polygon3DManager::getSingleton()->reset();
+		ExplodedPolygonManager::getSingleton()->reset();
+	}
+		
 	currentStatus = newStatus;
 }
 

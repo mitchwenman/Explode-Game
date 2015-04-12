@@ -27,6 +27,9 @@ public:
 	//Returns the number of polygons it cleaned up 
 	int cleanup();
 
+	//Removes all exploded polygons
+	void reset();
+
 	//Checks the coordinates and explodes the 
 	//first polygon it finds. Removes original
 	//poly from the world

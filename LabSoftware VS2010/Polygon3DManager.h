@@ -6,6 +6,7 @@
 
 #include <vector>
 
+#define DEF_CREATION_INTERVAL RAND_MAX/500
 
 class Polygon3DManager
 {
@@ -21,12 +22,10 @@ private:
 	std::vector<std::vector<PolygonTransformation>> transformations;
 
 	//Counter used to determine when to create a new polygon
-	int polygonCreationCounter;
-
 	int polyCreationInterval;
 
 	//Private constructor for singleton pattern
-	Polygon3DManager() : polygonCreationCounter(0), polyCreationInterval(RAND_MAX / 500) {};
+	Polygon3DManager() : polyCreationInterval(DEF_CREATION_INTERVAL) {};
 
 public:
 	//Gets the singleton instance of Polygon3DManager
@@ -48,6 +47,9 @@ public:
 	//Removes any polygons not on the screen anymore
 	//Returns the number of polygons removed
 	int cleanup();
+
+	//Resets the manager to its initial state with no polygons
+	void reset();
 
 	//Adds a new polygon to the vector if is ready to
 	//Polygons will be added to the vector more regularly as time progresses
