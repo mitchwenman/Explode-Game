@@ -11,12 +11,15 @@ class GraphicsSettings
 {
 
 private:
-	int frameWidth, frameHeight;
-	int view;
-	int fov;
-	int numberOfChannels;
+	int		frameWidth, frameHeight;
+	int		view;
+	int		fov;
+	int		numberOfChannels;
 
-	BYTE* frameBuffer;
+	BYTE*	frameBuffer;
+
+	//Whether we're rendering the second frame now (in stereo)
+	bool	secondFrame;
 
 
 	GraphicsSettings() { };
@@ -55,6 +58,13 @@ public:
 
 	//Returns the frame buffer
 	BYTE* getFrameBuffer() { return frameBuffer; }
+
+	//Returns whether we're rendering the second frame
+	bool isSecondFrame() { return secondFrame; }
+
+	//Sets whether we're rendering the second frame
+	void setSecondFrame(bool b) { secondFrame = b; }
+
 	
 	//Returns the graphic settings singleton object
 	static GraphicsSettings* getGraphicsSettings();

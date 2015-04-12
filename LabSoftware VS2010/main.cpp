@@ -133,6 +133,7 @@ int main(int argc, char** argv)
 	settings->setFrameDimensions(FRAME_WIDE, FRAME_HIGH);
 	settings->setNumberOfChannels(NUM_CHANNELS);
 	settings->setFOV(1000);
+	settings->setSecondFrame(false);
 	Game *game = Game::getSingleton();
 	game->setStatus(GSTATUS_RUNNING);
 	
@@ -232,7 +233,9 @@ void DrawFrame()
 	if (!stereo) BuildFrame(pFrameR, 0);
 	else {
 		BuildFrame(pFrameL, -eyes);
+		GraphicsSettings::getGraphicsSettings()->setSecondFrame(true);
 		BuildFrame(pFrameR, +eyes);
+		GraphicsSettings::getGraphicsSettings()->setSecondFrame(false);
 		Interlace((BYTE*)pFrameL, (BYTE*)pFrameR);
 	}
 }

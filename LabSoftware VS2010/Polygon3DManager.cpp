@@ -19,7 +19,8 @@ void Polygon3DManager::animate()
 {
 	for (unsigned int i = 0; i < polygon3ds.size(); i++)
 	{
-		applyTransformations(polygon3ds[i], referencePolygons[i], transformations[i]);
+		if (!GraphicsSettings::getGraphicsSettings()->isSecondFrame())
+			applyTransformations(polygon3ds[i], referencePolygons[i], transformations[i]);
 		PolygonDrawer3D::draw(polygon3ds[i], referencePolygons[i]);
 	}
 }
