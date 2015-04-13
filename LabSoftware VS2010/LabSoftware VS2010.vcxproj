@@ -86,6 +86,7 @@
     <ClInclude Include="ZBuffer.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="POLYGON_INDEX.txt" />
     <None Include="TestCube.txt" />
     <None Include="TestPentagon.txt" />
     <None Include="TestPyramid.txt" />

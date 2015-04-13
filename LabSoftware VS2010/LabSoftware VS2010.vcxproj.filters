@@ -232,5 +232,6 @@
     <None Include="TestPyramid.txt" />
     <None Include="TestPentagon.txt" />
     <None Include="TRIPYRAMID.txt" />
+    <None Include="POLYGON_INDEX.txt" />
   </ItemGroup>
 </Project>
