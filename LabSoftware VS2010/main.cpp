@@ -49,9 +49,8 @@
 
 #define FRAME_WIDE	1000
 #define FRAME_HIGH	600
-
 #define ROUND(x) ((int)(x + 0.5))
-
+const std::string VJS_INDEX = "POLYGON_INDEX.TXT";
 //====== Structs & typedefs =========
 typedef unsigned char BYTE;
 
@@ -119,7 +118,7 @@ int main(int argc, char** argv)
 	// -- load VJS polygons from command line --	
 	PolygonDatabase *d = PolygonDatabase::getSingleton();
 	int numPolysLoaded = 0;
-	std::vector<std::string> vjsFiles = VJSReader::readIndexFile("POLYGON_INDEX.TXT");
+	std::vector<std::string> vjsFiles = VJSReader::readIndexFile(VJS_INDEX);
 	unsigned int numFiles = vjsFiles.size();
 	for (int i = 0; i < numFiles; i++)
 	{			
