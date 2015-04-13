@@ -39,6 +39,7 @@
     <ClCompile Include="RotationConstantTable.cpp" />
     <ClCompile Include="ScanlineTriangle.cpp" />
     <ClCompile Include="ScanLineTriangleDrawer.cpp" />
+    <ClCompile Include="ScoreStatusItem.cpp" />
     <ClCompile Include="SoundEffect.cpp" />
     <ClCompile Include="SurfaceNormal.cpp" />
     <ClCompile Include="TrigLookup.cpp" />
@@ -60,6 +61,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="GPLine.h" />
     <ClInclude Include="GraphicsSettings.h" />
+    <ClInclude Include="IStatusItem.h" />
     <ClInclude Include="LineDrawer.h" />
     <ClInclude Include="PixelDrawer.h" />
     <ClInclude Include="Polygon2D.h" />
@@ -77,6 +79,7 @@
     <ClInclude Include="RotationConstantTable.h" />
     <ClInclude Include="ScanLineTriangle.h" />
     <ClInclude Include="ScanLineTriangleDrawer.h" />
+    <ClInclude Include="ScoreStatusItem.h" />
     <ClInclude Include="SoundEffect.h" />
     <ClInclude Include="SurfaceNormal.h" />
     <ClInclude Include="TrigLookup.h" />
