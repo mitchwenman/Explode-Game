@@ -86,10 +86,10 @@
     <ClInclude Include="ZBuffer.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="CUBE.txt" />
+    <None Include="PENTAGON.txt" />
     <None Include="POLYGON_INDEX.txt" />
-    <None Include="TestCube.txt" />
-    <None Include="TestPentagon.txt" />
-    <None Include="TestPyramid.txt" />
+    <None Include="PYRAMID.txt" />
     <None Include="TRIPYRAMID.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

@@ -116,14 +116,14 @@ int main(int argc, char** argv)
 	glutKeyboardFunc(OnKeypress);
 	glutMouseFunc(OnMouse);
 
-	// -- load VJS polygons from command line --
+	// -- load VJS polygons from command line --	
 	PolygonDatabase *d = PolygonDatabase::getSingleton();
 	int numPolysLoaded = 0;
-	int numFiles = argc - 1;
-	for (int i = 1; i <= numFiles; i++)
-	{		
-		char* filename = argv[i];
-		if (d->loadPolygonAtPath(std::string(filename)))
+	std::vector<std::string> vjsFiles = VJSReader::readIndexFile("POLYGON_INDEX.TXT");
+	unsigned int numFiles = vjsFiles.size();
+	for (int i = 0; i < numFiles; i++)
+	{			
+		if (d->loadPolygonAtPath(vjsFiles[i]))
 			numPolysLoaded++;
 	}
 	if (numPolysLoaded == 0) return EXIT_FAILURE; //End program if no polygons

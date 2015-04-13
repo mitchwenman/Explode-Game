@@ -114,4 +114,20 @@ Polygon3D* VJSReader::read(string fileName)
 		
 	}
 
-	
+std::vector<std::string> VJSReader::readIndexFile(std::string filename)
+{
+	std::vector<std::string> fileList;
+	ifstream file;
+	file.open(filename);
+	if (file.is_open())
+	{
+		while (!file.eof())
+		{
+			string vjsfile;
+			getline(file, vjsfile);
+			fileList.push_back(vjsfile);
+		}
+		file.close();
+	}
+	return fileList;
+}
