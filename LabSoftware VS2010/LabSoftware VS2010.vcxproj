@@ -25,6 +25,7 @@
     <ClCompile Include="GraphicsUtil.h" />
     <ClCompile Include="LineDrawer.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MissedPolygonStatusItem.cpp" />
     <ClCompile Include="PixelDrawer.cpp" />
     <ClCompile Include="Polygon2D.cpp" />
     <ClCompile Include="Polygon3DFactory.cpp" />
@@ -41,6 +42,7 @@
     <ClCompile Include="ScanLineTriangleDrawer.cpp" />
     <ClCompile Include="ScoreStatusItem.cpp" />
     <ClCompile Include="SoundEffect.cpp" />
+    <ClCompile Include="StatusDisplay.cpp" />
     <ClCompile Include="SurfaceNormal.cpp" />
     <ClCompile Include="TrigLookup.cpp" />
     <ClCompile Include="UserInput.cpp" />
@@ -63,6 +65,7 @@
     <ClInclude Include="GraphicsSettings.h" />
     <ClInclude Include="IStatusItem.h" />
     <ClInclude Include="LineDrawer.h" />
+    <ClInclude Include="MissedPolygonStatusItem.h" />
     <ClInclude Include="PixelDrawer.h" />
     <ClInclude Include="Polygon2D.h" />
     <ClInclude Include="Polygon3D.h" />
@@ -81,6 +84,7 @@
     <ClInclude Include="ScanLineTriangleDrawer.h" />
     <ClInclude Include="ScoreStatusItem.h" />
     <ClInclude Include="SoundEffect.h" />
+    <ClInclude Include="StatusDisplay.h" />
     <ClInclude Include="SurfaceNormal.h" />
     <ClInclude Include="TrigLookup.h" />
     <ClInclude Include="UserInput.h" />

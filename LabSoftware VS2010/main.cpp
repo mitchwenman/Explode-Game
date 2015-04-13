@@ -33,7 +33,9 @@
 #include "Polygon3DFactory.h"
 #include "Polygon3DManager.h"
 #include "Game.h"
+#include "StatusDisplay.h"
 #include "ScoreStatusItem.h"
+#include "MissedPolygonStatusItem.h"
 
 #ifdef _WIN32
 	#include "libs/glut.h"
@@ -136,7 +138,9 @@ int main(int argc, char** argv)
 	settings->setSecondFrame(false);
 	Game *game = Game::getSingleton();
 	game->setStatus(GSTATUS_RUNNING);
-	
+	StatusDisplay *display = StatusDisplay::getSingleton();
+	display->addStatusItem(new ScoreStatusItem());
+	display->addStatusItem(new MissedPolygonStatusItem());
 	//-- run the program
 	
 	
@@ -268,8 +272,7 @@ void BuildFrame(BYTE *pFrame, int view)
 	World *world = World::getSingleton();
 	if (Game::getSingleton()->getCurrentStatus() == GSTATUS_RUNNING)
 		world->drawWorld();
-	ScoreStatusItem *s = new ScoreStatusItem();
-	s->draw();
+	StatusDisplay::getSingleton()->draw();
 }
 
 

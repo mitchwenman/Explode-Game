@@ -9,7 +9,7 @@ class Game
 
 private:
 	//Private constructor for the singleton pattern
-	Game() : score(0), nextScoreIncrement(100) {};
+	Game() : score(0), missedPolygons(0), nextScoreIncrement(100) {};
 
 	//The current score
 	int score;
@@ -20,7 +20,13 @@ private:
 	//The current status of the game
 	GameStatus currentStatus;
 
+	//The number of missed polygons
+	int missedPolygons;
+
 public:
+	//The maximum number of missed polygons before the game ends
+	static const int MAX_MISSED_POLYGONS = 5;
+
 	//Returns the game singleton object
 	static Game* getSingleton();
 
@@ -37,5 +43,9 @@ public:
 	//Returns the new score
 	int incrementScore();
 
+	//Increments the number of missed polygons
+	int incrementMissedPolygons();
 	
+	//Returns the number of missed polygons
+	int getNumberOfMissedPolygons() { return missedPolygons; }
 };
