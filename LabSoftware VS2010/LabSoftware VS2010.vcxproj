@@ -87,7 +87,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="TestCube.txt" />
+    <None Include="TestPentagon.txt" />
     <None Include="TestPyramid.txt" />
+    <None Include="TRIPYRAMID.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{327DBF0B-A54A-434B-AC40-EAF035440FC7}</ProjectGuid>

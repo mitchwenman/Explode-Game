@@ -230,5 +230,7 @@
   <ItemGroup>
     <None Include="TestCube.txt" />
     <None Include="TestPyramid.txt" />
+    <None Include="TestPentagon.txt" />
+    <None Include="TRIPYRAMID.txt" />
   </ItemGroup>
 </Project>
