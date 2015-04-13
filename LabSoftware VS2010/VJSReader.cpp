@@ -10,10 +10,11 @@ using namespace std;
 
 Polygon3D* VJSReader::read(string fileName)
 	{
+		ifstream infile;
 		try
 		{
 			Polygon3D* p = new Polygon3D();
-			ifstream infile;
+			
 			string line;
 			int numVerts, numPolys;
 
@@ -102,11 +103,12 @@ Polygon3D* VJSReader::read(string fileName)
 				getline(infile, line);			
 
 			}
-		
+			infile.close();
 			return p;
 		}
 		catch (std::invalid_argument e)
 		{
+			infile.close();
 			return NULL;
 		}
 		
