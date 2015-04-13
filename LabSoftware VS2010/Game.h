@@ -44,7 +44,7 @@ public:
 	int incrementScore();
 
 	//Increments the number of missed polygons
-	int incrementMissedPolygons();
+	int incrementMissedPolygons(int n = 1);
 	
 	//Returns the number of missed polygons
 	int getNumberOfMissedPolygons() { return missedPolygons; }

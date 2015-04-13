@@ -4,6 +4,7 @@
 #include "BoundingBox.h"
 #include "Polygon3DTranslator.h"
 #include "ZBuffer.h"
+#include "Game.h"
 
 static Polygon3DManager* _instance;
 
@@ -35,6 +36,7 @@ int Polygon3DManager::cleanup()
 		if (PolygonDrawer3D::isPolygonOffScreen(polygon3ds[i], MIN_Z_RENDER, MAX_Z_RENDER))
 		{
 			removePolygonAtIndex(i);
+			Game::getSingleton()->incrementMissedPolygons();
 			numDeleted++;
 		}
 	}

@@ -30,9 +30,9 @@ int Game::incrementScore()
 	return score;
 }
 
-int Game::incrementMissedPolygons()
+int Game::incrementMissedPolygons(int n)
 {
-	missedPolygons++;
+	missedPolygons += n;
 	if (missedPolygons == MAX_MISSED_POLYGONS)
 	{
 		setStatus(GSTATUS_OVER);
