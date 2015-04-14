@@ -1,5 +1,4 @@
-#ifndef RGBCOLOUR_
-#define RGBCOLOUR_
+#pragma once
 
 #define RED_OFFSET 0
 #define GREEN_OFFSET 1
@@ -13,4 +12,3 @@ typedef struct RGBColour
 	BYTE red, green, blue;
 } RGBColour;
 
-#endif

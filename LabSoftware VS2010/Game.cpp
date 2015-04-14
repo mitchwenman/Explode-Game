@@ -26,7 +26,7 @@ void Game::setStatus(GameStatus newStatus)
 int Game::incrementScore()
 {
 	score += nextScoreIncrement;
-	nextScoreIncrement *= 2;
+	nextScoreIncrement *= 1.1;
 	return score;
 }
 

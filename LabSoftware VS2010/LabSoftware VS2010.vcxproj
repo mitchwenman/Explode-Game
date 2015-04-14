@@ -22,6 +22,7 @@
     <ClCompile Include="ExplodedPolygonManager.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GraphicsSettings.cpp" />
+    <ClCompile Include="GraphicsUtil.cpp" />
     <ClCompile Include="GraphicsUtil.h" />
     <ClCompile Include="LineDrawer.cpp" />
     <ClCompile Include="main.cpp" />

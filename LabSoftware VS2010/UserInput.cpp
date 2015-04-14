@@ -137,6 +137,7 @@ void UserInput::handleMouseInput(int button, int state, int x, int y)
 		if (index != -1)
 		{
 			SoundEffect::playPolygonHitSoundEffect();
+			Game::getSingleton()->incrementScore();
 		} else
 		{
 			SoundEffect::playClickSoundEffect();
