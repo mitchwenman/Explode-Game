@@ -36,6 +36,7 @@
 #include "StatusDisplay.h"
 #include "ScoreStatusItem.h"
 #include "MissedPolygonStatusItem.h"
+#include "GameOverStatusItem.h"
 
 #ifdef _WIN32
 	#include "libs/glut.h"
@@ -67,7 +68,7 @@ int		shade = 0;
 POINT2D	xypos = {0,0};
 int		stereo = 0;
 int		eyes = 10;
-int		drawonce = 0;
+
 
 
 //===== Forward Declarations ========
@@ -142,6 +143,7 @@ int main(int argc, char** argv)
 	StatusDisplay *display = StatusDisplay::getSingleton();
 	display->addStatusItem(new ScoreStatusItem());
 	display->addStatusItem(new MissedPolygonStatusItem());
+	display->addStatusItem(new GameOverStatusItem());
 	//-- run the program
 	
 	
