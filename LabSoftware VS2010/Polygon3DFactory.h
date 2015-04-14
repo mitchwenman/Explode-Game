@@ -63,4 +63,7 @@ public:
 
 	//Returns a random translate transformation
 	PolygonTransformation Polygon3DFactory::getRandomTranslateTransformation();
+
+	//Resets the factory to it's default state 
+	void reset() { scaleCounter = 0; speedFactor = 1.0; }
 };

@@ -4,12 +4,15 @@
 
 typedef enum { GSTATUS_RUNNING, GSTATUS_OVER } GameStatus;
 
+
 class Game
 {
 
 private:
+	static const int DEFAULT_SCORE_INCREMENT = 100;
+
 	//Private constructor for the singleton pattern
-	Game() : score(0), missedPolygons(0), nextScoreIncrement(100) {};
+	Game() : score(0), missedPolygons(0), nextScoreIncrement(DEFAULT_SCORE_INCREMENT) {};
 
 	//The current score
 	int score;

@@ -63,6 +63,7 @@ void Polygon3DManager::reset()
 	{
 		removePolygonAtIndex(0);
 	}
+	Polygon3DFactory::getSingleton()->reset();
 }
 
 Polygon3D* Polygon3DManager::addNewPolygonIfReady()

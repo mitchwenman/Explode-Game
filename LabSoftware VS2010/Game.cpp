@@ -18,6 +18,12 @@ void Game::setStatus(GameStatus newStatus)
 	{
 		Polygon3DManager::getSingleton()->reset();
 		ExplodedPolygonManager::getSingleton()->reset();
+	} else if (currentStatus == GSTATUS_OVER &&
+		newStatus == GSTATUS_RUNNING)
+	{
+		score = 0;
+		nextScoreIncrement = DEFAULT_SCORE_INCREMENT;
+		missedPolygons = 0;
 	}
 		
 	currentStatus = newStatus;

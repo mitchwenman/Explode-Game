@@ -2,6 +2,8 @@
 #include <stdio.h>			//- for sprintf()
 #include <string.h>			//- for memset()
 #include <math.h>
+#include <random>			//- for srand()
+#include <time.h>			//- for currentTime (srand)
 //#include <vld.h>
 
 //Application header files
@@ -37,6 +39,7 @@
 #include "ScoreStatusItem.h"
 #include "MissedPolygonStatusItem.h"
 #include "GameOverStatusItem.h"
+
 
 #ifdef _WIN32
 	#include "libs/glut.h"
@@ -144,6 +147,9 @@ int main(int argc, char** argv)
 	display->addStatusItem(new ScoreStatusItem());
 	display->addStatusItem(new MissedPolygonStatusItem());
 	display->addStatusItem(new GameOverStatusItem());
+
+	// -- Seed the random number generator
+	srand(time(NULL));
 	//-- run the program
 	
 	

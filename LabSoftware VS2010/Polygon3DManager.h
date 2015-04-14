@@ -6,7 +6,7 @@
 
 #include <vector>
 
-#define DEF_CREATION_INTERVAL RAND_MAX/500
+#define DEF_CREATION_INTERVAL RAND_MAX/200
 
 class Polygon3DManager
 {
