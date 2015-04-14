@@ -59,6 +59,7 @@ void Polygon3DManager::removePolygonAtIndex(int i)
 void Polygon3DManager::reset()
 {
 	polyCreationInterval = DEF_CREATION_INTERVAL;
+	firstPoly = true;
 	while (!polygon3ds.empty())
 	{
 		removePolygonAtIndex(0);
@@ -69,8 +70,9 @@ void Polygon3DManager::reset()
 Polygon3D* Polygon3DManager::addNewPolygonIfReady()
 {
 	Polygon3D* newPoly = NULL;
-	if (std::rand() < polyCreationInterval)
+	if (firstPoly || std::rand() < polyCreationInterval)
 	{
+		firstPoly = false;
 		polyCreationInterval += DEF_CREATION_INTERVAL;
 		Polygon3DFactory* factory = Polygon3DFactory::getSingleton();
 		newPoly = factory->createRandomPolygonFromDatabase();

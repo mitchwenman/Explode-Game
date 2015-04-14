@@ -25,7 +25,10 @@ private:
 	int polyCreationInterval;
 
 	//Private constructor for singleton pattern
-	Polygon3DManager() : polyCreationInterval(DEF_CREATION_INTERVAL) {};
+	Polygon3DManager() : polyCreationInterval(DEF_CREATION_INTERVAL), firstPoly(true) {};
+
+	//Used to create a polygon straight away on startup or reset
+	bool firstPoly;
 
 public:
 	//Gets the singleton instance of Polygon3DManager
