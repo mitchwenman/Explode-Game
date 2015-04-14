@@ -19,15 +19,9 @@ void ScoreStatusItem::draw()
 	int currScore = game->getScore();
 	GraphicsSettings *gset = GraphicsSettings::getGraphicsSettings();
 
-	glLoadIdentity();
-	glOrtho(0.0f, gset->getFrameWidth(), 0.0f, 0.0f, gset->getFrameHeight(), 0.0f);
 	glRasterPos2i(300, 300);
-	 glDisable(GL_TEXTURE);
-    glDisable(GL_TEXTURE_2D);
-	
 	glutBitmapCharacter (GLUT_BITMAP_9_BY_15, 'H');
-	 glEnable(GL_TEXTURE);
-    glEnable(GL_TEXTURE_2D);
+
 	
 	
 

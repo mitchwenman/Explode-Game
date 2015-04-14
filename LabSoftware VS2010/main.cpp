@@ -168,7 +168,7 @@ void OnDisplay(void)
 	glRasterPos2i(0, 0);
 	glDrawPixels(FRAME_WIDE, FRAME_HIGH, GL_RGB,GL_UNSIGNED_BYTE, (GLubyte*)pFrameR);
 	glRasterPos2i(200, 200);
-	//glutBitmapCharacter(GLUT_BITMAP_9_BY_15, 'T');
+	StatusDisplay::getSingleton()->draw();
 	
 	glutSwapBuffers();
 	glFlush();
