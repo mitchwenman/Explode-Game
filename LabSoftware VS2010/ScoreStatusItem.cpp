@@ -12,7 +12,7 @@ void ScoreStatusItem::draw()
 	GraphicsSettings *gset = gset->getGraphicsSettings();
 	std::stringstream stream;
 	stream << "Score: " << currScore;
-
+	glColor3f(1.0, 1.0, 1.0);
 	GraphicsUtil::drawString(GLUT_BITMAP_TIMES_ROMAN_24, stream.str() , 
 		gset->getFrameWidth() - SCORESI_XOFFSET_RIGHT, 
 		SCORESI_YOFFSET_BOTTOM);

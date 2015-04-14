@@ -13,6 +13,8 @@ void GameOverStatusItem::draw()
 		GraphicsSettings *gset = GraphicsSettings::getGraphicsSettings();
 		int x = gset->getFrameWidth() / 2 - 250;
 		int y = gset->getFrameHeight() / 2 - 5;
+		glColor3f(1.0, 1.0, 0.0);
 		GraphicsUtil::drawString(GLUT_BITMAP_TIMES_ROMAN_24, GAMEOVER_MESSAGE, x, y);
+		
 	}
 }

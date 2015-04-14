@@ -13,6 +13,10 @@ void MissedPolygonStatusItem::draw()
 	GraphicsSettings *gset = GraphicsSettings::getGraphicsSettings();
 	std::stringstream stream;
 	stream << "Missed: " << numMissedPolygons << " / " << maxMissedPolygons;
+	if (numMissedPolygons == maxMissedPolygons)
+		glColor3f(1.0, 0.0, 0.0);
+	else
+		glColor3f(1.0, 1.0, 1.0);
 	GraphicsUtil::drawString(GLUT_BITMAP_TIMES_ROMAN_24, stream.str(),
 		gset->getFrameWidth() - MPSI_XOFFSET_RIGHT, MPSI_YOFFSET_BOTTOM);
 				
