@@ -96,6 +96,7 @@ int main(int argc, char** argv)
 	glutInitWindowSize(FRAME_WIDE, FRAME_HIGH);
 	glutInitWindowPosition(100, 100);
 	glutCreateWindow(argv[0]);
+	
 /*
 #ifdef WIN32
 	//- eliminate flashing --
@@ -166,6 +167,9 @@ void OnDisplay(void)
 	glClear(GL_COLOR_BUFFER_BIT);
 	glRasterPos2i(0, 0);
 	glDrawPixels(FRAME_WIDE, FRAME_HIGH, GL_RGB,GL_UNSIGNED_BYTE, (GLubyte*)pFrameR);
+	glRasterPos2i(200, 200);
+	//glutBitmapCharacter(GLUT_BITMAP_9_BY_15, 'T');
+	
 	glutSwapBuffers();
 	glFlush();
 }
