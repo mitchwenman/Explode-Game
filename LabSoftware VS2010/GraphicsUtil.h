@@ -4,9 +4,6 @@
 #include <string>
 
 /* A utility file for random but useful functions/types */
-#define ROUND(x) ((int)(x + 0.5))
-
-typedef struct  {int x, y;} POINT2D;
 
 typedef struct { int x; int y; RGBColour c; } VERTEX;
 
@@ -18,7 +15,7 @@ namespace GraphicsUtil
 {
 	//Draws a string to the frame
 	void drawString(void *font, std::string str, int x, int y);
-}
+};
 
 
 

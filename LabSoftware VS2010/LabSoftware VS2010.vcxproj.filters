@@ -23,9 +23,6 @@
     <ClCompile Include="DDALine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GraphicsUtil.h">
-      <Filter>Header Files</Filter>
-    </ClCompile>
     <ClCompile Include="LineDrawer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -125,10 +122,10 @@
     <ClCompile Include="MissedPolygonStatusItem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GraphicsUtil.cpp">
+    <ClCompile Include="GameOverStatusItem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GameOverStatusItem.cpp">
+    <ClCompile Include="GraphicsUtil.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -254,6 +251,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GameOverStatusItem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicsUtil.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

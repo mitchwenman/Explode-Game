@@ -24,7 +24,6 @@
     <ClCompile Include="GameOverStatusItem.cpp" />
     <ClCompile Include="GraphicsSettings.cpp" />
     <ClCompile Include="GraphicsUtil.cpp" />
-    <ClCompile Include="GraphicsUtil.h" />
     <ClCompile Include="LineDrawer.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MissedPolygonStatusItem.cpp" />
@@ -66,6 +65,7 @@
     <ClInclude Include="GameOverStatusItem.h" />
     <ClInclude Include="GPLine.h" />
     <ClInclude Include="GraphicsSettings.h" />
+    <ClInclude Include="GraphicsUtil.h" />
     <ClInclude Include="IStatusItem.h" />
     <ClInclude Include="LineDrawer.h" />
     <ClInclude Include="MissedPolygonStatusItem.h" />

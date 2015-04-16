@@ -68,7 +68,7 @@ BYTE	pFrameL[FRAME_WIDE * FRAME_HIGH * 3];
 BYTE	pFrameR[FRAME_WIDE * FRAME_HIGH * 3];
 int		NUM_CHANNELS = 3;
 int		shade = 0;
-POINT2D	xypos = {0,0};
+
 int		stereo = 0;
 int		eyes = 10;
 
