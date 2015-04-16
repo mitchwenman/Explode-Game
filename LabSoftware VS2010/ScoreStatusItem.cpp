@@ -3,8 +3,10 @@
 #include "GraphicsUtil.h"
 #include "GraphicsSettings.h"
 #include "libs\glut.h"
+
 #include <string>
 #include <sstream>
+
 void ScoreStatusItem::draw()
 {
 	Game *game = Game::getSingleton();

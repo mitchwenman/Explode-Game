@@ -11,11 +11,14 @@
 	#include <GL/glut.h>
 #endif
 
-void GraphicsUtil::drawString(void *font, std::string str, int x, int y)
+namespace GraphicsUtil
 {
-	glRasterPos2i(x, y);
-	for (unsigned int i = 0; i < str.length(); i++)
+	void drawString(void *font, std::string str, int x, int y)
 	{
-		glutBitmapCharacter(font, str[i]);
+		glRasterPos2i(x, y);
+		for (unsigned int i = 0; i < str.length(); i++)
+		{
+			glutBitmapCharacter(font, str[i]);
+		}
 	}
 }
