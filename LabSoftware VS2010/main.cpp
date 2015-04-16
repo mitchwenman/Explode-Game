@@ -39,6 +39,7 @@
 #include "ScoreStatusItem.h"
 #include "MissedPolygonStatusItem.h"
 #include "GameOverStatusItem.h"
+#include "HighScoreStatusItem.h"
 
 
 #ifdef _WIN32
@@ -147,6 +148,7 @@ int main(int argc, char** argv)
 	display->addStatusItem(new ScoreStatusItem());
 	display->addStatusItem(new MissedPolygonStatusItem());
 	display->addStatusItem(new GameOverStatusItem());
+	display->addStatusItem(new HighScoreStatusItem());
 
 	// -- Seed the random number generator
 	srand(time(NULL));

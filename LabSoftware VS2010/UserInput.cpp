@@ -136,8 +136,16 @@ void UserInput::handleMouseInput(int button, int state, int x, int y)
 		int index = ExplodedPolygonManager::getSingleton()->explodePolygonAtCoords(x, y);
 		if (index != -1)
 		{
-			SoundEffect::playPolygonHitSoundEffect();
-			Game::getSingleton()->incrementScore();
+			
+			Game* game = Game::getSingleton();
+			int oldHighscore = game->highScore;
+			int oldScore = game->getScore();
+			int newScore = game->incrementScore();
+			int newHighScore = game->highScore;
+			if (newHighScore == oldHighscore)
+				SoundEffect::playRewardSoundEffect();
+			else
+				SoundEffect::playPolygonHitSoundEffect();
 		} else
 		{
 			SoundEffect::playClickSoundEffect();

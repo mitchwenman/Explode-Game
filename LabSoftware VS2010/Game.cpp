@@ -1,6 +1,7 @@
 #include "Game.h"
 #include "Polygon3DManager.h"
 #include "ExplodedPolygonManager.h"
+#include "SoundEffect.h"
 
 static Game* _instance;
 
@@ -32,6 +33,7 @@ void Game::setStatus(GameStatus newStatus)
 int Game::incrementScore()
 {
 	score += nextScoreIncrement;
+	if (score > highScore) highScore = score;
 	nextScoreIncrement *= 1.1;
 	return score;
 }
@@ -41,6 +43,7 @@ int Game::incrementMissedPolygons(int n)
 	missedPolygons += n;
 	if (missedPolygons == MAX_MISSED_POLYGONS)
 	{
+		SoundEffect::playGameOverSoundEffect();
 		setStatus(GSTATUS_OVER);
 	}
 	return missedPolygons;

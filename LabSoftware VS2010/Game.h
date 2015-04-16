@@ -12,7 +12,7 @@ private:
 	static const int DEFAULT_SCORE_INCREMENT = 100;
 
 	//Private constructor for the singleton pattern
-	Game() : score(0), missedPolygons(0), nextScoreIncrement(DEFAULT_SCORE_INCREMENT) {};
+	Game() : score(0), missedPolygons(0), nextScoreIncrement(DEFAULT_SCORE_INCREMENT), highScore(0) {};
 
 	//The current score
 	int score;
@@ -27,6 +27,8 @@ private:
 	int missedPolygons;
 
 public:
+	int highScore;
+
 	//The maximum number of missed polygons before the game ends
 	static const int MAX_MISSED_POLYGONS = 5;
 
