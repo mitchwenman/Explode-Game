@@ -287,6 +287,7 @@ void BuildFrame(BYTE *pFrame, int view)
 	if (Game::getSingleton()->getCurrentStatus() == GSTATUS_RUNNING)
 		world->drawWorld();
 	StatusDisplay::getSingleton()->draw();
+
 }
 
 

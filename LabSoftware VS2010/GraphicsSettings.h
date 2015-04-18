@@ -2,6 +2,7 @@
 #define GRAPHICSSETTINGS_
 
 #include "RGBColor.h"
+#include <Windows.h>
 
 #define MIN_Z_RENDER -500 
 #define MAX_Z_RENDER 5000
@@ -21,8 +22,11 @@ private:
 	//Whether we're rendering the second frame now (in stereo)
 	bool	secondFrame;
 
+	DWORD lastUpdate;
 
-	GraphicsSettings() { };
+	DWORD ANIMATE_RATE;
+
+	GraphicsSettings();
 
 public:
 	
@@ -65,7 +69,9 @@ public:
 	//Sets whether we're rendering the second frame
 	void setSecondFrame(bool b) { secondFrame = b; }
 
-	
+	//Returns whether the world should be animated or render the previous frame
+	bool shouldAnimate();
+
 	//Returns the graphic settings singleton object
 	static GraphicsSettings* getGraphicsSettings();
 

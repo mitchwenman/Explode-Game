@@ -41,7 +41,7 @@ public:
 	std::vector<Reference3DPolygon *> getReferencePolygons() { return referencePolygons; }
 
 	//Draws the current 3d polygons to the frame buffer
-	void animate();
+	void animate(bool shouldAnimate);
 
 	//Removes the polygon, reference polygon and transformations
 	//for a given index

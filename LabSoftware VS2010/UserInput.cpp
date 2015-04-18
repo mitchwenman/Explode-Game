@@ -142,7 +142,7 @@ void UserInput::handleMouseInput(int button, int state, int x, int y)
 			int oldScore = game->getScore();
 			int newScore = game->incrementScore();
 			int newHighScore = game->highScore;
-			if (newHighScore == oldHighscore)
+			if (newHighScore == newScore && oldScore != oldHighscore)
 				SoundEffect::playRewardSoundEffect();
 			else
 				SoundEffect::playPolygonHitSoundEffect();

@@ -21,7 +21,7 @@ public:
 	static ExplodedPolygonManager* getSingleton();
 
 	//Animates and draws the current exploded polygons to the framebuffer
-	void draw();
+	void draw(bool shouldAnimate);
 
 	//Cleanup method destroys all exploded polygons that are off the screen
 	//Returns the number of polygons it cleaned up 

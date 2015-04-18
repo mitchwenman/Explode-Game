@@ -74,13 +74,18 @@ void World::insert2DPoly(Polygon2D* p)
 
 void World::drawWorld()
 {
+	bool shouldAnimate = GraphicsSettings::getGraphicsSettings()->shouldAnimate();
 	Polygon3DManager *manager = Polygon3DManager::getSingleton();
-	manager->addNewPolygonIfReady();
-	manager->animate();
-	manager->cleanup();
+	if (shouldAnimate) //Tie creation of polygons to frame rate
+	{
+		manager->cleanup();
+		manager->addNewPolygonIfReady();
+	}
+	manager->animate(shouldAnimate);	
 	ExplodedPolygonManager *expmanager = ExplodedPolygonManager::getSingleton();
-	expmanager->draw();
-	expmanager->cleanup();
+	expmanager->draw(shouldAnimate);
+	if (shouldAnimate)
+		expmanager->cleanup();
 	ZBuffer::getSingleton()->flush();
 }
 

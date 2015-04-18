@@ -19,11 +19,14 @@ ExplodedPolygonManager* ExplodedPolygonManager::getSingleton()
 }
 
 
-void ExplodedPolygonManager::draw()
+void ExplodedPolygonManager::draw(bool shouldAnimate)
 {
 	for (unsigned int i = 0; i < explodedPolygons.size(); i++)
 	{
-		ExplodedPolygonAnimator::animateExplodedPolygon(explodedPolygons[i]);
+		if (shouldAnimate)
+			ExplodedPolygonAnimator::animateExplodedPolygon(explodedPolygons[i]);
+		else
+			PolygonDrawer3D::draw(explodedPolygons[i]);
 	}
 }
 

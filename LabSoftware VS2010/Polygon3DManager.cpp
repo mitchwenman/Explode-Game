@@ -16,11 +16,13 @@ Polygon3DManager* Polygon3DManager::getSingleton()
 }
 
 //Draws the current 3d polygons to the frame buffer
-void Polygon3DManager::animate()
+void Polygon3DManager::animate(bool shouldAnimate)
 {
+	GraphicsSettings* gset = GraphicsSettings::getGraphicsSettings();	
 	for (unsigned int i = 0; i < polygon3ds.size(); i++)
 	{
-		if (!GraphicsSettings::getGraphicsSettings()->isSecondFrame())
+		
+		if (!gset->isSecondFrame() && shouldAnimate)
 			applyTransformations(polygon3ds[i], referencePolygons[i], transformations[i]);
 		PolygonDrawer3D::draw(polygon3ds[i], referencePolygons[i]);
 	}
