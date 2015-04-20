@@ -6,24 +6,66 @@
 
 namespace PolygonDrawer3D 
 {
-	//Draws a given 3D polygon
+	/******************
+	Description: Draws a 3D polygon to the screen
+	Parameters: Polygon3D* p;	The polygon to be drawn
+	Preconditions: p must not be NULL
+	*******************/
 	void draw(Polygon3D* p);
 
-	//Draws a 3d polygon and performs backface culling
+	/******************
+	Description: Draws a 3D polygon and performs backface culling
+	Parameters: Polygon3D*			p: The polygon to be drawn
+				Reference3DPolygon*	refP: The corresponding refernce polygon containing the polygon's normals.
+	Preconditions: refP->polygon == p
+	Postconditions: NIL
+	******************/
 	void draw(Polygon3D* p, Reference3DPolygon* refP);
 
-	//Projects a vertex onto the screen using a viewing transformation
-	//Z value remains unchanged.
+	/******************
+	Description: Projects a vertex onto the screen using a viewing transformation
+					Z value remains unchanged.
+	Parameters: VERTEX_3D vertex3d: THe vertex to be projected.
+	Preconditions: Input params are not NULL.
+	Postconditions: NIL
+	Returns: THe projected vertex
+	******************/
 	VERTEX_3D convert3DVertexTo2DProjected(VERTEX_3D vertex3d);
 
-	//Returns true if the polygon is not visible on the screen
-	//Variable min/max Z values provides flexibility to caller
+	/******************
+	Description: Returns true if the polygon is not visible on the screen
+					Variable min/max Z values provides flexibility to caller
+	Parameters: Polygon3D* polygon: Input polygon
+				int			minz:	Minimum z value
+				int			maxz:	Maximum z value
+	Preconditions: Input params are not NULL.
+	Postconditions: NIL
+	Returns: True if the polygon is off screen, else false.
+	*******************/
 	bool isPolygonOffScreen(Polygon3D* polygon, int minimumZ, int maximumZ);
 
-	//Projects an X coordinate value onto the screen
+	/******************
+	Description: Projects an X coordinate onto the screen
+	Parameters: double	x: THe x coord
+				double	z: THe z coord
+				int		fov: The field of view
+				int		centerx: The centre X value.
+	Preconditions: Input params are not NULL.
+	Postconditions: NIL
+	Returns: A projected X coordinate
+	*******************/
 	double projectXPoint(double x, double z, int fov, int centerx);
 
-	//Projects a Y coordinate value onto the screen
+	/******************
+	Description: Projects an Y coordinate onto the screen
+	Parameters: double	y: THe y coord
+				double	z: THe z coord
+				int		fov: The field of view
+				int		centery: The centre Y value.
+	Preconditions: Input params are not NULL.
+	Postconditions: NIL
+	Returns: A projected Y coordinate
+	*******************/
 	double projectYPoint(double y, double z, int fov, int centery);
 }
 

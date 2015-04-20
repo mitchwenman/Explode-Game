@@ -9,7 +9,16 @@ private:
 	TrigLookup* trigLookup;
 
 public:
+
+	/******************
+	Description:Creates a lookup table for a rotation operation.Limits repeated math operations.
+	Parameters: int rx, ry, rz: The rotation values for the x, y, z values in degrees.
+	Preconditions: NIL
+	Postconditions: NIL
+	Returns:  
+	*******************/
 	RotationConstantTable(int rx, int ry, int rz);
+
 	~RotationConstantTable(void) {};
 
 	//Constant values for public access

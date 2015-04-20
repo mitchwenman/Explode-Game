@@ -13,17 +13,45 @@ namespace PolygonDrawer
 	//when clipping against a boundary
 	enum ClipType { MIN, MAX }; 
 
-	//Draws a clipped 3D polygon to the screen
+	/******************
+	Description: Clips and draws the 2D polygon to the frame buffer
+	Parameters: Polygon2D *p: The polygon to be drawn.
+	Preconditions: Input param(s) not null.
+	Postconditions: NIL
+	Returns:  void
+	*******************/
 	void draw(Polygon2D* p);
 
-	//Uses Sutherland-Hodgman polygon clipping to a clip a given polygon
-	//against 4 boundaries
+	/******************
+	Description: Clips a polygon using Sutherland-Hodgeman clipping
+	Parameters: Polygon2D *p: The polygon to be clipped.
+				int leftEdge, topEdge, rightEdge, BottomEdge: The edges of the clipping boundary. X values for left/right. Y values for top/bottom
+	Preconditions: Input param(s) not null.
+	Postconditions: NIL
+	Returns:  The clipped polygon
+	*******************/
 	Polygon2D* clipPolygon(Polygon2D* p, int leftEdge, int topEdge, int rightEdge, int bottomEdge);
 
-	//Clips a polygon against a horizontal boundary (top and bottom of the screen)
+	/******************
+	Description: Clips a polygon against a horizontal boundary.
+	Parameters: vector<VERTEX_3D> input: The input vertex list.
+				int boundary: The y value of the boundary.
+				ClipType c: Whether it's a maximum or minimum boundary.
+	Preconditions: Input param(s) not null.
+	Postconditions: NIL
+	Returns:  A list of clipped vertices.
+	*******************/
 	std::vector<VERTEX_3D> clipHorizontal(std::vector<VERTEX_3D> input, int boundary, ClipType c);
 
-	//Clips a polygon against a vertical boundary (left and right of the screen)
+	/******************
+	Description: Clips a polygon against a vertical boundary.
+	Parameters: vector<VERTEX_3D> input: The input vertex list.
+				int boundary: The x value of the boundary.
+				ClipType c: Whether it's a maximum or minimum boundary.
+	Preconditions: Input param(s) not null.
+	Postconditions: NIL
+	Returns:  A list of clipped vertices.
+	*******************/
 	std::vector<VERTEX_3D> clipVertical(std::vector<VERTEX_3D> input, int boundary, ClipType c);
 
 }

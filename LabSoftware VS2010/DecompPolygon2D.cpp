@@ -174,29 +174,6 @@ bool DecompPolygon2D::boxTest(VERTEX_3D pA, VERTEX_3D pB, VERTEX_3D pC, VERTEX_3
 	return !outside;
 }
 
-int DecompPolygon2D::insideTest(GPLine* a, GPLine* b, GPLine* c, GPLine* test)
-{
-	VERTEX_3D pa = { a->x1, a->y1, a->z1 };
-	VERTEX_3D pb = { a->x2, a->y2, a->z2 };
-	VERTEX_3D pc, ptest;
-	if ((b->x1 == pa.x && b->y1 == pa.y) ||
-		(b->x1 == pb.x && b->y1 == pb.y))
-	{
-		pc.x = b->x2; pc.y = b->y2; pc.z = b->z2;
-	} else
-	{	
-		pc.x = b->x1; pc.y = b->y1; pc.z = b->z1;
-	}
-	//Test X1Y1 then X2Y2
-	ptest.x = test->x1; ptest.y = test->y1; ptest.z = test->z1;
-	if (insideTest(pa, pb, pc, ptest))
-		return 1; 
-	ptest.x = test->x2; ptest.y = test->y2; ptest.z = test->z2;
-	if (insideTest(pa, pb, pc, ptest))
-		return 2; 
-	else return 0;
-}
-
 bool DecompPolygon2D::insideTest(VERTEX_3D pA, VERTEX_3D pB, VERTEX_3D pC, VERTEX_3D pTest)
 {
 	if (!boxTest(pA, pB, pC, pTest)) 

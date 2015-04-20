@@ -43,25 +43,67 @@ public:
 
 	static const int Z_TRANSLATE_LIMIT = 5;
 
-
+	/******************
+	Description: Creates if needed and returns singleton object
+	Parameters: NIL
+	Preconditions: NIL
+	Postconditions: NIL
+	Returns: The polygon factory instance.
+	*******************///
 	static Polygon3DFactory* getSingleton();
 
-	//Returns a new copy of a random polygon from the database
+	/******************
+	Description: Creates a copy of a random poly in the database.
+	Parameters: NIL
+	Preconditions: NIL
+	Postconditions: NIL
+	Returns: The copied polygon
+	*******************///
 	Polygon3D* createRandomPolygonFromDatabase();
 
-	//Creates a random starting point for a new polygon
+	/******************
+	Description: Creates a random starting point for a polygon. X value is constant. Y/Z values will differ within a range.
+	Parameters: NIL
+	Preconditions: NIL
+	Postconditions: NIL
+	Returns: x, y, z coordinates
+	*******************///
 	VERTEX_3D_f getRandomStartingPoint();
 
-	//Returns a vector of randomly generated PolygonTransformations - scale, translate or rotate
+	/******************
+	Description: Creates a randomly generated translate and rotate transformation
+	Parameters: NIL
+	Preconditions: NIL
+	Postconditions: NIL
+	Returns: The rotate/translate operations in a vector.
+	*******************///
 	std::vector<PolygonTransformation> getRandomTransformationSet();
 
-	//Returns a randomised Scale transformation
+	/******************
+	Description: Creates a randomised scale transformation.
+	Parameters: NIL
+	Preconditions: NIL
+	Postconditions: NIL
+	Returns:  a randomised scale transformation
+	*******************///
 	PolygonTransformation Polygon3DFactory::getRandomScaleTransformation();
 
-	//Returns a randomised Rotate transformation
+	/******************
+	Description: Creates a randomised rotate transformation.
+	Parameters: NIL
+	Preconditions: NIL
+	Postconditions: NIL
+	Returns:  a randomised rotate transformation
+	*******************///
 	PolygonTransformation Polygon3DFactory::getRandomRotateTransformation();
-
-	//Returns a random translate transformation
+	
+	/******************
+	Description: Creates a translate scale transformation.
+	Parameters: NIL
+	Preconditions: NIL
+	Postconditions: NIL
+	Returns:  a randomised translate transformation with a positive X value
+	*******************///
 	PolygonTransformation Polygon3DFactory::getRandomTranslateTransformation();
 
 	//Resets the factory to it's default state 

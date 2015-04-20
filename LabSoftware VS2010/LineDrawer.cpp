@@ -64,21 +64,6 @@ namespace LineDrawer
 		return line;
 	}
 
-	void drawLine(int x1, int y1, int x2, int y2, RGBColour colour1, RGBColour colour2)
-	{
-		GPLine* line = new GPLine(x1, y1, x2, y2);
-		line->c1 = colour1; line->c2 = colour2;
-		drawLine(line);
-		delete(line);
-	}
-
-	void drawLine(int x1, int y1, int x2, int y2, BYTE r1, BYTE g1, BYTE b1, BYTE r2, BYTE g2, BYTE b2)
-	{
-		RGBColour c1 = { r1, g1, b1 };
-		RGBColour c2 = { r2, g2, b2 };
-		drawLine(x1, y1, x2, y2, c1, c2);
-	}
-
 	GPLine* clipLine(GPLine* line)
 	{
 		//Get edge details

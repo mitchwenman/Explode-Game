@@ -12,7 +12,13 @@
 class PolygonDatabase
 {
 private:
-	//Default constructor
+	/******************
+	Description: Private constructor for singleton pattern
+	Parameters: NIL
+	Preconditions: NIL
+	Postconditions: NIL
+	Returns:  
+	*******************/
 	PolygonDatabase() {};
 
 	
@@ -20,11 +26,22 @@ private:
 
 public:
 
-	//Returns the polygon database singleton
+	/******************
+	Description: Creates if needed and returns the polygon database singleton.
+	Parameters: NIL
+	Preconditions: NIL
+	Postconditions: NIL
+	Returns:  void
+	*******************/
 	static PolygonDatabase* getSingleton();
 
-	//Loads a polygon from a VJS file into the database
-	//Returns whether it was loaded successfully
+	/******************
+	Description: Loads a VJS polygon into the database
+	Parameters: string path: The path to the VJS file.
+	Preconditions: Input params not null.
+	Postconditions: The polygon is added to the database vector.
+	Returns:  void
+	*******************/
 	bool loadPolygonAtPath(std::string path);
 
 	//The polygon database

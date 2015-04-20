@@ -11,7 +11,13 @@ class Game
 private:
 	static const int DEFAULT_SCORE_INCREMENT = 100;
 
-	//Private constructor for the singleton pattern
+	/******************
+	Description: Private constructor for singleton pattern
+	Parameters: NIL
+	Preconditions: NIL
+	Postconditions: NIL
+	Returns: 
+	*******************/
 	Game() : score(0), missedPolygons(0), nextScoreIncrement(DEFAULT_SCORE_INCREMENT), highScore(0) {};
 
 	//The current score
@@ -32,10 +38,22 @@ public:
 	//The maximum number of missed polygons before the game ends
 	static const int MAX_MISSED_POLYGONS = 5;
 
-	//Returns the game singleton object
+	/******************
+	Description: Creates if necessary and returns the singleton object.
+	Parameters: NIL
+	Preconditions: NIL
+	Postconditions: NIL
+	Returns: The singleton Game* instance.
+	*******************///
 	static Game* getSingleton();
 
-	//Sets the status of the game
+	/******************
+	Description: Sets the game status. If game is over, destroys all polygons.
+	Parameters: GameStatus newstatus: The new game status.
+	Preconditions: NIL
+	Postconditions: If game was running and is now over, all exploded polygons and 3d polygons will be destroyed.
+	Returns: void
+	*******************/
 	void setStatus(GameStatus newStatus);
 
 	//Gets the current game status
@@ -44,11 +62,22 @@ public:
 	//Returns the score of the game
 	int getScore() { return score; }
 
-	//Increments the score by the next score increment
-	//Returns the new score
+	/******************
+	Description: Increments the score by an increasing amount. Sets the high score if above.
+	Parameters: NIL
+	Preconditions: NIL
+	Postconditions: NIL
+	Returns: The new score.
+	*******************///
 	int incrementScore();
 
-	//Increments the number of missed polygons
+	/******************
+	Description: Increments the total missed polygons.
+	Parameters: int n: The number to increment the total by.
+	Preconditions: NIL
+	Postconditions: Game status may change to over if over missed poly limit.
+	Returns: the number of missed polygons.
+	*******************/
 	int incrementMissedPolygons(int n = 1);
 	
 	//Returns the number of missed polygons

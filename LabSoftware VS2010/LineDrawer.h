@@ -5,22 +5,40 @@
 
 namespace LineDrawer
 {
-	//Draws a line by calculating a DDALine
+	/******************
+	Description: Draws a line to the screen by calculating the required DDA values
+	Parameters: GPLine* gpLine: the line to be drawn.
+	Preconditions: Input param is not null.
+	Postconditions: NIL
+	Returns: void
+	*******************///
 	void drawLine(GPLine* gpLine);
 
-	//Clips a line and calculates the DDA values for it
+	/******************
+	Description: Clips the line to the screen boundary and calculates the dda values.
+	Parameters: GPLine* gpLine: the line to be clipped.
+	Preconditions: Input param is not null.
+	Postconditions: NIL
+	Returns: A clipped DDALine
+	*******************///
 	DDALine* calculateAndClipLine(GPLine* gpLine);
 
-	//Draws a line between 2 points given RGB colour values
-	void drawLine(int x1, int y1, int x2, int y2, RGBColour colour1, RGBColour colour2);
-
-	//Draws a line between 2 points given BYTE values for colours
-	void drawLine(int x1, int y1, int x2, int y2, BYTE r1, BYTE g1, BYTE b1, BYTE r2, BYTE g2, BYTE b2);
-
-	//Clips a line using Liang-Barsky line clipping
+	/******************
+	Description: Clips a line using liang-barsky.
+	Parameters: GPLine* gpLine: the line to be clipped.
+	Preconditions: Input param is not null.
+	Postconditions: NIL
+	Returns: The clipped line
+	*******************///
 	GPLine* clipLine(GPLine* line);
 
-	//Checks if a line requires clipping
+	/******************
+	Description: Checks if a line requires clipping
+	Parameters: GPLine* gpLine: the line to be tested
+	Preconditions: Input param is not null.
+	Postconditions: NIL
+	Returns: True if the line requires clipping, else false
+	*******************///
 	bool lineNeedsClipping(GPLine* line);
 	 
 }

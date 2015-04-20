@@ -17,10 +17,24 @@ public:
 
 	~Polygon2D();
 
-	//Creates a polygon from a list of edges
+	/******************
+	Description: Constructor.
+	Parameters: int numSides:	The number of edges of the polygon
+				GLine* sides[]: The edge array of the polygon
+	Preconditions: Input params not null
+	Postconditions: NIL
+	Returns: 
+	*******************///
 	Polygon2D(int numSides, GPLine* sides[]);
 
-	//Creates a polygon from a list of vertices
+	/******************
+	Description: Constructor.
+	Parameters: int numVerts:	The number of vertices of the polygon
+				VERTEX_3D* verts[]: The vertex array of the polygon
+	Preconditions: Input params not null
+	Postconditions: NIL
+	Returns: 
+	*******************///
 	Polygon2D(int numVerts, VERTEX_3D verts[]);
 };
 

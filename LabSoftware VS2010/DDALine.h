@@ -9,15 +9,36 @@ class DDALine : public GPLine
 public:
 	double steps, xInc, yInc, zInc;
 
-	//Creates a DDA line given 2 points
+	/******************
+	Description: DDALine constructor
+	Parameters: int x1:	First point x value
+				int y1: First point y value
+				int x2: Second point x value
+				int y2: Second point y value
+	Preconditions: NIL
+	Postconditions: NIL
+	Returns: 
+	*******************/
 	DDALine(int x1, int y1, int x2, int y2);
 
-	//Creates a DDALine from the GPLine superclass
+	/******************
+	Description: DDALine constructor
+	Parameters: GPLine* line: The normal line.
+	Preconditions: NIL
+	Postconditions: NIL
+	Returns: 
+	*******************/
 	DDALine(GPLine* gpLine);
 
 private:
 
-	//Initialise a DDA line with the values required to draw it
+	/******************
+	Description: Initialises a DDA line with values required to draw it
+	Parameters: NIL
+	Preconditions: NIL
+	Postconditions: NIL
+	Returns: void
+	*******************/
 	void initDDALine();
 
 };

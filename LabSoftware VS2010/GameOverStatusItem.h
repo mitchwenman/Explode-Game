@@ -9,6 +9,12 @@ private:
 
 
 public:
-	//Interface method to draw status item
+	/******************
+	Description: Interface method to draw the Game over status item to the screen. Only draws if game is over.
+	Parameters: NIL
+	Preconditions: NIL
+	Postconditions: NIL
+	Returns: void
+	*******************///
 	void draw();
 };
