@@ -8,13 +8,31 @@ class TrigLookup
 	
 public:
 
-	//Creates if needed and returns the TrigLookup singleton object
+	/******************
+	Description: Creates if needed and returns the TrigLookup singleton object
+	Parameters: NIL
+	Preconditions: NIL
+	Postconditions: NIL
+	Returns:  The trigLookup singleton.
+	*******************/
 	static TrigLookup* getSingleton();
 
-	//Looks up the cos value of x (given in degrees)
+	/******************
+	Description:Looks up the value of cos(x) in degrees
+	Parameters: int x: number of degrees
+	Preconditions: 0 <= x <= 360
+	Postconditions: NIL
+	Returns:  The value of cos(x)
+	*******************/
 	double cosLookup(int x);
 
-	//Looks up the sin value of x (given in degrees)
+	/******************
+	Description:Looks up the value of sin(x) in degrees
+	Parameters: int x: number of degrees
+	Preconditions: 0 <= x <= 360
+	Postconditions: NIL
+	Returns:  The value of sin(x)
+	*******************/
 	double sinLookup(int x);
 
 	static const int MAX_VALUES = 360;
@@ -24,7 +42,13 @@ private:
 	//The cos and sin lookup tables
 	double cosL[MAX_VALUES], sinL[MAX_VALUES];
 	
-	//Creates the TrigLookup object and fills the lookup tables
+	/******************
+	Description:Fills the sin and cos arrays with the value of cos(index) or sin(index)
+	Parameters: int x: number of degrees
+	Preconditions: NIL
+	Postconditions: sin and cos lookup tables are filled
+	Returns:  void
+	*******************/
 	TrigLookup();
 
 

@@ -28,29 +28,80 @@ public:
 	//Used to combat loss of precision in rotate operations
 	std::vector<Reference3DPolygon *> originalPolygons;
 
-	//Creates if needed and returns the World singleton object
+	/******************
+	Description:Creates if needed and returns singleton object
+	Parameters: NIL
+	Preconditions: NIL
+	Postconditions: NIL
+	Returns:  World singleton
+	*******************/
 	static World* getSingleton();
 
-	//Translates the polygon such that the centre of the polygon is
-	//at the given coordinates and adds it to the 3D poly vector
+	/******************
+	Description:Translates the given polygon such that its center is at the given x, y, z values in the world.
+	Parameters: Polygon3D* p: The polygon to be translated and inserted.
+				int x, y, z: The position in the world that p will be inserted.
+	Preconditions: NIL
+	Postconditions: p's vertices will be modified if translated.
+	Returns:  The index where the polygon was inserted into the vector.
+	*******************/
 	int insert3DPoly(Polygon3D* p, int x, int y, int z);
 
-	//Sets the 
+	/******************
+	Description:Destroys the polygon at position i in the 3D polygon vector
+	Parameters: int i: The position of the polygon to be destroyed.
+	Preconditions: i < polygons.size()
+	Postconditions: The polygon is destroyed and it's memory freed
+	Returns:  void
+	*******************/
 	void remove3DPolyAtPosition(int i);
 
-	//Adds the polygon to the 2D poly vector
+	/******************
+	Description:Translates a given polygon into the world.
+	Parameters: Polygon2D* p: THe polygon to be inserted.
+	Preconditions: NIL
+	Postconditions: NIL
+	Returns:  void
+	*******************/
 	void insert2DPoly(Polygon2D* p);
 
-	//Draws the 2D and 3D to the frame buffer stored in GraphicsSettings
+	/******************
+	Description:Draws all 3d and 2d polygons.
+	Parameters: NIL
+	Preconditions: NIL
+	Postconditions: NIL
+	Returns:  void
+	*******************/
 	void drawWorld();
 
-	//Translates the polygon at the index i in polygon3ds
+	/******************
+	Description:Translates the polygon at index i by the desired values.
+	Parameters: int i: THe index of the polygon.
+				int dx, dy, dz: The x, y, z translation values.
+	Preconditions: i < polygons.size()
+	Postconditions: NIL
+	Returns:  void
+	*******************/
 	void translate3DPolyAtIndex(int i, int dx, int dy, int dz);
 
-	//Rotates the polygon at the index i in polygon3ds
+	/******************
+	Description:Rotates the polygon at index i by the desired values.
+	Parameters: int i: THe index of the polygon.
+				int dx, dy, dz: The x, y, z rotation values.
+	Preconditions: i < polygons.size()
+	Postconditions: NIL
+	Returns:  void
+	*******************/
 	void rotate3DPolyAtIndex(int i, int dx, int dy, int dz);
 
-	//Scales the polygon at the index i in polygon3ds
+	/******************
+	Description:Scales the polygon at index i by the desired values.
+	Parameters: int i: THe index of the polygon.
+				int sx, sy, sz: The x, y, z scaling values.
+	Preconditions: i < polygons.size()
+	Postconditions: NIL
+	Returns:  void
+	*******************/
 	void scale3DPolyAtIndex(int i, double sx, double sy, double sz);
 
 
