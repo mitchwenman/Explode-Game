@@ -1,3 +1,10 @@
+///////////////////////////////////////////////////////////////////////////////////
+// Filename: Polygon3DManager.cpp
+// Author: Mitch Wenman
+// Date Modified: 21/04/2015
+// Description: Singleton class for managing all active 3D polygons in the game.
+///////////////////////////////////////////////////////////////////////////////////
+
 #include "Polygon3DManager.h"
 #include "Polygon3DFactory.h"
 #include "3DPolygonDrawer.h"

@@ -1,3 +1,10 @@
+///////////////////////////////////////////////////////////////////////////////////
+// Filename: StatusDisplay.cpp
+// Author: Mitch Wenman
+// Date Modified: 21/04/2015
+// Description: Singleton manager for all status items. Draws each of them to the display.
+///////////////////////////////////////////////////////////////////////////////////
+
 #include "StatusDisplay.h"
 
 static StatusDisplay* _instance;

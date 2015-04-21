@@ -1,3 +1,10 @@
+///////////////////////////////////////////////////////////////////////////////////
+// Filename: HighScoreStatusItem.cpp
+// Author: Mitch Wenman
+// Date Modified: 21/04/2015
+// Description: Implements IStatusItem. Draws high score to the display.
+///////////////////////////////////////////////////////////////////////////////////
+
 #include "HighScoreStatusItem.h"
 #include "Game.h"
 #include "GraphicsUtil.h"

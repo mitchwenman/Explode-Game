@@ -1,3 +1,10 @@
+///////////////////////////////////////////////////////////////////////////////////
+// Filename: Polygon3DScaler.cpp
+// Author: Mitch Wenman
+// Date Modified: 21/04/2015
+// Description: Implements the application of a transformation to a Polygon.
+///////////////////////////////////////////////////////////////////////////////////
+
 #include "PolygonTransformation.h"
 #include "Polygon3DTranslator.h"
 #include "Polygon3DScaler.h"

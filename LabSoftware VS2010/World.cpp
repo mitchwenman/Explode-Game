@@ -1,3 +1,10 @@
+///////////////////////////////////////////////////////////////////////////////////
+// Filename: World.cpp
+// Author: Mitch Wenman
+// Date Modified: 21/04/2015
+// Description: Singleton class for managing the game world, including polygons and exploded polygons.
+///////////////////////////////////////////////////////////////////////////////////
+
 #include "World.h"
 #include "GraphicsSettings.h"
 #include "GraphicsUtil.h"

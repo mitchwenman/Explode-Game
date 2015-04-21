@@ -1,3 +1,10 @@
+///////////////////////////////////////////////////////////////////////////////////
+// Filename: Polygon3DFactory.cpp
+// Author: Mitch Wenman
+// Date Modified: 21/04/2015
+// Description: Singleton class for managing the creation of 3D polygons
+///////////////////////////////////////////////////////////////////////////////////
+
 #include "Polygon3DFactory.h"
 #include "GraphicsSettings.h"
 #include <stdlib.h> //Rand

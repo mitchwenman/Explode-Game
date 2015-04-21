@@ -1,3 +1,10 @@
+///////////////////////////////////////////////////////////////////////////////////
+// Filename: ExplodedPolygonManager.cpp
+// Author: Mitch Wenman
+// Date Modified: 21/04/2015
+// Description: Singleton class for managing all exploded polygons in the game.
+///////////////////////////////////////////////////////////////////////////////////
+
 #include "ExplodedPolygonManager.h"
 #include "BoundingBox.h"
 #include "Polygon3DManager.h"

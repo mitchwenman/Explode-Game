@@ -1,3 +1,10 @@
+///////////////////////////////////////////////////////////////////////////////////
+// Filename: ExplodedPolygonAnimator.cpp
+// Author: Mitch Wenman
+// Date Modified: 21/04/2015
+// Description: Animates an Exploded Polygon object by moving it and drawing it.
+///////////////////////////////////////////////////////////////////////////////////
+
 #include "ExplodedPolygonAnimator.h"
 #include "3DPolygonDrawer.h"
 #include "Polygon3DTranslator.h"

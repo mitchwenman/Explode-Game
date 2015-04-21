@@ -1,3 +1,10 @@
+///////////////////////////////////////////////////////////////////////////////////
+// Filename: GameOverStatusItem.cpp
+// Author: Mitch Wenman
+// Date Modified: 21/04/2015
+// Description: Implements IStatusItem. Draws the game over message to the screen.
+///////////////////////////////////////////////////////////////////////////////////
+
 #include "GameOverStatusItem.h"
 #include "GraphicsUtil.h"
 #include "GraphicsSettings.h"

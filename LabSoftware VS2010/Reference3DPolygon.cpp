@@ -1,3 +1,11 @@
+///////////////////////////////////////////////////////////////////////////////////
+// Filename: Reference3DPolygon.cpp
+// Author: Mitch Wenman
+// Date Modified: 21/04/2015
+// Description: Creates a reference for a 3DPolygon, i.e. to reset it. Also stores surface normals.
+///////////////////////////////////////////////////////////////////////////////////
+
+
 #include "Reference3DPolygon.h"
 #include "SurfaceNormal.h"
 

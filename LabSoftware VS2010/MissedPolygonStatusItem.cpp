@@ -1,3 +1,10 @@
+///////////////////////////////////////////////////////////////////////////////////
+// Filename: MissedPolygonStatusItem.cpp
+// Author: Mitch Wenman
+// Date Modified: 21/04/2015
+// Description: Implements IStatusItem. Draws the number of missed polygons to the display
+///////////////////////////////////////////////////////////////////////////////////
+
 #include "MissedPolygonStatusItem.h"
 #include "Game.h"
 #include "GraphicsUtil.h"

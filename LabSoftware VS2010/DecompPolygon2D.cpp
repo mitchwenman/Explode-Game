@@ -1,4 +1,12 @@
- #include <math.h>
+///////////////////////////////////////////////////////////////////////////////////
+// Filename: DecompPolygon2D.cpp
+// Author: Mitch Wenman
+// Date Modified: 21/04/2015
+// Description: Class for decomposing a 2D polygon into a set of triangles.
+///////////////////////////////////////////////////////////////////////////////////
+
+
+#include <math.h>
 
 #include "DecompPolygon2D.h"
 #include <algorithm>

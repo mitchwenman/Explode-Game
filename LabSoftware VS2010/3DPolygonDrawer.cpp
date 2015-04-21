@@ -1,4 +1,12 @@
- #include "3DPolygonDrawer.h"
+///////////////////////////////////////////////////////////////////////////////////
+// Filename: 3DPolygonDrawer.cpp
+// Author: Mitch Wenman
+// Date Modified: 21/04/2015
+// Description: Implements the 3DPolygonDrawer namespace functions.
+///////////////////////////////////////////////////////////////////////////////////
+
+
+#include "3DPolygonDrawer.h"
 #include "GraphicsSettings.h"
 #include "PolygonDrawer.h"
 #include "Polygon3D.h"
