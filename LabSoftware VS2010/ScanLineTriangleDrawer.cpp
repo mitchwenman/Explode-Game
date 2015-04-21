@@ -5,9 +5,12 @@
 // Description: Functions to draw a scan line triangle.
 ///////////////////////////////////////////////////////////////////////////////////
 
+//=======INCLUDES=========//
 #include "ScanLineTriangleDrawer.h"
 #include "LineDrawer.h"
 #include <math.h>
+
+//=========FUNCTIONS========//
 
 namespace ScanLineTriangleDrawer
 {

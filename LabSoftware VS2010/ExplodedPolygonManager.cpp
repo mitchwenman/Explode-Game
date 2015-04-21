@@ -5,6 +5,7 @@
 // Description: Singleton class for managing all exploded polygons in the game.
 ///////////////////////////////////////////////////////////////////////////////////
 
+//=======INCLUDES=========//
 #include "ExplodedPolygonManager.h"
 #include "BoundingBox.h"
 #include "Polygon3DManager.h"
@@ -15,6 +16,9 @@
 #include "ZBuffer.h"
 
 static ExplodedPolygonManager *_instance;
+
+
+//=========FUNCTIONS========//
 
 ExplodedPolygonManager* ExplodedPolygonManager::getSingleton()
 {
@@ -37,7 +41,7 @@ void ExplodedPolygonManager::draw(bool shouldAnimate)
 	}
 }
 
-int ExplodedPolygonManager::cleanup() ///XXX: change to use 3Dpolygondrawer method
+int ExplodedPolygonManager::cleanup() 
 {
 	int numDeleted = 0;
 	for (unsigned int i = 0; i < explodedPolygons.size(); i++)

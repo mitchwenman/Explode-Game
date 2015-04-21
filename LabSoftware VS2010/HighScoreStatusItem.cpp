@@ -5,6 +5,7 @@
 // Description: Implements IStatusItem. Draws high score to the display.
 ///////////////////////////////////////////////////////////////////////////////////
 
+//=======INCLUDES=========//
 #include "HighScoreStatusItem.h"
 #include "Game.h"
 #include "GraphicsUtil.h"
@@ -12,6 +13,9 @@
 
 #include <string>
 #include <sstream>
+
+
+//=========FUNCTIONS========//
 
 void HighScoreStatusItem::draw()
 {

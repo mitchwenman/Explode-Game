@@ -5,10 +5,14 @@
 // Description: Scales a polygon or set of vertices.
 ///////////////////////////////////////////////////////////////////////////////////
 
+//=======INCLUDES=========//
 #include "Polygon3DScaler.h"
 #include "BoundingBox.h"
 #include "Polygon3DTranslator.h"
 #include "GraphicsSettings.h"
+
+
+//=========FUNCTIONS========//
 
 void Polygon3DScaler::scale(Polygon3D* p, double sx, double sy, double sz)
 {

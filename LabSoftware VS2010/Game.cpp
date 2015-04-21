@@ -5,12 +5,16 @@
 // Description: Singleton class for managing the Game status and score.
 ///////////////////////////////////////////////////////////////////////////////////
 
+//=======INCLUDES=========//
 #include "Game.h"
 #include "Polygon3DManager.h"
 #include "ExplodedPolygonManager.h"
 #include "SoundEffect.h"
 
 static Game* _instance;
+
+
+//=========FUNCTIONS========//
 
 Game* Game::getSingleton()
 {

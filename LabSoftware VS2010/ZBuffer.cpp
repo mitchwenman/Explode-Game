@@ -5,9 +5,16 @@
 // Description: Implementation of a ZBuffer.
 ///////////////////////////////////////////////////////////////////////////////////
 
+//=======Includes=========//
+
 #include "ZBuffer.h"
 #include <iostream>
+
+//=======Globals========//
+
 static ZBuffer* _instance;
+
+//=========Functions========//
 
 ZBuffer::ZBuffer(void)
 {

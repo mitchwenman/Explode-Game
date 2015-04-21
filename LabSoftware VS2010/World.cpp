@@ -5,6 +5,7 @@
 // Description: Singleton class for managing the game world, including polygons and exploded polygons.
 ///////////////////////////////////////////////////////////////////////////////////
 
+//===========INCLUDES===============//
 #include "World.h"
 #include "GraphicsSettings.h"
 #include "GraphicsUtil.h"
@@ -21,8 +22,10 @@
 #include "Polygon3DManager.h"
 #include "ZBuffer.h"
 
-
+//==========GLOBALS========//
 static World* _instance;
+
+//=========FUNCTIONS========//
 
 World* World::getSingleton()
 {

@@ -5,6 +5,7 @@
 // Description: Implements IStatusItem. Draws the score to the display.
 ///////////////////////////////////////////////////////////////////////////////////
 
+//=======INCLUDES=========//
 #include "ScoreStatusItem.h"
 #include "Game.h"
 #include "GraphicsUtil.h"
@@ -13,6 +14,8 @@
 
 #include <string>
 #include <sstream>
+
+//=========FUNCTIONS========//
 
 void ScoreStatusItem::draw()
 {

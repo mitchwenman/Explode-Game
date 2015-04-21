@@ -5,7 +5,7 @@
 // Description: Implements the 3DPolygonDrawer namespace functions.
 ///////////////////////////////////////////////////////////////////////////////////
 
-
+//=======INCLUDES=========//
 #include "3DPolygonDrawer.h"
 #include "GraphicsSettings.h"
 #include "PolygonDrawer.h"
@@ -14,6 +14,9 @@
 #include "GraphicsUtil.h"
 
 #include <vector>
+
+
+//=========FUNCTIONS========//
 
 namespace PolygonDrawer3D
 {

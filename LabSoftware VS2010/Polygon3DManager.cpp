@@ -5,6 +5,7 @@
 // Description: Singleton class for managing all active 3D polygons in the game.
 ///////////////////////////////////////////////////////////////////////////////////
 
+//=======INCLUDES=========//
 #include "Polygon3DManager.h"
 #include "Polygon3DFactory.h"
 #include "3DPolygonDrawer.h"
@@ -13,7 +14,11 @@
 #include "ZBuffer.h"
 #include "Game.h"
 
+//==========GLOBALS========//
 static Polygon3DManager* _instance;
+
+
+//=========FUNCTIONS========//
 
 Polygon3DManager* Polygon3DManager::getSingleton()
 {

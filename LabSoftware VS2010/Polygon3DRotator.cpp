@@ -5,11 +5,15 @@
 // Description: Rotates a polygon or set of vertices.
 ///////////////////////////////////////////////////////////////////////////////////
 
+//=======INCLUDES=========//
 #include "Polygon3DRotator.h"
 #include "Polygon3DTranslator.h"
 #include "TrigLookup.h"
 #include "BoundingBox.h"
 #include "RotationConstantTable.h"
+
+
+//=========FUNCTIONS========//
 
 namespace Polygon3DRotator
 {

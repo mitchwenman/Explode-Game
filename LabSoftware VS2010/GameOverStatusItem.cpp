@@ -5,6 +5,7 @@
 // Description: Implements IStatusItem. Draws the game over message to the screen.
 ///////////////////////////////////////////////////////////////////////////////////
 
+//=======INCLUDES=========//
 #include "GameOverStatusItem.h"
 #include "GraphicsUtil.h"
 #include "GraphicsSettings.h"
@@ -12,6 +13,9 @@
 #include "libs\glut.h"
 
 #include <sstream>
+
+
+//=========FUNCTIONS========//
 
 void GameOverStatusItem::draw()
 {

@@ -5,12 +5,16 @@
 // Description: Implements IStatusItem. Draws the number of missed polygons to the display
 ///////////////////////////////////////////////////////////////////////////////////
 
+//=======INCLUDES=========//
 #include "MissedPolygonStatusItem.h"
 #include "Game.h"
 #include "GraphicsUtil.h"
 #include "GraphicsSettings.h"
 #include "libs/glut.h"
 #include <sstream>
+
+
+//=========FUNCTIONS========//
 
 void MissedPolygonStatusItem::draw()
 {

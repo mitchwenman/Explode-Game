@@ -5,10 +5,15 @@
 // Description: Singleton class for mananging the frame height/width, fov etc.
 ///////////////////////////////////////////////////////////////////////////////////
 
+//=======INCLUDES=========//
 #include "GraphicsSettings.h"
 #include <Windows.h>
 
+//==========GLOBALS========//
 static GraphicsSettings* _instance;
+
+
+//=========FUNCTIONS========//
 
 GraphicsSettings* GraphicsSettings::getGraphicsSettings()
 {

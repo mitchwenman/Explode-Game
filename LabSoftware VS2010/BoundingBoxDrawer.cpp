@@ -5,10 +5,14 @@
 // Description: Takes a bounding box and draws the edges of it.
 ///////////////////////////////////////////////////////////////////////////////////
 
+//=======INCLUDES=========//
 #include "BoundingBoxDrawer.h"
 #include "GPLine.h"
 #include "GraphicsSettings.h"
 #include "LineDrawer.h"
+
+
+//=========FUNCTIONS========//
 
 void BoundingBoxDrawer::draw(BoundingBox *box)
 {

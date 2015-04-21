@@ -5,9 +5,13 @@
 // Description: Singleton manager for all status items. Draws each of them to the display.
 ///////////////////////////////////////////////////////////////////////////////////
 
+//=======INCLUDES=========//
 #include "StatusDisplay.h"
 
+//==========GLOBALS========//
 static StatusDisplay* _instance;
+
+//=========FUNCTIONS========//
 
 StatusDisplay* StatusDisplay::getSingleton()
 {

@@ -5,7 +5,11 @@
 // Description: Constructors for Polygon2D class.
 ///////////////////////////////////////////////////////////////////////////////////
 
+//=======INCLUDES=========//
 #include "Polygon2D.h"
+
+
+//=========FUNCTIONS========//
 
 Polygon2D::Polygon2D(int numSides, GPLine* sides[]) : numSides(numSides) 
 {

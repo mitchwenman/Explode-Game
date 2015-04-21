@@ -5,8 +5,12 @@
 // Description: Creates an exploded polygon from an existing polygon.
 ///////////////////////////////////////////////////////////////////////////////////
 
+//=======INCLUDES=========//
 #include "ExplodedPolygonCreator.h"
 #include "3DPolygonDrawer.h"
+
+
+//=========FUNCTIONS========//
 
 std::vector<ExplodedPolygon *> ExplodedPolygonCreator::explodePolygon(Polygon3D* poly, Reference3DPolygon* refPoly)
 {

@@ -5,11 +5,14 @@
 // Description: Class for managing the storage and loading of 3D polygons into the game.
 ///////////////////////////////////////////////////////////////////////////////////
 
-
+//=======INCLUDES=========//
 #include "PolygonDatabase.h"
 #include "VJSReader.h"
 
 static PolygonDatabase* _instance;
+
+
+//=========FUNCTIONS========//
 
 PolygonDatabase* PolygonDatabase::getSingleton()
 {

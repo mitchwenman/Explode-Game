@@ -5,6 +5,7 @@
 // Description: Class for playing game sound effects.
 ///////////////////////////////////////////////////////////////////////////////////
 
+//=======INCLUDES=========//
 #include "SoundEffect.h"
 #include <stdlib.h>
 
@@ -18,6 +19,8 @@
 #elif __unix__		// all unices including  __linux__
 	#include <GL/glut.h>
 #endif
+
+//=========FUNCTIONS========//
 
 namespace SoundEffect
 {

@@ -5,9 +5,12 @@
 // Description: Functions for calculating a DDA line.
 ///////////////////////////////////////////////////////////////////////////////////
 
-
+//=======INCLUDES=========//
 #include "DDALine.h"
 #include <math.h>
+
+
+//=========FUNCTIONS========//
 
 DDALine::DDALine(int x1, int y1, int x2, int y2) : GPLine(x1, y1, x2, y2)
 {

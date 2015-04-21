@@ -5,6 +5,7 @@
 // Description: Functions for drawing a pixel to the display.
 ///////////////////////////////////////////////////////////////////////////////////
 
+//=======INCLUDES=========//
 #include "PixelDrawer.h"
 #include "GraphicsSettings.h"
 #include "ZBuffer.h"
@@ -12,6 +13,9 @@
 int PixelDrawer::frameWidth;
 int PixelDrawer::numColourChannels = 3;
 BYTE* PixelDrawer::frameBuffer;
+
+
+//=========FUNCTIONS========//
 
 void PixelDrawer::setPixel(int x, int y, BYTE r, BYTE g, BYTE b)
 {

@@ -5,7 +5,7 @@
 // Description: Functions for drawing a 2D line to the screen.
 ///////////////////////////////////////////////////////////////////////////////////
 
-
+//=======INCLUDES=========//
 #include "LineDrawer.h"
 #include "DDALine.h"
 #include "GraphicsSettings.h"
@@ -15,6 +15,9 @@
 
 #include <stdlib.h>
 #include <math.h>
+
+
+//=========FUNCTIONS========//
 
 namespace LineDrawer
 {

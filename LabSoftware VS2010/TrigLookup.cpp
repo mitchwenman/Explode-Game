@@ -5,15 +5,18 @@
 // Description: Singleton class for speeding up cos/sin operations by prefilling values.
 ///////////////////////////////////////////////////////////////////////////////////
 
+
+//=======INCLUDES=========//
 #include "TrigLookup.h"
 #ifdef _WIN32
 	#include <windows.h>
 #endif
 #include <math.h>
 
+//==========GLOBALS========//
 static TrigLookup* _instance;
 
-
+//=========FUNCTIONS========//
 TrigLookup* TrigLookup::getSingleton()
 {
 	if (!_instance)

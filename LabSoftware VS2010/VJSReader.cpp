@@ -5,6 +5,8 @@
 // Description: Class for reading a VJS file and creating a 3D polygon from it.
 ///////////////////////////////////////////////////////////////////////////////////
 
+
+//=======Includes=========//
 #include "VJSReader.h"
 
 #include <fstream>
@@ -15,6 +17,7 @@
 
 using namespace std;
 
+//=========FUNCTIONS========//
 Polygon3D* VJSReader::read(string fileName)
 	{
 		ifstream infile;

@@ -5,7 +5,7 @@
 // Description: Class for decomposing a 2D polygon into a set of triangles.
 ///////////////////////////////////////////////////////////////////////////////////
 
-
+//=======INCLUDES=========//
 #include <math.h>
 
 #include "DecompPolygon2D.h"
@@ -14,6 +14,8 @@
 #ifdef _WIN32
 	#include <windows.h>
 #endif
+
+//=========FUNCTIONS========//
 
 DecompPolygon2D::DecompPolygon2D(Polygon2D* p)
 {

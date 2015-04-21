@@ -5,6 +5,7 @@
 // Description: Creates and calculates the values for a scan line triangle.
 ///////////////////////////////////////////////////////////////////////////////////
 
+//=======INCLUDES=========//
 #ifdef _WIN32
 	#include <windows.h>
 #endif
@@ -12,7 +13,7 @@
 #include <math.h>
 #include "ScanLineTriangle.h"
 
-
+//=========FUNCTIONS========//
 
 ScanLineTriangle::ScanLineTriangle(int x1, int y1, int z1, int x2, int y2, int z2,
 									int x3, int y3, int z3, 

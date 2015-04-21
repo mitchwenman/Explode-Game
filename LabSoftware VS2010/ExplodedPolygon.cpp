@@ -5,9 +5,10 @@
 // Description: Defines the exploded polygon constructor.
 ///////////////////////////////////////////////////////////////////////////////////
 
-
+//=======INCLUDES=========//
 #include "ExplodedPolygon.h"
 
+//=========FUNCTIONS========//
 
 ExplodedPolygon::ExplodedPolygon(std::vector<VERTEX_3D> verts, VERTEX_3D_f traj)
 {

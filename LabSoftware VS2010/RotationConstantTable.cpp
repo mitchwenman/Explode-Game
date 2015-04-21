@@ -5,9 +5,10 @@
 // Description: Creates a lookup table to speed up rotation calculations.
 ///////////////////////////////////////////////////////////////////////////////////
 
+//=======INCLUDES=========//
 #include "RotationConstantTable.h"
 
-
+//=========FUNCTIONS========//
 RotationConstantTable::RotationConstantTable(int rx, int ry, int rz)
 {
 	trigLookup = TrigLookup::getSingleton();

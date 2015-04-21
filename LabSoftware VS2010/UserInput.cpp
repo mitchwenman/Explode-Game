@@ -5,6 +5,8 @@
 // Description: Class for managing user key/mouse input.
 ///////////////////////////////////////////////////////////////////////////////////
 
+
+//=======INCLUDES=========//
 #include "UserInput.h"
 
 #include "World.h"
@@ -28,8 +30,10 @@
 	#include <GL/glut.h>
 #endif
 
+//==========GLOBALS========//
 static UserInput* _instance;
 
+//=========FUNCTIONS========//
 void UserInput::handleKeyInput(char key)
 {
 	if (selectedPolygon3D == -1 && key != '\t')

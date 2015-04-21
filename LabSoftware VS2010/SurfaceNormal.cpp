@@ -5,10 +5,12 @@
 // Description: Calculates the surface normal of a plane.
 ///////////////////////////////////////////////////////////////////////////////////
 
+//=======INCLUDES=========//
 #include "SurfaceNormal.h"
 #include "Polygon3DTranslator.h"
 #include <math.h>
 
+//=========FUNCTIONS========//
 VERTEX_3D_f* SurfaceNormal::calculateSurfaceNormal(VERTEX_3D v1, VERTEX_3D v2, VERTEX_3D v3)
 {
 	//Translate each point to origin

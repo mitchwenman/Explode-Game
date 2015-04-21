@@ -5,10 +5,14 @@
 // Description: Animates an Exploded Polygon object by moving it and drawing it.
 ///////////////////////////////////////////////////////////////////////////////////
 
+//=======INCLUDES=========//
 #include "ExplodedPolygonAnimator.h"
 #include "3DPolygonDrawer.h"
 #include "Polygon3DTranslator.h"
 #include "GraphicsSettings.h"
+
+
+//=========FUNCTIONS========//
 
 void ExplodedPolygonAnimator::animateExplodedPolygon(ExplodedPolygon* poly)
 {

@@ -5,7 +5,7 @@
 // Description: Draws and clips a 2D polygon.  
 ///////////////////////////////////////////////////////////////////////////////////
 
-
+//=======INCLUDES=========//
 #include "PolygonDrawer.h"
 #include "DecompPolygon2D.h"
 #include "ScanLineTriangleDrawer.h"
@@ -14,6 +14,8 @@
 #include "GraphicsSettings.h"
 
 #include <vector>
+
+//=========FUNCTIONS========//
 
 namespace PolygonDrawer
 {

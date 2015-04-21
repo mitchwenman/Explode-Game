@@ -5,6 +5,7 @@
 // Description: Implements the application of a transformation to a Polygon.
 ///////////////////////////////////////////////////////////////////////////////////
 
+//=======INCLUDES=========//
 #include "PolygonTransformation.h"
 #include "Polygon3DTranslator.h"
 #include "Polygon3DScaler.h"
@@ -13,6 +14,8 @@
 void applyRotate(Polygon3D* polygon, Reference3DPolygon * refP);
 void applyTranslate(Polygon3D* polygon);
 void applyScale(Polygon3D* polygon);
+
+//=========FUNCTIONS========//
 
 void PolygonTransformation::apply(Polygon3D* polygon, Reference3DPolygon * refP)
 {

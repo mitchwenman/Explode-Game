@@ -5,6 +5,7 @@
 // Description: Utility method for drawing a bitmapped string to the screen.
 ///////////////////////////////////////////////////////////////////////////////////
 
+//=======INCLUDES=========//
 #include "GraphicsUtil.h"
 
 #ifdef _WIN32
@@ -17,6 +18,9 @@
 #elif __unix__		// all unices including  __linux__
 	#include <GL/glut.h>
 #endif
+
+
+//=========FUNCTIONS========//
 
 namespace GraphicsUtil
 {

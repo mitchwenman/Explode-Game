@@ -6,10 +6,10 @@
 //				box around a polygon.
 ///////////////////////////////////////////////////////////////////////////////////
 
-
+//=======INCLUDES=========//
 #include "BoundingBox.h"
 
-
+//=========FUNCTIONS========//
 
 BoundingBox::~BoundingBox(void)
 {

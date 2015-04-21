@@ -5,11 +5,16 @@
 // Description: Singleton class for managing the creation of 3D polygons
 ///////////////////////////////////////////////////////////////////////////////////
 
+//=======INCLUDES=========//
 #include "Polygon3DFactory.h"
 #include "GraphicsSettings.h"
 #include <stdlib.h> //Rand
 
+//==========GLOBALS========//
 static Polygon3DFactory* _instance;
+
+
+//=========FUNCTIONS========//
 
 Polygon3DFactory* Polygon3DFactory::getSingleton()
 {

@@ -5,8 +5,11 @@
 // Description: Translates a polygon or set of vertices.
 ///////////////////////////////////////////////////////////////////////////////////
 
-
+//=======INCLUDES=========//
 #include "Polygon3DTranslator.h"
+
+
+//=========FUNCTIONS========//
 
 namespace Polygon3DTranslator
 {
