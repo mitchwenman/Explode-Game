@@ -93,9 +93,7 @@ PolygonTransformation Polygon3DFactory::getRandomRotateTransformation()
 PolygonTransformation Polygon3DFactory::getRandomTranslateTransformation()
 {
 	PolygonTransformation translate;
-	int y = std::rand() % Y_TRANSLATE_LIMIT;
-	int z = std::rand() % Z_TRANSLATE_LIMIT;
-	VERTEX_3D_f translateFactors = { Polygon3DFactory::DEFAULT_X_SPEED * speedFactor , y, z };
+	VERTEX_3D_f translateFactors = { Polygon3DFactory::DEFAULT_X_SPEED * speedFactor , 0, 0 };
 	speedFactor += 0.5;
 	translate.transformationType = TRANSLATE;
 	translate.values = translateFactors;
