@@ -34,7 +34,7 @@ void Polygon3DManager::animate(bool shouldAnimate)
 	for (unsigned int i = 0; i < polygon3ds.size(); i++)
 	{
 		
-		if (!gset->isSecondFrame() && shouldAnimate)
+		if (shouldAnimate)
 			applyTransformations(polygon3ds[i], referencePolygons[i], transformations[i]);
 		PolygonDrawer3D::draw(polygon3ds[i], referencePolygons[i]);
 	}

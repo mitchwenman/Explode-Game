@@ -15,12 +15,11 @@
 //=========FUNCTIONS========//
 
 void ExplodedPolygonAnimator::animateExplodedPolygon(ExplodedPolygon* poly)
-{
-	if (!GraphicsSettings::getGraphicsSettings()->isSecondFrame())
-		Polygon3DTranslator::translate(poly, 
-							DEFAULT_SPEED * poly->trajectory.x,
-							DEFAULT_SPEED * poly->trajectory.y,
-							DEFAULT_SPEED * poly->trajectory.z);
+{	
+	Polygon3DTranslator::translate(poly, 
+						DEFAULT_SPEED * poly->trajectory.x,
+						DEFAULT_SPEED * poly->trajectory.y,
+						DEFAULT_SPEED * poly->trajectory.z);
 	PolygonDrawer3D::draw(poly);
 	
 

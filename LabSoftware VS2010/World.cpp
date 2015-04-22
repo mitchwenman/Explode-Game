@@ -84,7 +84,10 @@ void World::insert2DPoly(Polygon2D* p)
 
 void World::drawWorld()
 {
-	bool shouldAnimate = GraphicsSettings::getGraphicsSettings()->shouldAnimate();
+	GraphicsSettings* gset = GraphicsSettings::getGraphicsSettings();
+	bool shouldAnimate = false;
+	if (!gset->isSecondFrame())
+		shouldAnimate = GraphicsSettings::getGraphicsSettings()->shouldAnimate();
 	Polygon3DManager *manager = Polygon3DManager::getSingleton();
 	if (shouldAnimate) //Tie creation of polygons to frame rate
 	{
