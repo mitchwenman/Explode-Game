@@ -7,6 +7,7 @@
 
 //=======INCLUDES=========//
 #include "GraphicsUtil.h"
+#include "GraphicsSettings.h"
 
 #ifdef _WIN32
 	#include "libs/glut.h"

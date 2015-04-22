@@ -140,6 +140,7 @@ int main(int argc, char** argv)
  	GraphicsSettings* settings = GraphicsSettings::getGraphicsSettings();
 	settings->setFrameDimensions(FRAME_WIDE, FRAME_HIGH);
 	settings->setNumberOfChannels(NUM_CHANNELS);
+	settings->setView(0);
 	settings->setFOV(1000);
 	settings->setSecondFrame(false);
 	Game *game = Game::getSingleton();
