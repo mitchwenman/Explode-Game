@@ -1,6 +1,46 @@
 #include <stdlib.h>			//- for exit()
 #include <stdio.h>			//- for sprintf()
 #include <string.h>			//- for memset()
+#include <math.h>
+#include <random>			//- for srand()
+#include <time.h>			//- for currentTime (srand)
+//#include <vld.h>
+
+//Application header files
+#include "RGBColor.h"
+#include "PixelDrawer.h"
+#include "LineDrawer.h"
+#include "GraphicsSettings.h"
+#include "ScanLineTriangle.h"
+#include "ScanLineTriangleDrawer.h"
+#include "Polygon2D.h"
+#include "DecompPolygon2D.h"
+#include "PolygonDrawer.h"
+#include "VJSReader.h"
+#include "3DPolygonDrawer.h"
+#include "Polygon3DTranslator.h"
+#include "World.h"
+#include "Polygon3DScaler.h"
+#include "Polygon3DRotator.h"
+#include "UserInput.h"
+#include "Reference3DPolygon.h"
+#include "BoundingBox.h"
+#include "BoundingBoxDrawer.h"
+#include "ZBuffer.h"
+#include "ExplodedPolygon.h"
+#include "ExplodedPolygonAnimator.h"
+#include "ExplodedPolygonCreator.h"
+#include "ExplodedPolygonManager.h"
+#include "PolygonDatabase.h"
+#include "Polygon3DFactory.h"
+#include "Polygon3DManager.h"
+#include "Game.h"
+#include "StatusDisplay.h"
+#include "ScoreStatusItem.h"
+#include "MissedPolygonStatusItem.h"
+#include "GameOverStatusItem.h"
+#include "HighScoreStatusItem.h"
+
 
 #ifdef _WIN32
 	#include "libs/glut.h"
@@ -17,19 +57,23 @@
 
 #define FRAME_WIDE	1000
 #define FRAME_HIGH	600
-
+#define ROUND(x) ((int)(x + 0.5))
+const std::string VJS_INDEX = "POLYGON_INDEX.TXT";
 //====== Structs & typedefs =========
 typedef unsigned char BYTE;
-struct POINT2D {int x, y;};
+
+
 
 //====== Global Variables ==========
 BYTE	pFrameL[FRAME_WIDE * FRAME_HIGH * 3];
 BYTE	pFrameR[FRAME_WIDE * FRAME_HIGH * 3];
 int		NUM_CHANNELS = 3;
 int		shade = 0;
-POINT2D	xypos = {0,0};
+
 int		stereo = 0;
 int		eyes = 10;
+
+
 
 //===== Forward Declarations ========
 void ClearScreen();
@@ -42,7 +86,8 @@ void OnDisplay(void);
 void reshape(int w, int h);
 void OnMouse(int button, int state, int x, int y);
 void OnKeypress(unsigned char key, int x, int y);
-void setPixel(int x, int y, char r, char g, char b);
+
+
 
 ////////////////////////////////////////////////////////
 // Program Entry Poinr
@@ -56,6 +101,7 @@ int main(int argc, char** argv)
 	glutInitWindowSize(FRAME_WIDE, FRAME_HIGH);
 	glutInitWindowPosition(100, 100);
 	glutCreateWindow(argv[0]);
+	
 /*
 #ifdef WIN32
 	//- eliminate flashing --
@@ -78,7 +124,39 @@ int main(int argc, char** argv)
 	glutKeyboardFunc(OnKeypress);
 	glutMouseFunc(OnMouse);
 
+	// -- load VJS polygons from command line --	
+	PolygonDatabase *d = PolygonDatabase::getSingleton();
+	int numPolysLoaded = 0;
+	std::vector<std::string> vjsFiles = VJSReader::readIndexFile(VJS_INDEX);
+	unsigned int numFiles = vjsFiles.size();
+	for (int i = 0; i < numFiles; i++)
+	{			
+		if (d->loadPolygonAtPath(vjsFiles[i]))
+			numPolysLoaded++;
+	}
+	if (numPolysLoaded == 0) return EXIT_FAILURE; //End program if no polygons
+
+	// -- setup world -- 
+ 	GraphicsSettings* settings = GraphicsSettings::getGraphicsSettings();
+	settings->setFrameDimensions(FRAME_WIDE, FRAME_HIGH);
+	settings->setNumberOfChannels(NUM_CHANNELS);
+	settings->setView(0);
+	settings->setFOV(1000);
+	settings->setSecondFrame(false);
+	Game *game = Game::getSingleton();
+	game->setStatus(GSTATUS_RUNNING);
+	StatusDisplay *display = StatusDisplay::getSingleton();
+	display->addStatusItem(new ScoreStatusItem());
+	display->addStatusItem(new MissedPolygonStatusItem());
+	display->addStatusItem(new GameOverStatusItem());
+	display->addStatusItem(new HighScoreStatusItem());
+
+	// -- Seed the random number generator
+	srand(time(NULL));
 	//-- run the program
+	
+	
+	
 	glutMainLoop();
 	return 0;
 }
@@ -100,6 +178,9 @@ void OnDisplay(void)
 	glClear(GL_COLOR_BUFFER_BIT);
 	glRasterPos2i(0, 0);
 	glDrawPixels(FRAME_WIDE, FRAME_HIGH, GL_RGB,GL_UNSIGNED_BYTE, (GLubyte*)pFrameR);
+	glRasterPos2i(200, 200);
+	StatusDisplay::getSingleton()->draw();
+	
 	glutSwapBuffers();
 	glFlush();
 }
@@ -111,30 +192,32 @@ void reshape(int w, int h)
 	glLoadIdentity();
 	gluOrtho2D(0.0, (GLdouble) w, 0.0, (GLdouble) h);
 	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
+	glLoadIdentity();	
 }
 
 
 void OnMouse(int button, int state, int x, int y)
 {
-	if (button == GLUT_LEFT_BUTTON && state == GLUT_UP)
-	{
-		PlaySoundEffect("Laser.wav"); 
-		if (++shade > 16) shade = 0;	
-	}
+	UserInput::getSingleton()->handleMouseInput(button, state, x, y);
 }
 
 void OnKeypress(unsigned char key, int x, int y)
 {
+
+
 	switch (key) 
-	{ 
-	case ' ': xypos.x = xypos.y = 0; break;
-	case 's': stereo ^= 1, eyes = 10;break;
-	case ']': eyes++;	break;
-	case '[': eyes--;	break;
-	case 27 : exit(0);
+	{ 	
+		case '3': stereo ^= 1, eyes = 10;break;
+		case ']': eyes++;	break;
+		case '[': eyes--;	break;
+		case 27 : exit(0);
+		default:
+		{
+			UserInput::getSingleton()->handleKeyInput(key);
+		}
+
 	}
-	PlaySoundEffect("Whoosh.wav"); 
+
 }
 
 
@@ -169,7 +252,9 @@ void DrawFrame()
 	if (!stereo) BuildFrame(pFrameR, 0);
 	else {
 		BuildFrame(pFrameL, -eyes);
+		GraphicsSettings::getGraphicsSettings()->setSecondFrame(true);
 		BuildFrame(pFrameR, +eyes);
+		GraphicsSettings::getGraphicsSettings()->setSecondFrame(false);
 		Interlace((BYTE*)pFrameL, (BYTE*)pFrameR);
 	}
 }
@@ -194,27 +279,19 @@ void	PlaySoundEffect(char * filename)
 ////////////////////////////////////////////////////////
 
 void BuildFrame(BYTE *pFrame, int view)
-{
-	
+{	
 	BYTE*	screen = (BYTE*)pFrame;		// use copy of screen pointer for safety
-	int numPixels = 1000;
-	int x, y;
-	for (int i = 0; i < numPixels; i++)
-	{
-		x = rand() % FRAME_WIDE;
-		y = rand() % FRAME_HIGH;
-		setPixel(x, y, 255, 0, 0);
-	}	
+	GraphicsSettings* gSettings = GraphicsSettings::getGraphicsSettings();
+	gSettings->setFrameBuffer(screen);
+	gSettings->setView(view);
+	World *world = World::getSingleton();
+	if (Game::getSingleton()->getCurrentStatus() == GSTATUS_RUNNING)
+		world->drawWorld();
+	StatusDisplay::getSingleton()->draw();
+
 }
 
 
-void setPixel(int x, int y, char r, char g, char b)
-{
-	BYTE* screen = (BYTE*)pFrameR; 
-	enum CHANNEL_OFFSET { RED, GREEN, BLUE}; //Channel offsets
-	//Set red, green and blue
-	int colour = 0; //red - 0, green - 1, blue - 2
-	screen[NUM_CHANNELS * (x + y * FRAME_WIDE) + RED] = r;
-	//screen[NUM_CHANNELS * (x + y * FRAME_WIDE) + GREEN] = g;
-	//screen[NUM_CHANNELS * (x + y * FRAME_WIDE) + BLUE] = b;
-}
+
+
+

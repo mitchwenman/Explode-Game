@@ -11,7 +11,98 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="3DPolygonDrawer.cpp" />
+    <ClCompile Include="BoundingBox.cpp" />
+    <ClCompile Include="BoundingBoxDrawer.cpp" />
+    <ClCompile Include="DDALine.cpp" />
+    <ClCompile Include="DecompPolygon2D.cpp" />
+    <ClCompile Include="ExplodedPolygon.cpp" />
+    <ClCompile Include="ExplodedPolygonAnimator.cpp" />
+    <ClCompile Include="ExplodedPolygonCreator.cpp" />
+    <ClCompile Include="ExplodedPolygonManager.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameOverStatusItem.cpp" />
+    <ClCompile Include="GraphicsSettings.cpp" />
+    <ClCompile Include="GraphicsUtil.cpp" />
+    <ClCompile Include="HighScoreStatusItem.cpp" />
+    <ClCompile Include="LineDrawer.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MissedPolygonStatusItem.cpp" />
+    <ClCompile Include="PixelDrawer.cpp" />
+    <ClCompile Include="Polygon2D.cpp" />
+    <ClCompile Include="Polygon3DFactory.cpp" />
+    <ClCompile Include="Polygon3DManager.cpp" />
+    <ClCompile Include="Polygon3DRotator.cpp" />
+    <ClCompile Include="Polygon3DScaler.cpp" />
+    <ClCompile Include="Polygon3DTranslator.cpp" />
+    <ClCompile Include="PolygonDatabase.cpp" />
+    <ClCompile Include="PolygonDrawer.cpp" />
+    <ClCompile Include="PolygonTransformation.cpp" />
+    <ClCompile Include="Reference3DPolygon.cpp" />
+    <ClCompile Include="RotationConstantTable.cpp" />
+    <ClCompile Include="ScanlineTriangle.cpp" />
+    <ClCompile Include="ScanLineTriangleDrawer.cpp" />
+    <ClCompile Include="ScoreStatusItem.cpp" />
+    <ClCompile Include="SoundEffect.cpp" />
+    <ClCompile Include="StatusDisplay.cpp" />
+    <ClCompile Include="SurfaceNormal.cpp" />
+    <ClCompile Include="TrigLookup.cpp" />
+    <ClCompile Include="UserInput.cpp" />
+    <ClCompile Include="VJSReader.cpp" />
+    <ClCompile Include="World.cpp" />
+    <ClCompile Include="ZBuffer.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="3DPolygonDrawer.h" />
+    <ClInclude Include="BoundingBox.h" />
+    <ClInclude Include="BoundingBoxDrawer.h" />
+    <ClInclude Include="DDALine.h" />
+    <ClInclude Include="DecompPolygon2D.h" />
+    <ClInclude Include="ExplodedPolygon.h" />
+    <ClInclude Include="ExplodedPolygonCreator.h" />
+    <ClInclude Include="ExplodedPolygonAnimator.h" />
+    <ClInclude Include="ExplodedPolygonManager.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="GameOverStatusItem.h" />
+    <ClInclude Include="GPLine.h" />
+    <ClInclude Include="GraphicsSettings.h" />
+    <ClInclude Include="GraphicsUtil.h" />
+    <ClInclude Include="HighScoreStatusItem.h" />
+    <ClInclude Include="IStatusItem.h" />
+    <ClInclude Include="LineDrawer.h" />
+    <ClInclude Include="MissedPolygonStatusItem.h" />
+    <ClInclude Include="PixelDrawer.h" />
+    <ClInclude Include="Polygon2D.h" />
+    <ClInclude Include="Polygon3D.h" />
+    <ClInclude Include="Polygon3DFactory.h" />
+    <ClInclude Include="Polygon3DManager.h" />
+    <ClInclude Include="Polygon3DRotator.h" />
+    <ClInclude Include="Polygon3DScaler.h" />
+    <ClInclude Include="Polygon3DTranslator.h" />
+    <ClInclude Include="PolygonDatabase.h" />
+    <ClInclude Include="PolygonDrawer.h" />
+    <ClInclude Include="PolygonTransformation.h" />
+    <ClInclude Include="Reference3DPolygon.h" />
+    <ClInclude Include="RGBColor.h" />
+    <ClInclude Include="RotationConstantTable.h" />
+    <ClInclude Include="ScanLineTriangle.h" />
+    <ClInclude Include="ScanLineTriangleDrawer.h" />
+    <ClInclude Include="ScoreStatusItem.h" />
+    <ClInclude Include="SoundEffect.h" />
+    <ClInclude Include="StatusDisplay.h" />
+    <ClInclude Include="SurfaceNormal.h" />
+    <ClInclude Include="TrigLookup.h" />
+    <ClInclude Include="UserInput.h" />
+    <ClInclude Include="VJSReader.h" />
+    <ClInclude Include="World.h" />
+    <ClInclude Include="ZBuffer.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="CUBE.txt" />
+    <None Include="PENTAGON.txt" />
+    <None Include="POLYGON_INDEX.txt" />
+    <None Include="PYRAMID.txt" />
+    <None Include="TRIPYRAMID.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{327DBF0B-A54A-434B-AC40-EAF035440FC7}</ProjectGuid>
@@ -42,6 +133,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSdkDir)include;$(FrameworkSDKDir)\include;C:\Program Files (x86)\Visual Leak Detector\include</IncludePath>
+    <LibraryPath>$(VCInstallDir)lib;$(VCInstallDir)atlmfc\lib;$(WindowsSdkDir)lib;$(FrameworkSDKDir)\lib;C:\Program Files (x86)\Visual Leak Detector\lib\Win32</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -66,6 +159,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
